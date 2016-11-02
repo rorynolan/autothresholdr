@@ -2,15 +2,15 @@
 % Please edit documentation in R/thresh.R
 \name{auto_thresh}
 \alias{auto_thresh}
-\alias{mask_auto_thresh}
-\alias{use_mask_auto_thresh}
+\alias{auto_thresh_apply_mask}
+\alias{auto_thresh_mask}
 \title{Automatically threshold an image.}
 \usage{
 auto_thresh(img_mat, method)
 
-mask_auto_thresh(img_mat, method)
+auto_thresh_mask(img_mat, method)
 
-use_mask_auto_thresh(img_mat, method)
+auto_thresh_apply_mask(img_mat, method)
 }
 \arguments{
 \item{img_mat}{An array of \emph{integers} with a "bits" attribute, where

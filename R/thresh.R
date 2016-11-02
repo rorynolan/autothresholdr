@@ -46,13 +46,13 @@ auto_thresh <- function(img_mat, method) {
 
 #' @rdname auto_thresh
 #' @export
-mask_auto_thresh <- function(img_mat, method) {
+auto_thresh_mask <- function(img_mat, method) {
   img_mat > auto_thresh(img_mat, method)
 }
 
 #' @rdname auto_thresh
 #' @export
-use_mask_auto_thresh <- function(img_mat, method) {
+auto_thresh_apply_mask <- function(img_mat, method) {
   img_mat[!i_auto_thresh(img_mat, method)] <- 0
   img_mat
 }
