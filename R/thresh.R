@@ -18,11 +18,11 @@
 #'   Pixels exceeding this threshold are passed, but pixels at or below this
 #'   level are failed.
 #'
-#'   \code{i_auto_thresh} returns a binarized version of the input image, with a
+#'   \code{mask_auto_thresh} returns a binarized version of the input image, with a
 #'   value of \code{TRUE} at pixels which exceed the threshold and \code{FALSE}
 #'   at pixels which do not.
 #'
-#'   \code{imask_auto_thresh} returns the original image masked by the
+#'   \code{use_mask_auto_thresh} returns the original image masked by the
 #'   threshold, i.e. all pixels not exceeding the threshold are set to zero.
 #'
 #' @export
@@ -46,13 +46,13 @@ auto_thresh <- function(img_mat, method) {
 
 #' @rdname auto_thresh
 #' @export
-i_auto_thresh <- function(img_mat, method) {
+mask_auto_thresh <- function(img_mat, method) {
   img_mat > auto_thresh(img_mat, method)
 }
 
 #' @rdname auto_thresh
 #' @export
-imask_auto_thresh <- function(img_mat, method) {
+use_mask_auto_thresh <- function(img_mat, method) {
   img_mat[!i_auto_thresh(img_mat, method)] <- 0
   img_mat
 }
