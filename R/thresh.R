@@ -13,5 +13,5 @@ ithresh <- function(img_mat, method) {
     sum(x == img_mat)
   })
   at_class <- rJava::.jnew("Auto_Threshold")
-  .jcall(at_class, "I", method, im_hist)
+  rJava::.jcall(at_class, "I", method, im_hist)
 }
