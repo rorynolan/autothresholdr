@@ -1,0 +1,12 @@
+Package: autothresholdr
+Type: Package
+Title: An R port of the ImageJ plugin "Auto Threshold".
+Version: 0.0.0.9000
+Authors@R: person("Rory", "Nolan", email = "rorynoolan@gmail.com", role = c("aut", "cre"))
+Maintainer: Rory Nolan <rorynoolan@gmail.com>
+Description: This package usrs rJava to implement ImageJ's thresholding methods in R.
+License: GPL-3
+LazyData: TRUE
+Imports: rJava,
+    DescTools,
+    magrittr
