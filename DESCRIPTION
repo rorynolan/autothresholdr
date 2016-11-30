@@ -9,6 +9,7 @@ Description: This package usrs rJava to implement ImageJ's thresholding methods
 License: GPL-3
 LazyData: TRUE
 Imports:
-    rJava
+    rJava,
+    RSAGA
 SystemRequirements: Java
 RoxygenNote: 5.0.1

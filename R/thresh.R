@@ -23,6 +23,13 @@
 #'
 #' @export
 auto_thresh <- function(img_mat, method) {
+  available_methods <- c("Default", "Huang", "Intermodes", "IsoData", "Li",
+                         "MaxEntropy", "Mean", "MinError", "Minimum",
+                         "Moments", "Otsu", "Percentile", "RenyiEntropy",
+                         "Shanbhag", "Triangle", "Yen")
+  method <- RSAGA::match.arg.ext(method, available_methods,
+                                 ignore.case = TRUE, numeric = TRUE) %>%
+                                 {available_methods[.]}
   if ((!CanBeInteger(img_mat)) || any(img_mat < 0)) {
     stop("img_mat must be a matrix of non-negative integers.")
   }
