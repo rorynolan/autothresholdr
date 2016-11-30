@@ -24,13 +24,13 @@
 #' @export
 auto_thresh <- function(img_mat, method) {
   if ((!CanBeInteger(img_mat)) || any(img_mat < 0)) {
-    stop("img_mat must be a mtrix of non-negative integers.")
+    stop("img_mat must be a matrix of non-negative integers.")
   }
-  im_hist <- sapply(0:max(img_mat), function(x) {
-    sum(x == img_mat)
-  })
+  rim <- range(img_mat)
+  im_hist <- factor(img_mat, levels = rim[1]:rim[2]) %>%
+    table %>% as.vector
   autothresh_class <- rJava::.jnew("Auto_Threshold")
-  rJava::.jcall(autothresh_class, "I", method, im_hist)
+  rJava::.jcall(autothresh_class, "I", method, im_hist) + rim[1]
 }
 
 #' @rdname auto_thresh
@@ -42,7 +42,7 @@ auto_thresh_mask <- function(img_mat, method) {
 #' @rdname auto_thresh
 #' @export
 auto_thresh_apply_mask <- function(img_mat, method) {
-  img_mat[!i_auto_thresh(img_mat, method)] <- 0
+  img_mat[!auto_thresh_mask(img_mat, method)] <- 0
   img_mat
 }
 
