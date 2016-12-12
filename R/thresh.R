@@ -7,12 +7,14 @@
 #' about them at \url{http://imagej.net/Auto_Threshold}.
 #'
 #' @param int_arr An array of \emph{integers}.
-#' @param method The full name (with correct case) of the method you wish to use
-#'   (e.g. "Huang").
+#' @param method The name of the method you wish to use (e.g. "Huang"). Partial
+#'   matching is performed i.e. \code{method = "h"} is enough to get you "Huang"
+#'   and \code{method = "in"} is enough to get you "Intermodes".
 #' @param fail When using \code{auto_thresh_apply_mask}, to what value do you
 #'   wish to set the pixels which fail to exceed the threshold.
 #'
-#' @return \code{auto_thresh} returns an integer, the image threshold value.
+#' @return
+#' \code{auto_thresh} returns an integer, the image threshold value.
 #'   Pixels exceeding this threshold are passed, but pixels at or below this
 #'   level are failed.
 #'

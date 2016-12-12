@@ -15,8 +15,9 @@ auto_thresh_apply_mask(int_arr, method, fail = NA)
 \arguments{
 \item{int_arr}{An array of \emph{integers}.}
 
-\item{method}{The full name (with correct case) of the method you wish to use
-(e.g. "Huang").}
+\item{method}{The name of the method you wish to use (e.g. "Huang"). Partial
+matching is performed i.e. \code{method = "h"} is enough to get you "Huang"
+and \code{method = "in"} is enough to get you "Intermodes".}
 
 \item{fail}{When using \code{auto_thresh_apply_mask}, to what value do you
 wish to set the pixels which fail to exceed the threshold.}
