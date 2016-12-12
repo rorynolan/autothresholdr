@@ -9,17 +9,20 @@
 #' @param img_mat An array of \emph{integers}.
 #' @param method The full name (with correct case) of the method you wish to use
 #'   (e.g. "Huang").
+#' @param fail When using \code{auto_thresh_apply_mask}, to what value do you
+#'   wish to set the pixels which fail to exceed the threshold.
 #'
 #' @return \code{auto_thresh} returns an integer, the image threshold value.
 #'   Pixels exceeding this threshold are passed, but pixels at or below this
 #'   level are failed.
 #'
-#'   \code{mask_auto_thresh} returns a binarized version of the input image, with a
-#'   value of \code{TRUE} at pixels which exceed the threshold and \code{FALSE}
-#'   at pixels which do not.
+#'   \code{auto_thresh_mask} returns a binarized version of the input image,
+#'   with a value of \code{TRUE} at pixels which exceed the threshold and
+#'   \code{FALSE} at pixels which do not.
 #'
-#'   \code{use_mask_auto_thresh} returns the original image masked by the
-#'   threshold, i.e. all pixels not exceeding the threshold are set to zero.
+#'   \code{auto_thresh_apply_mask} returns the original image masked by the
+#'   threshold, i.e. all pixels not exceeding the threshold are set to a
+#'   user-defined value (default \code{NA}).
 #'
 #' @export
 auto_thresh <- function(img_mat, method) {
@@ -48,8 +51,8 @@ auto_thresh_mask <- function(img_mat, method) {
 
 #' @rdname auto_thresh
 #' @export
-auto_thresh_apply_mask <- function(img_mat, method) {
-  img_mat[!auto_thresh_mask(img_mat, method)] <- 0
+auto_thresh_apply_mask <- function(img_mat, method, fail = NA) {
+  img_mat[!auto_thresh_mask(img_mat, method)] <- fail
   img_mat
 }
 

@@ -10,29 +10,29 @@ auto_thresh(img_mat, method)
 
 auto_thresh_mask(img_mat, method)
 
-auto_thresh_apply_mask(img_mat, method)
+auto_thresh_apply_mask(img_mat, method, fail = NA)
 }
 \arguments{
-\item{img_mat}{An array of \emph{integers} with a "bits" attribute, where
-theis must be 8 or 16. Note that \code{\link[EBImage]{EBImage}}'s
-\code{\link[EBImage]{display}} does not read in images as integers, nor
-does it give them a "bits" attribute, but the
-\code{\link[nandb]{ReadImageData}} function from the nandb package (\url{http://github.com/rorynolan/nandb}) does these things.}
+\item{img_mat}{An array of \emph{integers}.}
 
 \item{method}{The full name (with correct case) of the method you wish to use
 (e.g. "Huang").}
+
+\item{fail}{When using \code{auto_thresh_apply_mask}, to what value do you
+wish to set the pixels which fail to exceed the threshold.}
 }
 \value{
 \code{auto_thresh} returns an integer, the image threshold value.
   Pixels exceeding this threshold are passed, but pixels at or below this
   level are failed.
 
-  \code{mask_auto_thresh} returns a binarized version of the input image, with a
-  value of \code{TRUE} at pixels which exceed the threshold and \code{FALSE}
-  at pixels which do not.
+  \code{auto_thresh_mask} returns a binarized version of the input image,
+  with a value of \code{TRUE} at pixels which exceed the threshold and
+  \code{FALSE} at pixels which do not.
 
-  \code{use_mask_auto_thresh} returns the original image masked by the
-  threshold, i.e. all pixels not exceeding the threshold are set to zero.
+  \code{auto_thresh_apply_mask} returns the original image masked by the
+  threshold, i.e. all pixels not exceeding the threshold are set to a
+  user-defined value (default \code{NA}).
 }
 \description{
 These functions apply the ImageJ "Auto Threshold" plugin's image thresholding
