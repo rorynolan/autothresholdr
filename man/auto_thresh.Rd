@@ -6,14 +6,14 @@
 \alias{auto_thresh_mask}
 \title{Automatically threshold an image.}
 \usage{
-auto_thresh(img_mat, method)
+auto_thresh(int_arr, method)
 
-auto_thresh_mask(img_mat, method)
+auto_thresh_mask(int_arr, method)
 
-auto_thresh_apply_mask(img_mat, method, fail = NA)
+auto_thresh_apply_mask(int_arr, method, fail = NA)
 }
 \arguments{
-\item{img_mat}{An array of \emph{integers}.}
+\item{int_arr}{An array of \emph{integers}.}
 
 \item{method}{The full name (with correct case) of the method you wish to use
 (e.g. "Huang").}

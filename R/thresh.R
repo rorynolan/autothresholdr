@@ -6,7 +6,7 @@
 #' "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle", "Yen". Read
 #' about them at \url{http://imagej.net/Auto_Threshold}.
 #'
-#' @param img_mat An array of \emph{integers}.
+#' @param int_arr An array of \emph{integers}.
 #' @param method The full name (with correct case) of the method you wish to use
 #'   (e.g. "Huang").
 #' @param fail When using \code{auto_thresh_apply_mask}, to what value do you
@@ -25,7 +25,7 @@
 #'   user-defined value (default \code{NA}).
 #'
 #' @export
-auto_thresh <- function(img_mat, method) {
+auto_thresh <- function(int_arr, method) {
   available_methods <- c("Default", "Huang", "Intermodes", "IsoData", "Li",
                          "MaxEntropy", "Mean", "MinError", "Minimum",
                          "Moments", "Otsu", "Percentile", "RenyiEntropy",
@@ -33,11 +33,11 @@ auto_thresh <- function(img_mat, method) {
   method <- RSAGA::match.arg.ext(method, available_methods,
                                  ignore.case = TRUE, numeric = TRUE) %>%
                                  {available_methods[.]}
-  if ((!CanBeInteger(img_mat)) || any(img_mat < 0)) {
-    stop("img_mat must be a matrix of non-negative integers.")
+  if ((!CanBeInteger(int_arr)) || any(int_arr < 0)) {
+    stop("int_arr must be a matrix of non-negative integers.")
   }
-  rim <- range(img_mat)
-  im_hist <- factor(img_mat, levels = rim[1]:rim[2]) %>%
+  rim <- range(int_arr)
+  im_hist <- factor(int_arr, levels = rim[1]:rim[2]) %>%
     table %>% as.vector
   autothresh_class <- rJava::.jnew("Auto_Threshold")
   rJava::.jcall(autothresh_class, "I", method, im_hist) + rim[1]
@@ -45,14 +45,14 @@ auto_thresh <- function(img_mat, method) {
 
 #' @rdname auto_thresh
 #' @export
-auto_thresh_mask <- function(img_mat, method) {
-  img_mat > auto_thresh(img_mat, method)
+auto_thresh_mask <- function(int_arr, method) {
+  int_arr > auto_thresh(int_arr, method)
 }
 
 #' @rdname auto_thresh
 #' @export
-auto_thresh_apply_mask <- function(img_mat, method, fail = NA) {
-  img_mat[!auto_thresh_mask(img_mat, method)] <- fail
-  img_mat
+auto_thresh_apply_mask <- function(int_arr, method, fail = NA) {
+  int_arr[!auto_thresh_mask(int_arr, method)] <- fail
+  int_arr
 }
 
