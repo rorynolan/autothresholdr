@@ -41,6 +41,10 @@ auto_thresh <- function(int_arr, method) {
   rim <- range(int_arr)
   im_hist <- factor(int_arr, levels = rim[1]:rim[2]) %>%
     table %>% as.vector
+  if (length(im_hist) < 2) {
+    stop("The image you're trying to threshold has only one unique value, ",
+         "to perform thresholding, it needs at least two unique values.")
+  }
   autothresh_class <- rJava::.jnew("Auto_Threshold")
   rJava::.jcall(autothresh_class, "I", method, im_hist) + rim[1]
 }
