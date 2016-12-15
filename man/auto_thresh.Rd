@@ -13,7 +13,7 @@ auto_thresh_mask(int_arr, method)
 auto_thresh_apply_mask(int_arr, method, fail = NA)
 }
 \arguments{
-\item{int_arr}{An array of \emph{integers}.}
+\item{int_arr}{An array (or vector) of \emph{integers}.}
 
 \item{method}{The name of the method you wish to use (e.g. "Huang"). Partial
 matching is performed i.e. \code{method = "h"} is enough to get you "Huang"
@@ -27,13 +27,15 @@ wish to set the pixels which fail to exceed the threshold.}
   Pixels exceeding this threshold are passed, but pixels at or below this
   level are failed.
 
-  \code{auto_thresh_mask} returns a binarized version of the input image,
-  with a value of \code{TRUE} at pixels which exceed the threshold and
-  \code{FALSE} at pixels which do not.
+  \code{auto_thresh_mask} returns a binarized version of the input, with a
+  value of \code{TRUE} at points which exceed the threshold and \code{FALSE}
+  at those which do not. This has an attribute "threshold" to tell you what
+  the threshold value was.
 
-  \code{auto_thresh_apply_mask} returns the original image masked by the
-  threshold, i.e. all pixels not exceeding the threshold are set to a
-  user-defined value (default \code{NA}).
+  \code{auto_thresh_apply_mask} returns the original input masked by the
+  threshold, i.e. all points not exceeding the threshold are set to a
+  user-defined value (default \code{NA}). This has an attribute "threshold"
+  to tell you what the threshold value was.
 }
 \description{
 These functions apply the ImageJ "Auto Threshold" plugin's image thresholding

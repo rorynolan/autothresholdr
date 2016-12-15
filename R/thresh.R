@@ -6,25 +6,26 @@
 #' "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle", "Yen". Read
 #' about them at \url{http://imagej.net/Auto_Threshold}.
 #'
-#' @param int_arr An array of \emph{integers}.
+#' @param int_arr An array (or vector) of \emph{integers}.
 #' @param method The name of the method you wish to use (e.g. "Huang"). Partial
 #'   matching is performed i.e. \code{method = "h"} is enough to get you "Huang"
 #'   and \code{method = "in"} is enough to get you "Intermodes".
 #' @param fail When using \code{auto_thresh_apply_mask}, to what value do you
 #'   wish to set the pixels which fail to exceed the threshold.
 #'
-#' @return
-#' \code{auto_thresh} returns an integer, the image threshold value.
+#' @return \code{auto_thresh} returns an integer, the image threshold value.
 #'   Pixels exceeding this threshold are passed, but pixels at or below this
 #'   level are failed.
 #'
-#'   \code{auto_thresh_mask} returns a binarized version of the input image,
-#'   with a value of \code{TRUE} at pixels which exceed the threshold and
-#'   \code{FALSE} at pixels which do not.
+#'   \code{auto_thresh_mask} returns a binarized version of the input, with a
+#'   value of \code{TRUE} at points which exceed the threshold and \code{FALSE}
+#'   at those which do not. This has an attribute "threshold" to tell you what
+#'   the threshold value was.
 #'
-#'   \code{auto_thresh_apply_mask} returns the original image masked by the
-#'   threshold, i.e. all pixels not exceeding the threshold are set to a
-#'   user-defined value (default \code{NA}).
+#'   \code{auto_thresh_apply_mask} returns the original input masked by the
+#'   threshold, i.e. all points not exceeding the threshold are set to a
+#'   user-defined value (default \code{NA}). This has an attribute "threshold"
+#'   to tell you what the threshold value was.
 #'
 #' @export
 auto_thresh <- function(int_arr, method) {
@@ -52,13 +53,18 @@ auto_thresh <- function(int_arr, method) {
 #' @rdname auto_thresh
 #' @export
 auto_thresh_mask <- function(int_arr, method) {
-  int_arr > auto_thresh(int_arr, method)
+  thresh <- auto_thresh(int_arr, method)
+  mask <- int_arr > thresh
+  attr(mask, "threshold") <- thresh
+  mask
 }
 
 #' @rdname auto_thresh
 #' @export
 auto_thresh_apply_mask <- function(int_arr, method, fail = NA) {
-  int_arr[!auto_thresh_mask(int_arr, method)] <- fail
+  mask <- auto_thresh_mask(int_arr, method)
+  int_arr[!mask] <- fail
+  attr(int_arr, "threshold") <- attr(mask, "threshold")
   int_arr
 }
 
