@@ -6,11 +6,12 @@
 #' "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle", "Yen". Read
 #' about them at \url{http://imagej.net/Auto_Threshold}.
 #'
+#' \code{NA} values are automatically ignored.
+#'
 #' @param int_arr An array (or vector) of \emph{integers}.
 #' @param method The name of the method you wish to use (e.g. "Huang"). Partial
 #'   matching is performed i.e. \code{method = "h"} is enough to get you "Huang"
 #'   and \code{method = "in"} is enough to get you "Intermodes".
-#' @param na_rm Should \code{NA}s be ignored (or produce an eror)?
 #' @param fail When using \code{auto_thresh_apply_mask}, to what value do you
 #'   wish to set the pixels which fail to exceed the threshold.
 #'
@@ -29,7 +30,7 @@
 #'   to tell you what the threshold value was.
 #'
 #' @export
-auto_thresh <- function(int_arr, method, na_rm = FALSE) {
+auto_thresh <- function(int_arr, method) {
   available_methods <- c("Default", "Huang", "Intermodes", "IsoData", "Li",
                          "MaxEntropy", "Mean", "MinError", "Minimum",
                          "Moments", "Otsu", "Percentile", "RenyiEntropy",
@@ -53,7 +54,7 @@ auto_thresh <- function(int_arr, method, na_rm = FALSE) {
 
 #' @rdname auto_thresh
 #' @export
-auto_thresh_mask <- function(int_arr, method, na_rm = FALSE) {
+auto_thresh_mask <- function(int_arr, method) {
   thresh <- auto_thresh(int_arr, method, na_rm = na_rm)
   mask <- int_arr > thresh
   attr(mask, "threshold") <- thresh
@@ -62,7 +63,7 @@ auto_thresh_mask <- function(int_arr, method, na_rm = FALSE) {
 
 #' @rdname auto_thresh
 #' @export
-auto_thresh_apply_mask <- function(int_arr, method, fail = NA, na_rm = FALSE) {
+auto_thresh_apply_mask <- function(int_arr, method, fail = NA) {
   mask <- auto_thresh_mask(int_arr, method, na_rm = na_rm)
   int_arr[!mask] <- fail
   attr(int_arr, "threshold") <- attr(mask, "threshold")

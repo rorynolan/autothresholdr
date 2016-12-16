@@ -6,11 +6,11 @@
 \alias{auto_thresh_mask}
 \title{Automatically threshold an image.}
 \usage{
-auto_thresh(int_arr, method, na_rm = FALSE)
+auto_thresh(int_arr, method)
 
-auto_thresh_mask(int_arr, method, na_rm = FALSE)
+auto_thresh_mask(int_arr, method)
 
-auto_thresh_apply_mask(int_arr, method, fail = NA, na_rm = FALSE)
+auto_thresh_apply_mask(int_arr, method, fail = NA)
 }
 \arguments{
 \item{int_arr}{An array (or vector) of \emph{integers}.}
@@ -18,8 +18,6 @@ auto_thresh_apply_mask(int_arr, method, fail = NA, na_rm = FALSE)
 \item{method}{The name of the method you wish to use (e.g. "Huang"). Partial
 matching is performed i.e. \code{method = "h"} is enough to get you "Huang"
 and \code{method = "in"} is enough to get you "Intermodes".}
-
-\item{na_rm}{Should \code{NA}s be ignored (or produce an eror)?}
 
 \item{fail}{When using \code{auto_thresh_apply_mask}, to what value do you
 wish to set the pixels which fail to exceed the threshold.}
@@ -45,5 +43,8 @@ methods. The available methods are "Default", "Huang", "Intermodes",
 "IsoData", "Li", "MaxEntropy", "Mean", "MinError", "Minimum", "Moments",
 "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle", "Yen". Read
 about them at \url{http://imagej.net/Auto_Threshold}.
+}
+\details{
+\code{NA} values are automatically ignored.
 }
 
