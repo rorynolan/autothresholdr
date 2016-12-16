@@ -38,7 +38,7 @@ auto_thresh <- function(int_arr, method) {
   method <- RSAGA::match.arg.ext(method, available_methods,
                                  ignore.case = TRUE, numeric = TRUE) %>%
                                  {available_methods[.]}
-  if ((!CanBeInteger(int_arr)) || any(int_arr < 0)) {
+  if ((!CanBeInteger(int_arr)) || any(int_arr < 0, na.rm = TRUE)) {
     stop("int_arr must be a matrix of non-negative integers.")
   }
   rim <- range(int_arr)
