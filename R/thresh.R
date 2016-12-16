@@ -55,7 +55,7 @@ auto_thresh <- function(int_arr, method) {
 #' @rdname auto_thresh
 #' @export
 auto_thresh_mask <- function(int_arr, method) {
-  thresh <- auto_thresh(int_arr, method, na_rm = na_rm)
+  thresh <- auto_thresh(int_arr, method)
   mask <- int_arr > thresh
   attr(mask, "threshold") <- thresh
   mask
@@ -64,7 +64,7 @@ auto_thresh_mask <- function(int_arr, method) {
 #' @rdname auto_thresh
 #' @export
 auto_thresh_apply_mask <- function(int_arr, method, fail = NA) {
-  mask <- auto_thresh_mask(int_arr, method, na_rm = na_rm)
+  mask <- auto_thresh_mask(int_arr, method)
   int_arr[!mask] <- fail
   attr(int_arr, "threshold") <- attr(mask, "threshold")
   int_arr
