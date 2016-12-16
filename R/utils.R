@@ -16,6 +16,11 @@ AllEqual <- function(a, b = NA, allow = T, cn = F) {
   }
 }
 
-CanBeInteger <- function(x) {
+CanBeInteger <- function(x, na_rm = TRUE) {
+  if (na_rm) {
+    na_poss <- is.na(x)
+    if (sum(na_poss) == length(x)) stop ("x is all NAs")
+    x <- x[!na_poss]
+  }
   AllEqual(x, floor(x))
 }
