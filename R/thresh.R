@@ -31,8 +31,8 @@
 #'
 #' @export
 auto_thresh <- function(int_arr, method) {
-  available_methods <- c("Default", "Huang", "Intermodes", "IsoData", "Li",
-                         "MaxEntropy", "Mean", "MinError", "Minimum",
+  available_methods <- c("IJDefault", "Huang", "Intermodes", "IsoData", "Li",
+                         "MaxEntropy", "Mean", "MinErrorI", "Minimum",
                          "Moments", "Otsu", "Percentile", "RenyiEntropy",
                          "Shanbhag", "Triangle", "Yen")
   method <- RSAGA::match.arg.ext(method, available_methods,
