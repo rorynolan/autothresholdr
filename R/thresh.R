@@ -41,7 +41,7 @@ auto_thresh <- function(int_arr, method) {
   if ((!CanBeInteger(int_arr)) || any(int_arr < 0, na.rm = TRUE)) {
     stop("int_arr must be a matrix of non-negative integers.")
   }
-  rim <- range(int_arr)
+  rim <- range(int_arr, na.rm = TRUE)
   im_hist <- factor(int_arr, levels = rim[1]:rim[2]) %>%
     table %>% as.vector
   if (length(im_hist) < 2) {
