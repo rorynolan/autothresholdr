@@ -1,8 +1,8 @@
 #' Automatically threshold an image.
 #'
 #' These functions apply the ImageJ "Auto Threshold" plugin's image thresholding
-#' methods. The available methods are "Default", "Huang", "Intermodes",
-#' "IsoData", "Li", "MaxEntropy", "Mean", "MinError", "Minimum", "Moments",
+#' methods. The available methods are "IJDefault", "Huang", "Intermodes",
+#' "IsoData", "Li", "MaxEntropy", "Mean", "MinErrorI", "Minimum", "Moments",
 #' "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle", "Yen". Read
 #' about them at \url{http://imagej.net/Auto_Threshold}.
 #'
