@@ -3,3 +3,4 @@
 export(auto_thresh)
 export(auto_thresh_apply_mask)
 export(auto_thresh_mask)
+importFrom(magrittr,"%>%")
