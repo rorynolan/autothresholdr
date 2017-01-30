@@ -1,4 +1,4 @@
-AllEqual <- function(a, b = NA, allow = T, cn = F) {
+AllEqual <- function(a, b = NA, allow = TRUE, cn = FALSE) {
   if (is.na(b[1])) {
     return(length(unique(a)) == 1)
   } else {
