@@ -4,7 +4,9 @@ autothresholdr
 Installation
 ------------
 
-First you need to install the R package `rJava`. To do this, you'll need to have Java jdk installed, so have a google of "install java jdk" for whichever operating system you have and follow the instructions to install it. Then run
+On **mac**, you need to go to <https://support.apple.com/kb/dl1572?locale=en_US> and download and install Java 6. On Linux and Windows, you'll also need to have Java jdk installed, so have a google of "install java jdk" for whichever operating system you have and follow the instructions to install it.
+
+Then you need to install the R package `rJava`.
 
 ``` r
 install.packages("rJava")
