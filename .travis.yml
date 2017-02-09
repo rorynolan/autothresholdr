@@ -3,3 +3,16 @@
 language: R
 sudo: false
 cache: packages
+
+bioc_packages:
+  - EBImage
+
+apt_packages:
+  - libssl-dev
+  - libtiff4-dev
+  - libfftw3-dev
+  - libcurl4-openssl-dev
+  - libxml2-dev
+  - default-jre
+  - default-jdk
+  - libboost-all-dev
