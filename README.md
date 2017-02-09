@@ -1,6 +1,8 @@
 autothresholdr
 ================
 
+[![Travis-CI Build Status](https://travis-ci.org/rorynolan/autothresholdr.svg?branch=master)](https://travis-ci.org/rorynolan/autothresholdr)
+
 Installation
 ------------
 

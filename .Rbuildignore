@@ -2,3 +2,5 @@
 ^\.Rproj\.user$
 ^README.*$
 ^.*pdf$
+^\.travis\.yml$
+^appveyor\.yml$

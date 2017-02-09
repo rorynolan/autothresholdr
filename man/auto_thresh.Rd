@@ -2,8 +2,8 @@
 % Please edit documentation in R/thresh.R
 \name{auto_thresh}
 \alias{auto_thresh}
-\alias{auto_thresh_apply_mask}
 \alias{auto_thresh_mask}
+\alias{auto_thresh_apply_mask}
 \title{Automatically threshold an image.}
 \usage{
 auto_thresh(int_arr, method, ignore.black = FALSE, ignore.white = FALSE)
@@ -73,6 +73,7 @@ different method.} }
  Gabriel Landini coded all of these functions
   together in one Java file for the ImageJ plugin.
 }
+
 \examples{
 img <- EBImage::readImage(system.file("extdata", "eg.tif",
 package = "autothresholdr"), as.is = TRUE)
@@ -126,4 +127,3 @@ EBImage::display(EBImage::normalize(masked), method = "r")
   Image Thresholding Techniques and Quantitative Performance Evaluation",
   Journal of Electronic Imaging 13(1): 146-165} }
 }
-
