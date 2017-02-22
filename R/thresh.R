@@ -119,10 +119,8 @@ auto_thresh <- function(int_arr, method,
     if (isTRUE(ignore.white)) {
       mx <- max(int_arr)
       if (mx %in% (2 ^ c(8, 12, 16, 32) - 1)) int_arr[int_arr == mx] <- NA
-    } else if (is.numeric(ignore.white)) {
-      int_arr[int_arr >= ignore.white] <- NA
     } else {
-      stop("ignore.white must be either TRUE, FALSE or a number.")
+      int_arr[int_arr >= ignore.white] <- NA
     }
   }
   rim <- range(int_arr, na.rm = TRUE)

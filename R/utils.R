@@ -1,26 +1,19 @@
-AllEqual <- function(a, b = NA, allow = TRUE, cn = FALSE) {
-  if (is.na(b[1])) {
-    return(length(unique(a)) == 1)
-  } else {
-    if (allow) {
-      if (length(a) == 1) {
-        a <- rep(a, length(b))
-        if (is.array(b)) b <- as.vector(b)
-      }
-      if (length(b) == 1) {
-        b <- rep(b, length(a))
-        if (is.array(a)) a <- as.vector(a)
-      }
-    }
-    return(isTRUE(all.equal(a, b, check.names = cn)))
-  }
-}
-
+#' Check if a number could be considered to be an integer.
+#'
+#' After padding is removed, could the input numeric vector be considered to be
+#' an integer vector, i.e. is it equal to its floor?
+#' @param x A numeric vector.
+#' @param na_rm Should NAs be removed?
+#' @return A boolean. `TRUE` if the argument can be considered to be integer or
+#'   `FALSE` otherwise.
+#' @examples
+#' CanBeInteger(c(3, 3.5, NA))
+#' @export
 CanBeInteger <- function(x, na_rm = TRUE) {
   if (na_rm) {
     na_poss <- is.na(x)
     if (sum(na_poss) == length(x)) stop ("x is all NAs")
     x <- x[!na_poss]
   }
-  AllEqual(x, floor(x))
+  isTRUE(all.equal(x, floor(x)))
 }
