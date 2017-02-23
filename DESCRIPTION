@@ -1,6 +1,6 @@
 Package: autothresholdr
 Type: Package
-Title: An R port of the 'ImageJ' plugin 'Auto Threshold'
+Title: An R Port of the 'ImageJ' Plugin 'Auto Threshold'
 Version: 0.2.0
 Authors@R: c(
     person("Rory", "Nolan", email = "rorynoolan@gmail.com", role = c("aut", "cre")),
