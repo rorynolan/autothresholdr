@@ -1,0 +1,45 @@
+---
+title: "autothresholdr"
+author: "Rory Nolan"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{autothresholdr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Thresholding Images
+This is a package for thresholding images. Let's load it and some friends.
+```{r load libraries, results='hide'}
+library(autothresholdr)
+library(EBImage)
+library(magrittr)
+```
+We'll be using the image that comes with the package:
+```{r the image}
+img <- imageData(readImage(system.file("extdata", "eg.tif", 
+                                       package = "autothresholdr"), 
+                           as.is = TRUE))
+display(normalize(img), method = "r")
+```
+
+It's a bit of a cell, the black part is where the cell is not. The threshold is supposed to tell us what is *dark* (not cell) and what is *bright* (cell). By playing around, we see that something like 4 is a good value.
+
+```{r guess four}
+display(img > 4, method = "r")
+```
+
+But what if we have many images and we don't want to *play around*, we want a method of calculating the threshold automatically. http://imagej.net/Auto_Threshold gives many such methods and they are provided to you in R via this package. Go to that webpage for a nice comparison of the methods.
+
+The function `auto_thresh` finds the threshold, `auto_thresh_mask` gets the mask (an array with a `TRUE` for elements exceeding the threshold and `FALSE` elsewhere) and `auto_thresh_apply_mask` applies the mask to the original image by setting the elements that don't exceed the threshold to `NA`.
+
+Let's see each with Huang thresholding.
+
+```{r thresh mask apply}
+auto_thresh(img, "h")
+auto_thresh_mask(img, "h") %>% display(method = "r")
+auto_thresh_apply_mask(img, "h") %>% normalize %>%  display(method = "r")
+```
+
+In this last image, the `NA` pixels are greyed.

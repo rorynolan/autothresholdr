@@ -1,7 +1,7 @@
 Package: autothresholdr
 Type: Package
 Title: An R port of the ImageJ plugin "Auto Threshold"
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(
     person("Rory", "Nolan", email = "rorynoolan@gmail.com", role = c("aut", "cre")),
     person("Gabriel", "Landini", email = "G.Landini@bham.ac.uk", role = "ctb"))
@@ -20,4 +20,7 @@ RoxygenNote: 6.0.1
 URL: https://www.github.com/rorynolan/autothresholdr
 BugReports: https://www.github.com/rorynolan/autothresholdr/issues
 Suggests: testthat,
-    covr
+    covr,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
