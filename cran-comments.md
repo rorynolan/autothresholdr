@@ -1,3 +1,7 @@
+## Resubmission
+In this version I have:
+* Included a reference for the 'ImageJ' plugin that I ported in the Description field of the DESCRIPTION file.
+
 ## Test environments
 * local OS X install, R 3.3.2
 * ubuntu 12.04 (on travis-ci), R 3.3.2
