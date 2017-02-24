@@ -8,23 +8,43 @@ An R package for thresholding images.
 Installation
 ------------
 
-On **mac**, you need to go to <https://support.apple.com/kb/dl1572?locale=en_US> and download and install Java 6. On Linux and Windows, you'll also need to have Java jdk installed, so have a google of "install java jdk" for whichever operating system you have and follow the instructions to install it.
+### Everyone except Mac OS X
 
-Then you need to install the R package `rJava`.
+Install the latest [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
+
+### Mac OS X
+
+Thanks to @aoles for this section.
+
+Mac OS X comes with a legacy Apple Java 6. Update your Java installation to a newer version provided by Oracle.
+
+1.  Install [Oracle JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
+
+2.  Update R Java configuration by executing from the command line (you might have to run it as a super user by prepending `sudo` depending on your installation).
+
+        R CMD javareconf
+
+3.  Re-install *rJava* from sources in order to properly link to the non-system Java installation.
+
+    ``` r
+    install.packages("rJava", type="source")
+    ```
+
+You can verify your configuration by running the following commands. This should return the Java version string corresponding to the one downloaded and installed in step 1.
 
 ``` r
-install.packages("rJava")
+library(rJava)
+.jinit()
+.jcall("java/lang/System", "S", "getProperty", "java.runtime.version")
+## [1] "1.8.0_112-b16" 
 ```
 
-If this doesn't work, there are plenty of posts on how to troubleshoot installation of `rJava`, bt you'll need to get this done before you can go on. I've previously encountered insurmountable problems while trying to install rJava on 32-bit systems.
+### Everyone!
 
-Having installed `rJava`, run
+In R, run
 
 ``` r
-source("https://bioconductor.org/biocLite.R")
-biocLite("EBImage")
-install.packages("devtools")
-devtools::install_github("rorynolan/autothresholdr")
+install.packages("autothresholdr")
 ```
 
 and you're done!
@@ -32,7 +52,7 @@ and you're done!
 Thresholding Images
 ===================
 
-Let's load it and some friends.
+Let's load `autothresholdr` and some friends.
 
 ``` r
 library(autothresholdr)
@@ -84,3 +104,16 @@ auto_thresh_apply_mask(img, "h") %>% normalize %>%  display(method = "r")
 ![](README_files/figure-markdown_github/thresh%20mask%20apply-2.png)
 
 In this last image, the `NA` pixels are greyed.
+
+### Use with BiocParallel
+
+Thanks to @aoles for this section.
+
+Each R process needs a separate JVM instance. For this, load the package in the parallelized function, e.g.,
+
+``` r
+bplapply (files, function(f) {
+  library(autothresholdr)
+  ...
+}, BPPARAM = MulticoreParam(...))
+```
