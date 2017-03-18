@@ -3,7 +3,7 @@ autothresholdr
 
 An R package for thresholding images.
 
-[![Travis-CI Build Status](https://travis-ci.org/rorynolan/autothresholdr.svg?branch=master)](https://travis-ci.org/rorynolan/autothresholdr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rorynolan/autothresholdr?branch=master&svg=true)](https://ci.appveyor.com/project/rorynolan/autothresholdr) [![Coverage Status](https://img.shields.io/codecov/c/github/rorynolan/autothresholdr/master.svg)](https://codecov.io/github/rorynolan/autothresholdr?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/autothresholdr)](https://cran.r-project.org/package=autothresholdr)
+[![Travis-CI Build Status](https://travis-ci.org/rorynolan/autothresholdr.svg?branch=master)](https://travis-ci.org/rorynolan/autothresholdr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rorynolan/autothresholdr?branch=master&svg=true)](https://ci.appveyor.com/project/rorynolan/autothresholdr) [![codecov](https://codecov.io/gh/rorynolan/autothresholdr/branch/master/graph/badge.svg)](https://codecov.io/gh/rorynolan/autothresholdr) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/autothresholdr)](https://cran.r-project.org/package=autothresholdr) ![RStudio CRAN downloads](http://cranlogs.r-pkg.org/badges/grand-total/autothresholdr) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 
 Installation
 ------------
@@ -13,8 +13,6 @@ Installation
 Install the latest [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
 
 ### Mac OS X
-
-Thanks to @aoles for this section.
 
 Mac OS X comes with a legacy Apple Java 6. Update your Java installation to a newer version provided by Oracle.
 
@@ -107,8 +105,6 @@ In this last image, the `NA` pixels are greyed.
 
 ### Use with BiocParallel
 
-Thanks to @aoles for this section.
-
 Each R process needs a separate JVM instance. For this, load the package in the parallelized function, e.g.,
 
 ``` r
@@ -117,3 +113,5 @@ bplapply (files, function(f) {
   ...
 }, BPPARAM = MulticoreParam(...))
 ```
+
+Thanks to @aoles for his help with this readme. Check out his great work on images in R at his repo <http://github.com/aoles>.
