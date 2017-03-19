@@ -1,7 +1,7 @@
 Package: autothresholdr
 Type: Package
 Title: An R Port of the 'ImageJ' Plugin 'Auto Threshold'
-Version: 0.2.0.9000
+Version: 0.2.0.9001
 Authors@R: c(
     person("Rory", "Nolan", email = "rorynoolan@gmail.com", 
            role = c("aut", "cre", "trl")),
@@ -19,8 +19,7 @@ LazyData: TRUE
 Imports:
     rJava,
     RSAGA,
-    magrittr,
-    EBImage
+    magrittr
 SystemRequirements: Java
 RoxygenNote: 6.0.1
 URL: https://www.github.com/rorynolan/autothresholdr
@@ -28,5 +27,6 @@ BugReports: https://www.github.com/rorynolan/autothresholdr/issues
 Suggests: testthat,
     covr,
     knitr,
-    rmarkdown
+    rmarkdown,
+    EBImage
 VignetteBuilder: knitr
