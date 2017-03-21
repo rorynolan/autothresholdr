@@ -28,6 +28,12 @@ Mac OS X comes with a legacy Apple Java 6. Update your Java installation to a ne
     install.packages("rJava", type="source")
     ```
 
+Then, to make everything work with Rstudio, run
+
+    sudo ln -f -s $(/usr/libexec/java_home)/jre/lib/server/libjvm.dylib /usr/local/lib
+
+(taken from <http://stackoverflow.com/questions/30738974/rjava-load-error-in-rstudio-r-after-upgrading-to-osx-yosemite>).
+
 You can verify your configuration by running the following commands. This should return the Java version string corresponding to the one downloaded and installed in step 1.
 
 ``` r
