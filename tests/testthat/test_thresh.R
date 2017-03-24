@@ -10,6 +10,7 @@ test_that("auto_thresh works", {
   expect_error(auto_thresh(img, "h", ignore.white = "rory"))
   expect_equal(auto_thresh(img, "tri"), 3)
   expect_equal(auto_thresh(img, "Otsu"), 13)
+  expect_equal(auto_thresh(img, 99), 99)
   mask <- auto_thresh_mask(img, "h")
   expect_equal(EBImage::imageData(mask), EBImage::imageData(img > 5))
   masked <- EBImage::imageData(auto_thresh_apply_mask(img, "h"))

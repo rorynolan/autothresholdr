@@ -19,7 +19,10 @@ auto_thresh_apply_mask(int_arr, method, fail = NA, ignore.black = FALSE,
 
 \item{method}{The name of the method you wish to use (e.g. "Huang"). Partial
 matching is performed i.e. \code{method = "h"} is enough to get you "Huang"
-and \code{method = "in"} is enough to get you "Intermodes".}
+and \code{method = "in"} is enough to get you "Intermodes". To perform
+\emph{manual} thresholding (where you set the threshold yourself), supply
+the threshold here as a number e.g. `method = 3`. So note that this would
+\emph{not} select the third method in the above list of methods.}
 
 \item{ignore.black}{Ignore black pixels/elements (zeros) when performing the
 thresholding?}
@@ -80,11 +83,13 @@ package = "autothresholdr"), as.is = TRUE)
 auto_thresh(img, "h")
 auto_thresh(img, "tri")
 auto_thresh(img, "Otsu")
+auto_thresh(img, 9)
 mask <- auto_thresh_mask(img, "h")
 EBImage::display(mask, method = "r")
 masked <- auto_thresh_apply_mask(img, "h")
 EBImage::display(EBImage::normalize(masked), method = "r")
-
+masked <- auto_thresh_apply_mask(img, 25)
+EBImage::display(EBImage::normalize(masked), method = "r")
 }
 \references{
 \itemize{ \item{Huang, L-K & Wang, M-J J (1995), "Image

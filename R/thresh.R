@@ -23,7 +23,10 @@
 #' @param int_arr An array (or vector) of \emph{integers}.
 #' @param method The name of the method you wish to use (e.g. "Huang"). Partial
 #'   matching is performed i.e. \code{method = "h"} is enough to get you "Huang"
-#'   and \code{method = "in"} is enough to get you "Intermodes".
+#'   and \code{method = "in"} is enough to get you "Intermodes". To perform
+#'   \emph{manual} thresholding (where you set the threshold yourself), supply
+#'   the threshold here as a number e.g. `method = 3`. So note that this would
+#'   \emph{not} select the third method in the above list of methods.
 #' @param ignore.black Ignore black pixels/elements (zeros) when performing the
 #'   thresholding?
 #' @param ignore.white Ignore white pixels when performing the thresholding? If
@@ -96,14 +99,18 @@
 #' auto_thresh(img, "h")
 #' auto_thresh(img, "tri")
 #' auto_thresh(img, "Otsu")
+#' auto_thresh(img, 9)
 #' mask <- auto_thresh_mask(img, "h")
 #' EBImage::display(mask, method = "r")
 #' masked <- auto_thresh_apply_mask(img, "h")
 #' EBImage::display(EBImage::normalize(masked), method = "r")
-#'
+#' masked <- auto_thresh_apply_mask(img, 25)
+#' EBImage::display(EBImage::normalize(masked), method = "r")
 #' @export
 auto_thresh <- function(int_arr, method,
                         ignore.black = FALSE, ignore.white = FALSE) {
+  stopifnot(length(method) == 1)
+  if (is.numeric(method)) return(method)
   available_methods <- c("IJDefault", "Huang", "Intermodes", "IsoData", "Li",
                          "MaxEntropy", "Mean", "MinErrorI", "Minimum",
                          "Moments", "Otsu", "Percentile", "RenyiEntropy",
