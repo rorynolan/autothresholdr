@@ -1,3 +1,5 @@
+#' @useDynLib autothresholdr
+#' @importFrom Rcpp sourceCpp
 #' @importFrom magrittr '%>%' '%T>%'
 #' @importFrom EBImage readImage
 NULL
