@@ -5,12 +5,13 @@ Version: 0.4.0
 Authors@R: c(
     person("Rory", "Nolan", email = "rorynoolan@gmail.com", 
            role = c("aut", "cre", "trl")),
-    person("Gabriel", "Landini", email = "G.Landini@bham.ac.uk", 
-           role = c("ctb", "cph")),
+    person("Luis", "Alvarez", email = "lalvarez@well.ox.ac.uk",
+           role = "ctb"),
     person("Sergi", "Padilla-Parra", email = "spadilla@well.ox.ac.uk", 
            role = c("ctb", "ths")),
-    person("Luis", "Alvarez", email = "lalvarez@well.ox.ac.uk",
-           role = "ctb"))
+    person("Gabriel", "Landini", email = "G.Landini@bham.ac.uk", 
+           role = c("ctb", "cph"))
+    )
 Maintainer: Rory Nolan <rorynoolan@gmail.com>
 Description: Provides the 'ImageJ' 'Auto Threshold' plugin functionality to R users. 
     See <http://imagej.net/Auto_Threshold> and Landini et al. (2017) <DOI:10.1111/jmi.12474>.

@@ -35,3 +35,7 @@ MedianPillars <- function(mat3d) {
     .Call('autothresholdr_MedianPillars', PACKAGE = 'autothresholdr', mat3d)
 }
 
+# Register entry points for exported C++ functions
+methods::setLoadAction(function(ns) {
+    .Call('autothresholdr_RcppExport_registerCCallable', PACKAGE = 'autothresholdr')
+})

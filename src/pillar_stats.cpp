@@ -1,6 +1,8 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+// [[Rcpp::interfaces(r, cpp)]]
+
 //' Get the means/medians/variances of pillars of a 3d array
 //'
 //' For a 3-dimensional array \code{mat3d}, pillar \code{ij} is defined as
