@@ -48,6 +48,8 @@ library(rJava)
 In R, run
 
 ``` r
+source("https://bioconductor.org/biocLite.R")
+biocLite("EBImage")
 install.packages("autothresholdr")
 ```
 

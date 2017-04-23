@@ -55,6 +55,8 @@ library(rJava)
 ### Everyone!
 In R, run
 ```{r Install autothresholdr, eval=FALSE}
+source("https://bioconductor.org/biocLite.R")
+biocLite("EBImage")
 install.packages("autothresholdr")
 ```
 and you're done!
