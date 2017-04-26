@@ -5,9 +5,9 @@
 \alias{MedStackThresh}
 \title{Threshold every image frame in a stack based on their mean/median.}
 \usage{
-MeanStackThresh(arr3d, method, fail = NA, skip.consts = FALSE)
+MeanStackThresh(arr3d, method, fail = NA)
 
-MedStackThresh(arr3d, method, fail = NA, skip.consts = FALSE)
+MedStackThresh(arr3d, method, fail = NA)
 }
 \arguments{
 \item{arr3d}{A 3-dimensional array (the image stack) where the \eqn{n}th
@@ -17,11 +17,6 @@ slice is the \eqn{n}th image in the time series.}
 [autothresholdr::auto_thresh].}
 
 \item{fail}{To which value should pixels not exceeeding the threshold be set?}
-
-\item{skip.consts}{An array with only one value (a 'constant array') won't
-threshold properly. By default the function would give an error, but by
-setting this parameter to `TRUE`, the array would instead be skipped (the
-function will return the original array) and give a warning.}
 }
 \value{
 A 3d array, the thresholded stack. Pillars not exceeding the

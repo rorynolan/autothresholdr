@@ -1,3 +1,7 @@
+# 0.5.0
+* The skip.consts option in MeanStackThresh and MedStackThresh are gone
+  - Now these function error if you pass them a constant array
+
 # 0.4.0
 * Add MeanStackThresh and MedStackThresh
 

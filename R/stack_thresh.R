@@ -11,10 +11,6 @@
 #' @param method The thresholding method to use. See
 #'   [autothresholdr::auto_thresh].
 #' @param fail To which value should pixels not exceeeding the threshold be set?
-#' @param skip.consts An array with only one value (a 'constant array') won't
-#'   threshold properly. By default the function would give an error, but by
-#'   setting this parameter to `TRUE`, the array would instead be skipped (the
-#'   function will return the original array) and give a warning.
 #'
 #' @return A 3d array, the thresholded stack. Pillars not exceeding the
 #'   threshold are set to zero. The attribute 'threshold' gives the value used
@@ -33,11 +29,11 @@
 #' display(img_thresh_mask[, , 1] > 0, method = 'r')
 #'
 #' @export
-MeanStackThresh <- function(arr3d, method, fail = NA, skip.consts = FALSE) {
+MeanStackThresh <- function(arr3d, method, fail = NA) {
   stopifnot(length(dim(arr3d)) == 3)
-  if (length(unique(as.vector(arr3d))) == 1 && skip.consts) {
-    warning("Constant array, skipping thresholding.")
-    return(arr3d)
+  if (length(unique(as.vector(arr3d))) == 1) {
+    stop("The array given for thresholding is constant ",
+         "(all the values are the same). Aborting.")
   }
   thresh <- autothresholdr::auto_thresh(arr3d, method)
   med.stack <- MeanPillars(arr3d)
@@ -55,11 +51,11 @@ MeanStackThresh <- function(arr3d, method, fail = NA, skip.consts = FALSE) {
 #' display(img_thresh_mask[, , 1] > 0, method = 'r')
 #'
 #' @export
-MedStackThresh <- function(arr3d, method, fail = NA, skip.consts = FALSE) {
+MedStackThresh <- function(arr3d, method, fail = NA) {
   stopifnot(length(dim(arr3d)) == 3)
-  if (length(unique(as.vector(arr3d))) == 1 && skip.consts) {
-    warning("Constant array, skipping thresholding.")
-    return(arr3d)
+  if (length(unique(as.vector(arr3d))) == 1) {
+    stop("The array given for thresholding is constant ",
+         "(all the values are the same). Aborting.")
   }
   thresh <- autothresholdr::auto_thresh(arr3d, method)
   med.stack <- MedianPillars(arr3d)
