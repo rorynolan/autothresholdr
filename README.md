@@ -45,6 +45,8 @@ library(rJava)
 
 ### Everyone!
 
+#### Installing the Release Version (recommended)
+
 In R, run
 
 ``` r
@@ -53,7 +55,13 @@ biocLite("EBImage")
 install.packages("autothresholdr")
 ```
 
-and you're done!
+#### Installing the development version
+
+``` r
+source("https://bioconductor.org/biocLite.R")
+biocLite("EBImage")
+devtools::install_github("rorynolan/autothresholdr")
+```
 
 Thresholding Images
 ===================
