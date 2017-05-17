@@ -24,17 +24,17 @@ namespace autothresholdr {
         }
     }
 
-    inline NumericMatrix MeanPillars(NumericVector mat3d) {
-        typedef SEXP(*Ptr_MeanPillars)(SEXP);
-        static Ptr_MeanPillars p_MeanPillars = NULL;
-        if (p_MeanPillars == NULL) {
-            validateSignature("NumericMatrix(*MeanPillars)(NumericVector)");
-            p_MeanPillars = (Ptr_MeanPillars)R_GetCCallable("autothresholdr", "autothresholdr_MeanPillars");
+    inline NumericMatrix mean_pillars(NumericVector arr3d) {
+        typedef SEXP(*Ptr_mean_pillars)(SEXP);
+        static Ptr_mean_pillars p_mean_pillars = NULL;
+        if (p_mean_pillars == NULL) {
+            validateSignature("NumericMatrix(*mean_pillars)(NumericVector)");
+            p_mean_pillars = (Ptr_mean_pillars)R_GetCCallable("autothresholdr", "autothresholdr_mean_pillars");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_MeanPillars(Rcpp::wrap(mat3d));
+            rcpp_result_gen = p_mean_pillars(Rcpp::wrap(arr3d));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -43,17 +43,17 @@ namespace autothresholdr {
         return Rcpp::as<NumericMatrix >(rcpp_result_gen);
     }
 
-    inline NumericMatrix VarPillars(NumericVector mat3d) {
-        typedef SEXP(*Ptr_VarPillars)(SEXP);
-        static Ptr_VarPillars p_VarPillars = NULL;
-        if (p_VarPillars == NULL) {
-            validateSignature("NumericMatrix(*VarPillars)(NumericVector)");
-            p_VarPillars = (Ptr_VarPillars)R_GetCCallable("autothresholdr", "autothresholdr_VarPillars");
+    inline NumericMatrix var_pillars(NumericVector arr3d) {
+        typedef SEXP(*Ptr_var_pillars)(SEXP);
+        static Ptr_var_pillars p_var_pillars = NULL;
+        if (p_var_pillars == NULL) {
+            validateSignature("NumericMatrix(*var_pillars)(NumericVector)");
+            p_var_pillars = (Ptr_var_pillars)R_GetCCallable("autothresholdr", "autothresholdr_var_pillars");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_VarPillars(Rcpp::wrap(mat3d));
+            rcpp_result_gen = p_var_pillars(Rcpp::wrap(arr3d));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -62,17 +62,17 @@ namespace autothresholdr {
         return Rcpp::as<NumericMatrix >(rcpp_result_gen);
     }
 
-    inline NumericMatrix MedianPillars(NumericVector mat3d) {
-        typedef SEXP(*Ptr_MedianPillars)(SEXP);
-        static Ptr_MedianPillars p_MedianPillars = NULL;
-        if (p_MedianPillars == NULL) {
-            validateSignature("NumericMatrix(*MedianPillars)(NumericVector)");
-            p_MedianPillars = (Ptr_MedianPillars)R_GetCCallable("autothresholdr", "autothresholdr_MedianPillars");
+    inline NumericMatrix median_pillars(NumericVector arr3d) {
+        typedef SEXP(*Ptr_median_pillars)(SEXP);
+        static Ptr_median_pillars p_median_pillars = NULL;
+        if (p_median_pillars == NULL) {
+            validateSignature("NumericMatrix(*median_pillars)(NumericVector)");
+            p_median_pillars = (Ptr_median_pillars)R_GetCCallable("autothresholdr", "autothresholdr_median_pillars");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_MedianPillars(Rcpp::wrap(mat3d));
+            rcpp_result_gen = p_median_pillars(Rcpp::wrap(arr3d));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();

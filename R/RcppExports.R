@@ -3,36 +3,36 @@
 
 #' Get the means/medians/variances of pillars of a 3d array
 #'
-#' For a 3-dimensional array \code{mat3d}, pillar \code{ij} is defined as
-#' \code{mat3d[i, j, ]}. These functions compute the mean, median and variance of each
+#' For a 3-dimensional array \code{arr3d}, pillar \code{ij} is defined as
+#' \code{arr3d[i, j, ]}. These functions compute the mean, median and variance of each
 #' pillar.
 #'
-#' @param mat3d A 3-dimensional array.
+#' @param arr3d A 3-dimensional array.
 #'
-#' @return A matrix where element \code{i,j} is equal to \code{mean(mat3d[i, j, ])},
-#' \code{median(mat3d[i, j, ])}, or \code{var(mat3d[i, j, ])}.
+#' @return A matrix where element \code{i,j} is equal to \code{mean(arr3d[i, j, ])},
+#' \code{median(arr3d[i, j, ])}, or \code{var(arr3d[i, j, ])}.
 #'
 #' @examples
 #' m3 <- array(1:16, dim = c(2, 2, 4))
-#' MeanPillars(m3)
-#' MedianPillars(m3)
-#' VarPillars(m3)
+#' mean_pillars(m3)
+#' median_pillars(m3)
+#' var_pillars(m3)
 #'
 #' @export
-MeanPillars <- function(mat3d) {
-    .Call('autothresholdr_MeanPillars', PACKAGE = 'autothresholdr', mat3d)
+mean_pillars <- function(arr3d) {
+    .Call('autothresholdr_mean_pillars', PACKAGE = 'autothresholdr', arr3d)
 }
 
-#' @rdname MeanPillars
+#' @rdname mean_pillars
 #' @export
-VarPillars <- function(mat3d) {
-    .Call('autothresholdr_VarPillars', PACKAGE = 'autothresholdr', mat3d)
+var_pillars <- function(arr3d) {
+    .Call('autothresholdr_var_pillars', PACKAGE = 'autothresholdr', arr3d)
 }
 
-#' @rdname MeanPillars
+#' @rdname mean_pillars
 #' @export
-MedianPillars <- function(mat3d) {
-    .Call('autothresholdr_MedianPillars', PACKAGE = 'autothresholdr', mat3d)
+median_pillars <- function(arr3d) {
+    .Call('autothresholdr_median_pillars', PACKAGE = 'autothresholdr', arr3d)
 }
 
 # Register entry points for exported C++ functions

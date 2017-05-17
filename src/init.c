@@ -4,20 +4,20 @@
 #include <R_ext/Rdynload.h>
 
 /* FIXME:
-Check these declarations against the C/Fortran source code.
+  Check these declarations against the C/Fortran source code.
 */
 
-/* .Call calls */
-extern SEXP autothresholdr_MeanPillars(SEXP);
-extern SEXP autothresholdr_MedianPillars(SEXP);
+  /* .Call calls */
+  extern SEXP autothresholdr_mean_pillars(SEXP);
+extern SEXP autothresholdr_median_pillars(SEXP);
 extern SEXP autothresholdr_RcppExport_registerCCallable();
-extern SEXP autothresholdr_VarPillars(SEXP);
+extern SEXP autothresholdr_var_pillars(SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
-  {"autothresholdr_MeanPillars",                  (DL_FUNC) &autothresholdr_MeanPillars,                  1},
-  {"autothresholdr_MedianPillars",                (DL_FUNC) &autothresholdr_MedianPillars,                1},
+  {"autothresholdr_mean_pillars",                 (DL_FUNC) &autothresholdr_mean_pillars,                 1},
+  {"autothresholdr_median_pillars",               (DL_FUNC) &autothresholdr_median_pillars,               1},
   {"autothresholdr_RcppExport_registerCCallable", (DL_FUNC) &autothresholdr_RcppExport_registerCCallable, 0},
-  {"autothresholdr_VarPillars",                   (DL_FUNC) &autothresholdr_VarPillars,                   1},
+  {"autothresholdr_var_pillars",                  (DL_FUNC) &autothresholdr_var_pillars,                  1},
   {NULL, NULL, 0}
 };
 

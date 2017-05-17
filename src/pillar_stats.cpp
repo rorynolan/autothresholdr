@@ -5,25 +5,25 @@ using namespace Rcpp;
 
 //' Get the means/medians/variances of pillars of a 3d array
 //'
-//' For a 3-dimensional array \code{mat3d}, pillar \code{ij} is defined as
-//' \code{mat3d[i, j, ]}. These functions compute the mean, median and variance of each
+//' For a 3-dimensional array \code{arr3d}, pillar \code{ij} is defined as
+//' \code{arr3d[i, j, ]}. These functions compute the mean, median and variance of each
 //' pillar.
 //'
-//' @param mat3d A 3-dimensional array.
+//' @param arr3d A 3-dimensional array.
 //'
-//' @return A matrix where element \code{i,j} is equal to \code{mean(mat3d[i, j, ])},
-//' \code{median(mat3d[i, j, ])}, or \code{var(mat3d[i, j, ])}.
+//' @return A matrix where element \code{i,j} is equal to \code{mean(arr3d[i, j, ])},
+//' \code{median(arr3d[i, j, ])}, or \code{var(arr3d[i, j, ])}.
 //'
 //' @examples
 //' m3 <- array(1:16, dim = c(2, 2, 4))
-//' MeanPillars(m3)
-//' MedianPillars(m3)
-//' VarPillars(m3)
+//' mean_pillars(m3)
+//' median_pillars(m3)
+//' var_pillars(m3)
 //'
 //' @export
 // [[Rcpp::export]]
-NumericMatrix MeanPillars(NumericVector mat3d) {
-  IntegerVector dim = mat3d.attr("dim");
+NumericMatrix mean_pillars(NumericVector arr3d) {
+  IntegerVector dim = arr3d.attr("dim");
   int n_pillars = dim[0] * dim[1];
   int pillar_len = dim[2];
   NumericMatrix means(dim[0], dim[1]);
@@ -31,7 +31,7 @@ NumericMatrix MeanPillars(NumericVector mat3d) {
   NumericVector pillar_i(pillar_len);
   for (int i = 0; i < n_pillars; i++) {
     for (int j = 0; j < pillar_len; j++) {
-      pillar_i[j] = mat3d[i + j * n_pillars];
+      pillar_i[j] = arr3d[i + j * n_pillars];
     }
     mean_i = mean(pillar_i);
     means(i % dim[0], i / dim[0]) = mean_i;
@@ -39,11 +39,11 @@ NumericMatrix MeanPillars(NumericVector mat3d) {
   return means;
 }
 
-//' @rdname MeanPillars
+//' @rdname mean_pillars
 //' @export
 // [[Rcpp::export]]
-NumericMatrix VarPillars(NumericVector mat3d) {
-  IntegerVector dim = mat3d.attr("dim");
+NumericMatrix var_pillars(NumericVector arr3d) {
+  IntegerVector dim = arr3d.attr("dim");
   int n_pillars = dim[0] * dim[1];
   int pillar_len = dim[2];
   NumericMatrix vars(dim[0], dim[1]);
@@ -51,7 +51,7 @@ NumericMatrix VarPillars(NumericVector mat3d) {
   NumericVector pillar_i(pillar_len);
   for (int i = 0; i < n_pillars; i++) {
     for (int j = 0; j < pillar_len; j++) {
-      pillar_i[j] = mat3d[i + j * n_pillars];
+      pillar_i[j] = arr3d[i + j * n_pillars];
     }
     var_i = var(pillar_i);
     vars(i % dim[0], i / dim[0]) = var_i;
@@ -59,11 +59,11 @@ NumericMatrix VarPillars(NumericVector mat3d) {
   return vars;
 }
 
-//' @rdname MeanPillars
+//' @rdname mean_pillars
 //' @export
 // [[Rcpp::export]]
-NumericMatrix MedianPillars(NumericVector mat3d) {
-  IntegerVector dim = mat3d.attr("dim");
+NumericMatrix median_pillars(NumericVector arr3d) {
+  IntegerVector dim = arr3d.attr("dim");
   int n_pillars = dim[0] * dim[1];
   int pillar_len = dim[2];
   NumericMatrix meds(dim[0], dim[1]);
@@ -71,7 +71,7 @@ NumericMatrix MedianPillars(NumericVector mat3d) {
   NumericVector pillar_i(pillar_len);
   for (int i = 0; i < n_pillars; i++) {
     for (int j = 0; j < pillar_len; j++) {
-      pillar_i[j] = mat3d[i + j * n_pillars];
+      pillar_i[j] = arr3d[i + j * n_pillars];
     }
     med_i = median(pillar_i);
     meds(i % dim[0], i / dim[0]) = med_i;

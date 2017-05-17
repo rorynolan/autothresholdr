@@ -1,4 +1,4 @@
-#' @useDynLib autothresholdr
+#' @useDynLib autothresholdr, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 #' @importFrom magrittr '%>%' '%T>%'
 #' @importFrom EBImage readImage
