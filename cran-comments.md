@@ -8,5 +8,4 @@
 0 errors | 0 warnings | 0 notes
 
 ## Reverse Dependencies
-`devtools::revdep_check()` was run and found no problems.
-Results at https::github.com/rorynolan/filesstrings/tree/master/revdep
+The one reverse dependency is maintained by me and an update to it to make it compatible with this release of `autothresholdr` is imminent.
