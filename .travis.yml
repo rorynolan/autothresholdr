@@ -16,8 +16,9 @@ apt_packages:
   - default-jre
   - default-jdk
   - libboost-all-dev
-  - oracle-java8-set-default
 
+before_install:
+  - jdk_switcher use oraclejdk8
 
 after_success:
   - Rscript -e 'covr::codecov(function_exclusions = "^\\.onLoad$")'
