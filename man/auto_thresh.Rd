@@ -6,13 +6,13 @@
 \alias{auto_thresh_apply_mask}
 \title{Automatically threshold an image.}
 \usage{
-auto_thresh(int_arr, method, ignore.black = FALSE, ignore.white = FALSE)
+auto_thresh(int_arr, method, ignore_black = FALSE, ignore_white = FALSE)
 
-auto_thresh_mask(int_arr, method, ignore.black = FALSE,
-  ignore.white = FALSE)
+auto_thresh_mask(int_arr, method, ignore_black = FALSE,
+  ignore_white = FALSE)
 
-auto_thresh_apply_mask(int_arr, method, fail = NA, ignore.black = FALSE,
-  ignore.white = FALSE)
+auto_thresh_apply_mask(int_arr, method, fail = NA, ignore_black = FALSE,
+  ignore_white = FALSE)
 }
 \arguments{
 \item{int_arr}{An array (or vector) of \emph{integers}.}
@@ -24,10 +24,10 @@ and \code{method = "in"} is enough to get you "Intermodes". To perform
 the threshold here as a number e.g. `method = 3`. So note that this would
 \emph{not} select the third method in the above list of methods.}
 
-\item{ignore.black}{Ignore black pixels/elements (zeros) when performing the
+\item{ignore_black}{Ignore black pixels/elements (zeros) when performing the
 thresholding?}
 
-\item{ignore.white}{Ignore white pixels when performing the thresholding? If
+\item{ignore_white}{Ignore white pixels when performing the thresholding? If
 set to \code{TRUE}, the function makes a good guess as to what the white
 (saturated) value would be (see "Details"). If this is set to a number, all
 pixels with value greater than or equal to that number are ignored.}
@@ -52,22 +52,22 @@ wish to set the pixels which fail to exceed the threshold.}
 }
 \description{
 These functions apply the ImageJ "Auto Threshold" plugin's image thresholding
-methods. The available methods are "IJDefault", "Huang", "Intermodes",
-"IsoData", "Li", "MaxEntropy", "Mean", "MinErrorI", "Minimum", "Moments",
-"Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle", "Yen". Read
-about them at \url{http://imagej.net/Auto_Threshold}.
+methods. The available methods are "IJDefault", "Huang", "Huang2",
+"Intermodes", "IsoData", "Li", "MaxEntropy", "Mean", "MinErrorI", "Minimum",
+"Moments", "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle",
+"Yen". Read about them at \url{http://imagej.net/Auto_Threshold}.
 }
 \details{
 \itemize{ \item{\code{NA} values are automatically ignored.} \item{For
-\code{ignore.white = TRUE}, if the maximum value in the array is one of
+\code{ignore_white = TRUE}, if the maximum value in the array is one of
 \code{2^8-1}, \code{2^12-1}, \code{2^16-1} or \code{2^32-1}, then those max
 values are ignored. That's because they're the white values in 8, 12, 16 and
 32-bit images respectively (and these are the common image bit sizes to work
 with). This guesswork has to be done because \code{R} does not know how many
 bits the image was on disk. This guess is very unlikely to be wrong, and if
 it is, the consequences are negligible anyway. If you're very concerned, then
-just specify the max value in the \code{ignore.white} argument.} \item{If you
-have set \code{ignore.black = TRUE} and/or \code{ignore.white = TRUE} but you
+just specify the max value in the \code{ignore_white} argument.} \item{If you
+have set \code{ignore_black = TRUE} and/or \code{ignore_white = TRUE} but you
 are still getting error/warning messages telling you to try them, then your
 chosen method is not working for the given array, so you should try a
 different method.} }
@@ -79,14 +79,14 @@ different method.} }
 
 \examples{
 img <- EBImage::readImage(system.file("extdata", "eg.tif",
-package = "autothresholdr"), as.is = TRUE)
-auto_thresh(img, "h")
+                          package = "autothresholdr"), as.is = TRUE)
+auto_thresh(img, "huang")
 auto_thresh(img, "tri")
 auto_thresh(img, "Otsu")
 auto_thresh(img, 9)
-mask <- auto_thresh_mask(img, "h")
+mask <- auto_thresh_mask(img, "huang")
 EBImage::display(mask, method = "r")
-masked <- auto_thresh_apply_mask(img, "h")
+masked <- auto_thresh_apply_mask(img, "huang")
 EBImage::display(EBImage::normalize(masked), method = "r")
 masked <- auto_thresh_apply_mask(img, 25)
 EBImage::display(EBImage::normalize(masked), method = "r")

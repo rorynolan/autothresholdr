@@ -8,6 +8,36 @@
 
 using namespace Rcpp;
 
+// sum_pillars
+NumericMatrix sum_pillars(NumericVector arr3d);
+static SEXP autothresholdr_sum_pillars_try(SEXP arr3dSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type arr3d(arr3dSEXP);
+    rcpp_result_gen = Rcpp::wrap(sum_pillars(arr3d));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP autothresholdr_sum_pillars(SEXP arr3dSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(autothresholdr_sum_pillars_try(arr3dSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 // mean_pillars
 NumericMatrix mean_pillars(NumericVector arr3d);
 static SEXP autothresholdr_mean_pillars_try(SEXP arr3dSEXP) {
@@ -103,6 +133,7 @@ RcppExport SEXP autothresholdr_median_pillars(SEXP arr3dSEXP) {
 static int autothresholdr_RcppExport_validate(const char* sig) { 
     static std::set<std::string> signatures;
     if (signatures.empty()) {
+        signatures.insert("NumericMatrix(*sum_pillars)(NumericVector)");
         signatures.insert("NumericMatrix(*mean_pillars)(NumericVector)");
         signatures.insert("NumericMatrix(*var_pillars)(NumericVector)");
         signatures.insert("NumericMatrix(*median_pillars)(NumericVector)");
@@ -112,9 +143,24 @@ static int autothresholdr_RcppExport_validate(const char* sig) {
 
 // registerCCallable (register entry points for exported C++ functions)
 RcppExport SEXP autothresholdr_RcppExport_registerCCallable() { 
+    R_RegisterCCallable("autothresholdr", "autothresholdr_sum_pillars", (DL_FUNC)autothresholdr_sum_pillars_try);
     R_RegisterCCallable("autothresholdr", "autothresholdr_mean_pillars", (DL_FUNC)autothresholdr_mean_pillars_try);
     R_RegisterCCallable("autothresholdr", "autothresholdr_var_pillars", (DL_FUNC)autothresholdr_var_pillars_try);
     R_RegisterCCallable("autothresholdr", "autothresholdr_median_pillars", (DL_FUNC)autothresholdr_median_pillars_try);
     R_RegisterCCallable("autothresholdr", "autothresholdr_RcppExport_validate", (DL_FUNC)autothresholdr_RcppExport_validate);
     return R_NilValue;
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"autothresholdr_sum_pillars", (DL_FUNC) &autothresholdr_sum_pillars, 1},
+    {"autothresholdr_mean_pillars", (DL_FUNC) &autothresholdr_mean_pillars, 1},
+    {"autothresholdr_var_pillars", (DL_FUNC) &autothresholdr_var_pillars, 1},
+    {"autothresholdr_median_pillars", (DL_FUNC) &autothresholdr_median_pillars, 1},
+    {"autothresholdr_RcppExport_registerCCallable", (DL_FUNC) &autothresholdr_RcppExport_registerCCallable, 0},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_autothresholdr(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }

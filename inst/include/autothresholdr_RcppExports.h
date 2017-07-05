@@ -24,6 +24,25 @@ namespace autothresholdr {
         }
     }
 
+    inline NumericMatrix sum_pillars(NumericVector arr3d) {
+        typedef SEXP(*Ptr_sum_pillars)(SEXP);
+        static Ptr_sum_pillars p_sum_pillars = NULL;
+        if (p_sum_pillars == NULL) {
+            validateSignature("NumericMatrix(*sum_pillars)(NumericVector)");
+            p_sum_pillars = (Ptr_sum_pillars)R_GetCCallable("autothresholdr", "autothresholdr_sum_pillars");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_sum_pillars(Rcpp::wrap(arr3d));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<NumericMatrix >(rcpp_result_gen);
+    }
+
     inline NumericMatrix mean_pillars(NumericVector arr3d) {
         typedef SEXP(*Ptr_mean_pillars)(SEXP);
         static Ptr_mean_pillars p_mean_pillars = NULL;

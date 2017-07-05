@@ -1,21 +1,21 @@
 #' Automatically threshold an image.
 #'
 #' These functions apply the ImageJ "Auto Threshold" plugin's image thresholding
-#' methods. The available methods are "IJDefault", "Huang", "Intermodes",
-#' "IsoData", "Li", "MaxEntropy", "Mean", "MinErrorI", "Minimum", "Moments",
-#' "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle", "Yen". Read
-#' about them at \url{http://imagej.net/Auto_Threshold}.
+#' methods. The available methods are "IJDefault", "Huang", "Huang2",
+#' "Intermodes", "IsoData", "Li", "MaxEntropy", "Mean", "MinErrorI", "Minimum",
+#' "Moments", "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle",
+#' "Yen". Read about them at \url{http://imagej.net/Auto_Threshold}.
 #'
 #' \itemize{ \item{\code{NA} values are automatically ignored.} \item{For
-#' \code{ignore.white = TRUE}, if the maximum value in the array is one of
+#' \code{ignore_white = TRUE}, if the maximum value in the array is one of
 #' \code{2^8-1}, \code{2^12-1}, \code{2^16-1} or \code{2^32-1}, then those max
 #' values are ignored. That's because they're the white values in 8, 12, 16 and
 #' 32-bit images respectively (and these are the common image bit sizes to work
 #' with). This guesswork has to be done because \code{R} does not know how many
 #' bits the image was on disk. This guess is very unlikely to be wrong, and if
 #' it is, the consequences are negligible anyway. If you're very concerned, then
-#' just specify the max value in the \code{ignore.white} argument.} \item{If you
-#' have set \code{ignore.black = TRUE} and/or \code{ignore.white = TRUE} but you
+#' just specify the max value in the \code{ignore_white} argument.} \item{If you
+#' have set \code{ignore_black = TRUE} and/or \code{ignore_white = TRUE} but you
 #' are still getting error/warning messages telling you to try them, then your
 #' chosen method is not working for the given array, so you should try a
 #' different method.} }
@@ -27,9 +27,9 @@
 #'   \emph{manual} thresholding (where you set the threshold yourself), supply
 #'   the threshold here as a number e.g. `method = 3`. So note that this would
 #'   \emph{not} select the third method in the above list of methods.
-#' @param ignore.black Ignore black pixels/elements (zeros) when performing the
+#' @param ignore_black Ignore black pixels/elements (zeros) when performing the
 #'   thresholding?
-#' @param ignore.white Ignore white pixels when performing the thresholding? If
+#' @param ignore_white Ignore white pixels when performing the thresholding? If
 #'   set to \code{TRUE}, the function makes a good guess as to what the white
 #'   (saturated) value would be (see "Details"). If this is set to a number, all
 #'   pixels with value greater than or equal to that number are ignored.
@@ -95,39 +95,42 @@
 #'
 #' @examples
 #' img <- EBImage::readImage(system.file("extdata", "eg.tif",
-#' package = "autothresholdr"), as.is = TRUE)
-#' auto_thresh(img, "h")
+#'                           package = "autothresholdr"), as.is = TRUE)
+#' auto_thresh(img, "huang")
 #' auto_thresh(img, "tri")
 #' auto_thresh(img, "Otsu")
 #' auto_thresh(img, 9)
-#' mask <- auto_thresh_mask(img, "h")
+#' mask <- auto_thresh_mask(img, "huang")
 #' EBImage::display(mask, method = "r")
-#' masked <- auto_thresh_apply_mask(img, "h")
+#' masked <- auto_thresh_apply_mask(img, "huang")
 #' EBImage::display(EBImage::normalize(masked), method = "r")
 #' masked <- auto_thresh_apply_mask(img, 25)
 #' EBImage::display(EBImage::normalize(masked), method = "r")
 #' @export
 auto_thresh <- function(int_arr, method,
-                        ignore.black = FALSE, ignore.white = FALSE) {
+                        ignore_black = FALSE, ignore_white = FALSE) {
   stopifnot(length(method) == 1)
   if (is.numeric(method)) return(method)
-  available_methods <- c("IJDefault", "Huang", "Intermodes", "IsoData", "Li",
-                         "MaxEntropy", "Mean", "MinErrorI", "Minimum",
-                         "Moments", "Otsu", "Percentile", "RenyiEntropy",
-                         "Shanbhag", "Triangle", "Yen")
+  method <- tolower(method)
+  if (startsWith("default", method)) method <- "IJDefault"
+  if (startsWith("huang", method)) method <- "Huang"
+  available_methods <- c("IJDefault", "Huang", "Huang2", "Intermodes",
+                         "IsoData", "Li", "MaxEntropy", "Mean", "MinErrorI",
+                         "Minimum", "Moments", "Otsu", "Percentile",
+                         "RenyiEntropy", "Shanbhag", "Triangle", "Yen")
   method <- RSAGA::match.arg.ext(method, available_methods,
                                  ignore.case = TRUE, numeric = TRUE) %>%
                                  {available_methods[.]}
   if ((!CanBeInteger(int_arr)) || any(int_arr < 0, na.rm = TRUE)) {
     stop("int_arr must be a matrix of non-negative integers.")
   }
-  if (ignore.black) int_arr[int_arr == 0] <- NA
-  if (ignore.white) {
-    if (isTRUE(ignore.white)) {
+  if (ignore_black) int_arr[int_arr == 0] <- NA
+  if (ignore_white) {
+    if (isTRUE(ignore_white)) {
       mx <- max(int_arr)
       if (mx %in% (2 ^ c(8, 12, 16, 32) - 1)) int_arr[int_arr == mx] <- NA
     } else {
-      int_arr[int_arr >= ignore.white] <- NA
+      int_arr[int_arr >= ignore_white] <- NA
     }
   }
   rim <- range(int_arr, na.rm = TRUE)
@@ -144,9 +147,9 @@ auto_thresh <- function(int_arr, method,
 #' @rdname auto_thresh
 #' @export
 auto_thresh_mask <- function(int_arr, method,
-                             ignore.black = FALSE, ignore.white = FALSE) {
+                             ignore_black = FALSE, ignore_white = FALSE) {
   thresh <- auto_thresh(int_arr, method,
-              ignore.black = ignore.black, ignore.white = ignore.white)
+                        ignore_black = ignore_black, ignore_white = ignore_white)
   mask <- int_arr > thresh
   attr(mask, "threshold") <- thresh
   mask
@@ -155,9 +158,9 @@ auto_thresh_mask <- function(int_arr, method,
 #' @rdname auto_thresh
 #' @export
 auto_thresh_apply_mask <- function(int_arr, method, fail = NA,
-                                   ignore.black = FALSE, ignore.white = FALSE) {
+                                   ignore_black = FALSE, ignore_white = FALSE) {
   mask <- auto_thresh_mask(int_arr, method,
-            ignore.black = ignore.black, ignore.white = ignore.white)
+                           ignore_black = ignore_black, ignore_white = ignore_white)
   int_arr[!mask] <- fail
   attr(int_arr, "threshold") <- attr(mask, "threshold")
   int_arr

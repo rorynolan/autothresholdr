@@ -13,7 +13,7 @@ citEntry(entry = "Article",
   pages        = "185--195",
 
   textVersion  =
-  paste("G. Landini, D.A. Randell, S. Fouad, and A. Galton",
+  paste("G. Landini, D.A. Randell, S. Fouad, and A. Galton.",
         "Automatic thresholding from the gradients of region boundaries.",
         "Journal of Microscopy, 265(2), 185-195.")
 )

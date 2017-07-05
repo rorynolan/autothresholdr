@@ -19,8 +19,8 @@ library(magrittr)
 We'll be using the image that comes with the package:
 ```{r the image}
 img <- imageData(readImage(system.file("extdata", "eg.tif", 
-                                       package = "autothresholdr"), 
-                           as.is = TRUE))
+                                           package = "autothresholdr"), 
+                              as.is = TRUE))
 display(normalize(img), method = "r")
 ```
 
@@ -37,9 +37,9 @@ The function `auto_thresh` finds the threshold, `auto_thresh_mask` gets the mask
 Let's see each with Huang thresholding.
 
 ```{r thresh mask apply}
-auto_thresh(img, "h")
-auto_thresh_mask(img, "h") %>% display(method = "r")
-auto_thresh_apply_mask(img, "h") %>% normalize %>%  display(method = "r")
+auto_thresh(img, "huang")
+auto_thresh_mask(img, "huang") %>% display(method = "r")
+auto_thresh_apply_mask(img, "huang") %>% normalize %>%  display(method = "r")
 ```
 
 In this last image, the `NA` pixels are greyed.
@@ -48,11 +48,11 @@ In this last image, the `NA` pixels are greyed.
 We can do the same thing with an image stack.
 ```{r the image stack}
 img <- imageData(readImage(system.file("extdata", "50.tif", 
-                                       package = "autothresholdr"), 
-                           as.is = TRUE))
+                                           package = "autothresholdr"), 
+                              as.is = TRUE))
 display(normalize(img), method = "r")
-mean_stack_thresh(img, "h") %>% normalize %>%  display(method = "r")
-med_stack_thresh(img, "h") %>% normalize %>%  display(method = "r")
+mean_stack_thresh(img, "tri") %>% normalize %>%  display(method = "r")
+med_stack_thresh(img, "tri") %>% normalize %>%  display(method = "r")
 ```
 
 These are indeed (on close inspection) slightly different.

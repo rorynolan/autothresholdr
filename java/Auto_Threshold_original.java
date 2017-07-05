@@ -4,34 +4,45 @@ import ij.ImagePlus;
 import ij.ImageStack;
 import ij.Undo;
 import ij.gui.GenericDialog;
+import ij.gui.NewImage;
+import ij.gui.OvalRoi;
+import ij.gui.Roi;
 import ij.gui.YesNoCancelDialog;
 import ij.plugin.CanvasResizer;
+import ij.plugin.ContrastEnhancer;
 import ij.plugin.MontageMaker;
 import ij.plugin.PlugIn;
+import ij.plugin.filter.RankFilters;
+import ij.process.Blitter;
+import ij.process.ImageConverter;
 import ij.process.ImageProcessor;
 import ij.process.StackConverter;
 
-// Autothreshold segmentation 
+// Autothreshold segmentation
 // Following the guidelines at http://fiji.sc/wiki/index.php/PlugIn_Design_Guidelines
 // ImageJ plugin by G. Landini at bham. ac. uk
 // 1.0  never released
 // 1.1  2009/Apr/08 Undo single images, fixed the stack returning to slice 1
 // 1.2  2009/Apr/11 global stack threshold, option to avoid displaying, fixed the stack returning to slice 1, fixed upper border of montage,
 // 1.3  2009/Apr/11 fixed Stack option with 'Try all' method
-// 1.4  2009/Apr/11 fixed 'ignore black' and 'ignore white' for stack histograms       
-// 1.5  2009/Apr/12 Mean method, MinimumErrorIterative method , enahanced Triangle 
+// 1.4  2009/Apr/11 fixed 'ignore black' and 'ignore white' for stack histograms
+// 1.5  2009/Apr/12 Mean method, MinimumErrorIterative method , enahanced Triangle
 // 1.6  2009/Apr/14 Reverted IsoData to a copy of IJ's code as the other version does not always return the same value as IJ
 // 1.7  2009/Apr/14 small fixes, restore histogram in Triangle if reversed
 // 1.8  2009/Jun/01 Set the threshold to foreground colour
 // 1.9  2009/Oct/30 report both isodata and IJ's default methods
-// 1.10 2010/May/25 We are a package! 
-// 1.10 2011/Jan/31 J. Schindelin added support for 16 bit images and speedup of the Huang method 
-// 1.11 2011/Mar/31 Alex Herbert submitted a patch to threshold the stack from any slice position 
+// 1.10 2010/May/25 We are a package!
+// 1.10 2011/Jan/31 J. Schindelin added support for 16 bit images and speedup of the Huang method
+// 1.11 2011/Mar/31 Alex Herbert submitted a patch to threshold the stack from any slice position
 // 1.12 2011/Apr/09 Fixed: Minimum with 16bit images (search data range only), setting threshold without applying the mask, Yen and Isodata with 16 bits offset images, histogram bracketing to speed up
 // 1.13 2011/Apr/13 Revised the way 16bit thresholds are shown
 // 1.14 2011/Apr/14 IsoData issues a warning if threhsold not found
-// 1.15 2013/Feb/19 Added 'break' in the minimum method for cases where there is a constant histogram after the 2nd peaks
-// 1.16 2016/Jul/14 Fixed temporary array in Minimum method (thanks to FiReTiTi @ github)
+// 1.15 2013/Feb/19 Added 'break' in the minimum method for cases where there is a constant histogram after the 2nd peak
+// 1.16 2016/Jul/13 Fixed temporary array in Minimum method (thanks to FiReTiTi @ github) https://github.com/imagej/imagej/issues/144#issuecomment-232286897
+// 1.17 2017/May/22 Reinstated original Huang's method so it matches ImageJ.
+//                  Renamed Johannes Schindelin's very fast version of Huang method as Huang2 (it does not return the same values as the original)
+//                  Replaced Otsu's method with Emre Celebi's code (Fourier library) because previous code could cause an overflow in some 16bit images
+//                  Fixed a 16 bit overflow in the Mean method computation
 
 public class Auto_Threshold implements PlugIn {
         /** Ask for parameters and then execute.*/
@@ -44,25 +55,22 @@ public class Auto_Threshold implements PlugIn {
 			return;
 		}
 
+		//if (imp.getBitDepth()!=8) {//
 		if (imp.getBitDepth()!=8 && imp.getBitDepth()!=16) {
-			IJ.showMessage("Error", "Only 8-bit and 16-bit images are supported");
+			IJ.showMessage("Error", "Only 8 and 16-bit images are currently supported.");
 			return;
 		}
 
 		 // 2 - Ask for parameters:
 		GenericDialog gd = new GenericDialog("Auto Threshold");
-//		String [] methods={"Bernsen", "Huang", "Intermodes", "IsoData",  "Li", "MaxEntropy", "MinError", "Minimum", "Moments", "Niblack", "Otsu", "Percentile", "RenyiEntropy", "Sauvola", "Shanbhag" , "Triangle", "Yen"};
-		final Package p = getClass().getPackage();
-		final String version = p == null ? null : p.getImplementationVersion();
-		final String versionSuffix = version == null ? "" : " v" + version;
-		gd.addMessage("Auto Threshold" + versionSuffix);
-		String [] methods={"Try all", "Default", "Huang", "Intermodes", "IsoData",  "Li", "MaxEntropy","Mean", "MinError(I)", "Minimum", "Moments", "Otsu", "Percentile", "RenyiEntropy", "Shanbhag" , "Triangle", "Yen"};
+		gd.addMessage("Auto Threshold v1.17");
+		String [] methods={"Try all", "Default", "Huang", "Huang2", "Intermodes", "IsoData",  "Li", "MaxEntropy","Mean", "MinError(I)", "Minimum", "Moments", "Otsu", "Percentile", "RenyiEntropy", "Shanbhag" , "Triangle", "Yen"};
 		gd.addChoice("Method", methods, methods[0]);
 		String[] labels = new String[2];
 		boolean[] states = new boolean[2];
-		labels[0]="Ignore_black"; 
+		labels[0]="Ignore_black";
 		states[0]=false;
-		labels[1]="Ignore_white"; 
+		labels[1]="Ignore_white";
 		states[1]=false;
 		gd.addCheckboxGroup(1, 2, labels, states);
 		gd.addCheckbox("White objects on black background",true);
@@ -72,11 +80,11 @@ public class Auto_Threshold implements PlugIn {
 			gd.addCheckbox("Stack",false);
 			gd.addCheckbox("Use_stack_histogram",false);
 		}
-		gd.addMessage("The thresholded result of 8 & 16 bit images is shown\nin white [255] in 8 bits.\nFor 16 bit images, results of \'Try all\' and single slices\nof a stack are shown in white [65535] in 16 bits.\nUnsuccessfully thresholded images are left unchanged.");
+		gd.addMessage("The thresholded result of 8 bit images is shown\nin white [255] in 8 bits.\nFor 16 bit images (support still experimental), results\nof \'Try all\' and single slices of a stack are shown in\nwhite [65535] in 16 bits.\nUnsuccessfully thresholded images are left unchanged.");
 
 		gd.showDialog();
 		if (gd.wasCanceled()) return;
- 
+
 		// 3 - Retrieve parameters from the dialog
 		String myMethod= gd.getNextChoice ();
 		boolean noBlack = gd.getNextBoolean ();
@@ -84,7 +92,7 @@ public class Auto_Threshold implements PlugIn {
 		boolean doIwhite = gd.getNextBoolean ();
 		boolean doIset = gd.getNextBoolean ();
 		boolean doIlog = gd.getNextBoolean ();
-		boolean doIstack=false; 
+		boolean doIstack=false;
 		boolean doIstackHistogram=false;
 
 		int stackSize = imp.getStackSize();
@@ -191,7 +199,7 @@ public class Auto_Threshold implements PlugIn {
 				imp3 = new ImagePlus("Auto Threshold", stackNew);
 				imp3.updateAndDraw();
 				MontageMaker mm= new MontageMaker();
-				mm.makeMontage( imp3, 4, 4, 1.0, 1, (ml-1), 1, 0, true); // 4 columns and 4 rows
+				mm.makeMontage( imp3, 5, 4, 1.0, 1, (ml-1), 1, 0, true); // 4 columns and 4 rows
 				return;
 			}
 		}
@@ -218,7 +226,7 @@ public class Auto_Threshold implements PlugIn {
 			else { //just one slice, leave as it is
 				Object[] result = exec(imp, myMethod, noWhite, noBlack, doIwhite, doIset, doIlog, doIstackHistogram );
 				if(((Integer) result[0]) != -1 && stackSize==1 &&  imp.getBitDepth()==16) {
-					imp.setDisplayRange(0, 65535);  
+					imp.setDisplayRange(0, 65535);
 					imp.setProcessor(null, imp.getProcessor().convertToByte(true));
 				}
 			}
@@ -301,6 +309,9 @@ public class Auto_Threshold implements PlugIn {
 		else if(myMethod.equals("Huang")){
 			threshold =  Huang(data2);
 		}
+		else if(myMethod.equals("Huang2")){
+			threshold =  Huang2(data2);
+		}
 		else if(myMethod.equals("Intermodes")){
 			threshold = Intermodes(data2);
 		}
@@ -338,7 +349,7 @@ public class Auto_Threshold implements PlugIn {
 			threshold = Shanbhag(data2);
 		}
 		else if(myMethod.equals("Triangle")){
-			threshold = Triangle(data2); 
+			threshold = Triangle(data2);
 		}
 		else if(myMethod.equals("Yen")){
 			threshold = Yen(data2);
@@ -348,16 +359,16 @@ public class Auto_Threshold implements PlugIn {
 
 		// show treshold in log window if required
 		if (doIlog) IJ.log(myMethod+": "+threshold);
-		if (threshold>-1) { 
+		if (threshold>-1) {
 			//threshold it
 			if (doIset){
-				if (doIwhite) 
+				if (doIwhite)
 					imp.getProcessor().setThreshold(threshold+1, data.length - 1, ImageProcessor.RED_LUT);//IJ.setThreshold(threshold+1, data.length - 1);
 				else
 					imp.getProcessor().setThreshold(0, threshold, ImageProcessor.RED_LUT);//IJ.setThreshold(0,threshold);
 			}
 			else{
-				imp.setDisplayRange(0, Math.max(b,c)); //otherwise we can never set the threshold 
+				imp.setDisplayRange(0, Math.max(b,c)); //otherwise we can never set the threshold
 				if( doIstackHistogram) {
 					for(int j=1; j<=imp.getStackSize(); j++) {
 						imp.setSlice(j);
@@ -397,7 +408,7 @@ public class Auto_Threshold implements PlugIn {
 		int level;
 		int maxValue = data.length - 1;
 		double result, sum1, sum2, sum3, sum4;
-		
+
 		int min = 0;
 		while ((data[min]==0) && (min<maxValue))
 			min++;
@@ -408,7 +419,7 @@ public class Auto_Threshold implements PlugIn {
 			level = data.length/2;
 			return level;
 		}
-		
+
 		int movingIndex = min;
 		int inc = Math.max(max/40, 1);
 		do {
@@ -420,20 +431,106 @@ public class Auto_Threshold implements PlugIn {
 			for (int i=(movingIndex+1); i<=max; i++) {
 				sum3 += i*data[i];
 				sum4 += data[i];
-			}			
+			}
 			result = (sum1/sum2 + sum3/sum4)/2.0;
 			movingIndex++;
 		} while ((movingIndex+1)<=result && movingIndex<max-1);
-		
+
 		//.showProgress(1.0);
 		level = (int)Math.round(result);
 		return level;
 	}
 
 	public static int Huang(int [] data ) {
-		// Implements Huang's fuzzy thresholding method 
-		// Uses Shannon's entropy function (one can also use Yager's entropy function) 
-		// Huang L.-K. and Wang M.-J.J. (1995) "Image Thresholding by Minimizing  
+ 		// Implements Huang's fuzzy thresholding method
+ 		// Uses Shannon's entropy function (one can also use Yager's entropy function)
+ 		// Huang L.-K. and Wang M.-J.J. (1995) "Image Thresholding by Minimizing
+ 		// the Measures of Fuzziness" Pattern Recognition, 28(1): 41-51
+		// M. Emre Celebi  06.15.2007
+		// Ported to ImageJ plugin by G. Landini from E Celebi's fourier_0.8 routines
+		int threshold=-1;
+		int ih, it;
+		int first_bin;
+		int last_bin;
+		int sum_pix;
+		int num_pix;
+		double term;
+		double ent;  // entropy
+		double min_ent; // min entropy
+		double mu_x;
+
+		/* Determine the first non-zero bin */
+		first_bin=0;
+		for (ih = 0; ih < data.length; ih++ ) {
+			if ( data[ih] != 0 ) {
+				first_bin = ih;
+				break;
+			}
+		}
+
+		/* Determine the last non-zero bin */
+		last_bin=data.length - 1;
+		for (ih = data.length - 1; ih >= first_bin; ih-- ) {
+			if ( data[ih] != 0 ) {
+				last_bin = ih;
+				break;
+ 			}
+ 		}
+		term = 1.0 / ( double ) ( last_bin - first_bin );
+		double [] mu_0 = new double[data.length];
+		sum_pix = num_pix = 0;
+		for ( ih = first_bin; ih < data.length; ih++ ){
+			sum_pix += ih * data[ih];
+			num_pix += data[ih];
+			/* NUM_PIX cannot be zero ! */
+			mu_0[ih] = sum_pix / ( double ) num_pix;
+		}
+
+		double [] mu_1 = new double[data.length];
+		sum_pix = num_pix = 0;
+		for ( ih = last_bin; ih > 0; ih-- ){
+			sum_pix += ih * data[ih];
+			num_pix += data[ih];
+			/* NUM_PIX cannot be zero ! */
+			mu_1[ih - 1] = sum_pix / ( double ) num_pix;
+		}
+
+		/* Determine the threshold that minimizes the fuzzy entropy */
+		threshold = -1;
+		min_ent = Double.MAX_VALUE;
+		for ( it = 0; it < data.length; it++ ){
+			ent = 0.0;
+			for ( ih = 0; ih <= it; ih++ ) {
+				/* Equation (4) in Ref. 1 */
+				mu_x = 1.0 / ( 1.0 + term * Math.abs ( ih - mu_0[it] ) );
+				if ( !((mu_x  < 1e-06 ) || ( mu_x > 0.999999))) {
+					/* Equation (6) & (8) in Ref. 1 */
+					ent += data[ih] * ( -mu_x * Math.log ( mu_x ) - ( 1.0 - mu_x ) * Math.log ( 1.0 - mu_x ) );
+				}
+			}
+
+			for ( ih = it + 1; ih < data.length; ih++ ) {
+				/* Equation (4) in Ref. 1 */
+				mu_x = 1.0 / ( 1.0 + term * Math.abs ( ih - mu_1[it] ) );
+				if ( !((mu_x  < 1e-06 ) || ( mu_x > 0.999999))) {
+					/* Equation (6) & (8) in Ref. 1 */
+					ent += data[ih] * ( -mu_x * Math.log ( mu_x ) - ( 1.0 - mu_x ) * Math.log ( 1.0 - mu_x ) );
+				}
+			}
+			/* No need to divide by NUM_ROWS * NUM_COLS * LOG(2) ! */
+			if ( ent < min_ent ) {
+				min_ent = ent;
+				threshold = it;
+			}
+		}
+		return threshold;
+	}
+
+
+	public static int Huang2(int [] data ) {
+		// Implements Huang's fuzzy thresholding method
+		// Uses Shannon's entropy function (one can also use Yager's entropy function)
+		// Huang L.-K. and Wang M.-J.J. (1995) "Image Thresholding by Minimizing
 		// the Measures of Fuzziness" Pattern Recognition, 28(1): 41-51
 		// Reimplemented (to handle 16-bit efficiently) by Johannes Schindelin Jan 31, 2011
 
@@ -487,7 +584,7 @@ public class Auto_Threshold implements PlugIn {
 		int len=y.length;
 		boolean b = false;
 		int modes = 0;
- 
+
 		for (int k=1;k<len-1;k++){
 			if (y[k-1] < y[k] && y[k+1] < y[k]) {
 				modes++;
@@ -552,15 +649,15 @@ public class Auto_Threshold implements PlugIn {
 
 	public static int IsoData(int [] data ) {
 		// Also called intermeans
-		// Iterative procedure based on the isodata algorithm [T.W. Ridler, S. Calvard, Picture 
-		// thresholding using an iterative selection method, IEEE Trans. System, Man and 
-		// Cybernetics, SMC-8 (1978) 630-632.] 
+		// Iterative procedure based on the isodata algorithm [T.W. Ridler, S. Calvard, Picture
+		// thresholding using an iterative selection method, IEEE Trans. System, Man and
+		// Cybernetics, SMC-8 (1978) 630-632.]
 		// The procedure divides the image into objects and background by taking an initial threshold,
-		// then the averages of the pixels at or below the threshold and pixels above are computed. 
-		// The averages of those two values are computed, the threshold is incremented and the 
+		// then the averages of the pixels at or below the threshold and pixels above are computed.
+		// The averages of those two values are computed, the threshold is incremented and the
 		// process is repeated until the threshold is larger than the composite average. That is,
 		//  threshold = (average background + average objects)/2
-		// The code in ImageJ that implements this function is the getAutoThreshold() method in the ImageProcessor class. 
+		// The code in ImageJ that implements this function is the getAutoThreshold() method in the ImageProcessor class.
 		//
 		// From: Tim Morris (dtm@ap.co.umist.ac.uk)
 		// Subject: Re: Thresholding method?
@@ -615,13 +712,13 @@ public class Auto_Threshold implements PlugIn {
 	public static int Li(int [] data ) {
 		// Implements Li's Minimum Cross Entropy thresholding method
 		// This implementation is based on the iterative version (Ref. 2) of the algorithm.
-		// 1) Li C.H. and Lee C.K. (1993) "Minimum Cross Entropy Thresholding" 
+		// 1) Li C.H. and Lee C.K. (1993) "Minimum Cross Entropy Thresholding"
 		//    Pattern Recognition, 26(4): 617-625
-		// 2) Li C.H. and Tam P.K.S. (1998) "An Iterative Algorithm for Minimum 
+		// 2) Li C.H. and Tam P.K.S. (1998) "An Iterative Algorithm for Minimum
 		//    Cross Entropy Thresholding"Pattern Recognition Letters, 18(8): 771-776
-		// 3) Sezgin M. and Sankur B. (2004) "Survey over Image Thresholding 
-		//    Techniques and Quantitative Performance Evaluation" Journal of 
-		//    Electronic Imaging, 13(1): 146-165 
+		// 3) Sezgin M. and Sankur B. (2004) "Survey over Image Thresholding
+		//    Techniques and Quantitative Performance Evaluation" Journal of
+		//    Electronic Imaging, 13(1): 146-165
 		//    http://citeseer.ist.psu.edu/sezgin04survey.html
 		// Ported to ImageJ plugin by G.Landini from E Celebi's fourier_0.8 routines
 		int threshold;
@@ -679,7 +776,7 @@ public class Auto_Threshold implements PlugIn {
 			// return ( int ) ( IS_NEG ( x ) ? x - .5 : x + .5 );
 			//}
 			//
-			//#define IS_NEG( x ) ( ( x ) < -DBL_EPSILON ) 
+			//#define IS_NEG( x ) ( ( x ) < -DBL_EPSILON )
 			//DBL_EPSILON = 2.220446049250313E-16
 			temp = ( mean_back - mean_obj ) / ( Math.log ( mean_back ) - Math.log ( mean_obj ) );
 
@@ -747,7 +844,7 @@ public class Auto_Threshold implements PlugIn {
 		}
 
 		// Calculate the total entropy each gray-level
-		// and find the threshold that maximizes it 
+		// and find the threshold that maximizes it
 		max_ent = Double.MIN_VALUE;
 
 		for ( it = first_bin; it <= last_bin; it++ ) {
@@ -785,10 +882,10 @@ public class Auto_Threshold implements PlugIn {
 		//
 		// The threshold is the mean of the greyscale data
 		int threshold = -1;
-		double tot=0, sum=0;
+		long tot=0, sum=0;
 		for (int i=0; i<data.length; i++){
 			tot+= data[i];
-			sum+=(i*data[i]);
+			sum+=( (long)i* (long)data[i]);
 		}
 		threshold =(int) Math.floor(sum/tot);
 		return threshold;
@@ -875,7 +972,7 @@ public class Auto_Threshold implements PlugIn {
 		//
 		// Assumes a bimodal histogram. The histogram needs is smoothed (using a
 		// running average of size 3, iteratively) until there are only two local maxima.
-		// Threshold t is such that yt−1 > yt ≤ yt+1.
+		// Threshold t is such that yt-1 > yt ≤ yt+1.
 		// Images with histograms having extremely unequal peaks or a broad and
 		// ﬂat valley are unsuitable for this method.
 		int iter =0;
@@ -887,15 +984,14 @@ public class Auto_Threshold implements PlugIn {
 			iHisto[i]=(double) data[i];
 			if (data[i]>0) max =i;
 		}
-		double [] tHisto = new double[iHisto.length] ;
-
+		double[] tHisto = new double[iHisto.length] ; // Instead of double[] tHisto = iHisto ;
 		while (!bimodalTest(iHisto) ) {
 			 //smooth with a 3 point running mean filter
 			for (int i=1; i<data.length - 1; i++)
 				tHisto[i]= (iHisto[i-1] + iHisto[i] +iHisto[i+1])/3;
 			tHisto[0] = (iHisto[0]+iHisto[1])/3; //0 outside
 			tHisto[data.length - 1] = (iHisto[data.length - 2]+iHisto[data.length - 1])/3; //0 outside
-			System.arraycopy(tHisto, 0, iHisto, 0, iHisto.length) ;
+			System.arraycopy(tHisto, 0, iHisto, 0, iHisto.length) ; //Instead of iHisto = tHisto ;
 			iter++;
 			if (iter>10000) {
 				threshold = -1;
@@ -904,6 +1000,7 @@ public class Auto_Threshold implements PlugIn {
 			}
 		}
 		// The threshold is the minimum between the two peaks. modified for 16 bits
+
 		for (int i=1; i<max; i++) {
 			//IJ.log(" "+i+"  "+iHisto[i]);
 			if (iHisto[i-1] > iHisto[i] && iHisto[i+1] >= iHisto[i]){
@@ -941,10 +1038,10 @@ public class Auto_Threshold implements PlugIn {
 			m2 += i * i * histo[i];
 			m3 += i * i * i * histo[i];
 		}
-		/* 
+		/*
 		First 4 moments of the gray-level image should match the first 4 moments
-		of the target binary image. This leads to 4 equalities whose solutions 
-		are given in the Appendix of Ref. 1 
+		of the target binary image. This leads to 4 equalities whose solutions
+		are given in the Appendix of Ref. 1
 		*/
 		cd = m0 * m2 - m1 * m1;
 		c0 = ( -m2 * m2 + m1 * m3 ) / cd;
@@ -953,8 +1050,8 @@ public class Auto_Threshold implements PlugIn {
 		z1 = 0.5 * ( -c1 + Math.sqrt ( c1 * c1 - 4.0 * c0 ) );
 		p0 = ( z1 - m1 ) / ( z1 - z0 );  /* Fraction of the object pixels in the target binary image */
 
-		// The threshold is the gray-level closest  
-		// to the p0-tile of the normalized histogram 
+		// The threshold is the gray-level closest
+		// to the p0-tile of the normalized histogram
 		sum=0;
 		for (int i=0; i<data.length; i++){
 			sum+=histo[i];
@@ -968,56 +1065,59 @@ public class Auto_Threshold implements PlugIn {
 
 	public static int Otsu(int [] data ) {
 		// Otsu's threshold algorithm
-		// C++ code by Jordan Bevik <Jordan.Bevic@qtiworld.com>
+		// M. Emre Celebi 6.15.2007, Fourier Library https://sourceforge.net/projects/fourier-ipal/
 		// ported to ImageJ plugin by G.Landini
-		int k,kStar;  // k = the current threshold; kStar = optimal threshold
-		int N1, N;    // N1 = # points with intensity <=k; N = total number of points
-		double BCV, BCVmax; // The current Between Class Variance and maximum BCV
-		double num, denom;  // temporary bookeeping
-		int Sk;  // The total intensity for all histogram points <=k
-		int S, L=data.length; // The total intensity of the image
 
-		// Initialize values:
-		S = N = 0;
-		for (k=0; k<L; k++){
-			S += k * data[k];	// Total histogram intensity
-			N += data[k];		// Total number of data points
+		int ih;
+		int threshold=-1;
+		int num_pixels=0;
+		double total_mean;	/* mean gray-level for the whole image */
+		double bcv, term;	/* between-class variance, scaling term */
+		double max_bcv;		/* max BCV */
+		double [] cnh = new  double [data.length];	/* cumulative normalized histogram */
+		double [] mean = new  double [data.length]; /* mean gray-level */
+		double [] histo = new  double [data.length];/* normalized histogram */
+
+		/* Calculate total numbre of pixels */
+		for ( ih = 0; ih < data.length; ih++ )
+			num_pixels=num_pixels+data[ih];
+
+		term = 1.0 / ( double ) num_pixels;
+
+		/* Calculate the normalized histogram */
+		for ( ih = 0; ih < data.length; ih++ ) {
+			histo[ih] = term * data[ih];
 		}
 
-		Sk = 0;
-		N1 = data[0]; // The entry for zero intensity
-		BCV = 0;
-		BCVmax=0;
-		kStar = 0;
+		/* Calculate the cumulative normalized histogram */
+		cnh[0] = histo[0];
+		for ( ih = 1; ih < data.length; ih++ ) {
+			cnh[ih] = cnh[ih - 1] + histo[ih];
+		}
 
-		// Look at each possible threshold value,
-		// calculate the between-class variance, and decide if it's a max
-		for (k=1; k<L-1; k++) { // No need to check endpoints k = 0 or k = L-1
-			Sk += k * data[k];
-			N1 += data[k];
+		mean[0] = 0.0;
 
-			// The float casting here is to avoid compiler warning about loss of precision and
-			// will prevent overflow in the case of large saturated images
-			denom = (double)( N1) * (N - N1); // Maximum value of denom is (N^2)/4 =  approx. 3E10
+		for ( ih = 0 + 1; ih <data.length; ih++ ) {
+			mean[ih] = mean[ih - 1] + ih * histo[ih];
+		}
 
-			if (denom != 0 ){
-				// Float here is to avoid loss of precision when dividing
-				num = ( (double)N1 / N ) * S - Sk; 	// Maximum value of num =  255*N = approx 8E7
-				BCV = (num * num) / denom;
-			}
-			else
-				BCV = 0;
+		total_mean = mean[data.length-1];
 
-			if (BCV >= BCVmax){ // Assign the best threshold found so far
-				BCVmax = BCV;
-				kStar = k;
+		//	Calculate the BCV at each gray-level and find the threshold that maximizes it
+		threshold = Integer.MIN_VALUE;
+		max_bcv = 0.0;
+
+		for ( ih = 0; ih < data.length; ih++ ) {
+			bcv = total_mean * cnh[ih] - mean[ih];
+			bcv *= bcv / ( cnh[ih] * ( 1.0 - cnh[ih] ) );
+
+			if ( max_bcv < bcv ) {
+				max_bcv = bcv;
+				threshold = ih;
 			}
 		}
-		// kStar += 1;	// Use QTI convention that intensity -> 1 if intensity >= k
-		// (the algorithm was developed for I-> 1 if I <= k.)
-		return kStar;
+		return threshold;
 	}
-
 
 	public static int Percentile(int [] data ) {
 		// W. Doyle, "Operation useful for similarity-invariant pattern recognition,"
@@ -1065,7 +1165,7 @@ public class Auto_Threshold implements PlugIn {
 		// 06.15.2007
 		// Ported to ImageJ plugin by G.Landini from E Celebi's fourier_0.8 routines
 
-		int threshold; 
+		int threshold;
 		int opt_threshold;
 
 		int ih, it;
@@ -1120,7 +1220,7 @@ public class Auto_Threshold implements PlugIn {
 		/* Maximum Entropy Thresholding - BEGIN */
 		/* ALPHA = 1.0 */
 		/* Calculate the total entropy each gray-level
-		and find the threshold that maximizes it 
+		and find the threshold that maximizes it
 		*/
 		threshold =0; // was MIN_INT in original code, but if an empty image is processed it gives an error later on.
 		max_ent = 0.0;
@@ -1308,7 +1408,7 @@ public class Auto_Threshold implements PlugIn {
 		}
 
 		// Calculate the total entropy each gray-level
-		// and find the threshold that maximizes it 
+		// and find the threshold that maximizes it
 		threshold =-1;
 		min_ent = Double.MAX_VALUE;
 
@@ -1347,7 +1447,7 @@ public class Auto_Threshold implements PlugIn {
 		// Journal of Histochemistry and Cytochemistry 25 (7), pp. 741-753
 		//
 		//  modified from Johannes Schindelin plugin
-		// 
+		//
 		// find min and max
 		int min = 0, dmax=0, max = 0, min2=0;
 		for (int i = 0; i < data.length; i++) {
@@ -1362,7 +1462,7 @@ public class Auto_Threshold implements PlugIn {
 		// This causes a problem as there are 2 possible thresholds between the max and the 2 extremes
 		// of the histogram.
 		// Here I propose to find out to which side of the max point the data is furthest, and use that as
-		//  the other extreme.
+		//  the other extreme. Note that this is not done in the original method. GL
 		for (int i = data.length - 1; i >0; i-- ) {
 			if (data[i]>0){
 				min2=i;
@@ -1388,8 +1488,8 @@ public class Auto_Threshold implements PlugIn {
 			int right = data.length - 1; // index of rightmost element
 			while (left < right) {
 				// exchange the left and right elements
-				int temp = data[left]; 
-				data[left]  = data[right]; 
+				int temp = data[left];
+				data[left]  = data[right];
 				data[right] = temp;
 				// move the bounds toward the center
 				left++;
@@ -1428,11 +1528,11 @@ public class Auto_Threshold implements PlugIn {
 
 		if (inverted) {
 			// The histogram might be used for something else, so let's reverse it back
-			int left  = 0; 
+			int left  = 0;
 			int right = data.length - 1;
 			while (left < right) {
-				int temp = data[left]; 
-				data[left]  = data[right]; 
+				int temp = data[left];
+				data[left]  = data[right];
 				data[right] = temp;
 				left++;
 				right--;
@@ -1446,11 +1546,11 @@ public class Auto_Threshold implements PlugIn {
 
 	public static int Yen(int [] data ) {
 		// Implements Yen  thresholding method
-		// 1) Yen J.C., Chang F.J., and Chang S. (1995) "A New Criterion 
-		//    for Automatic Multilevel Thresholding" IEEE Trans. on Image 
+		// 1) Yen J.C., Chang F.J., and Chang S. (1995) "A New Criterion
+		//    for Automatic Multilevel Thresholding" IEEE Trans. on Image
 		//    Processing, 4(3): 370-378
-		// 2) Sezgin M. and Sankur B. (2004) "Survey over Image Thresholding 
-		//    Techniques and Quantitative Performance Evaluation" Journal of 
+		// 2) Sezgin M. and Sankur B. (2004) "Survey over Image Thresholding
+		//    Techniques and Quantitative Performance Evaluation" Journal of
 		//    Electronic Imaging, 13(1): 146-165
 		//    http://citeseer.ist.psu.edu/sezgin04survey.html
 		//
