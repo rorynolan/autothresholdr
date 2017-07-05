@@ -16,6 +16,7 @@ apt_packages:
   - default-jre
   - default-jdk
   - libboost-all-dev
+  - oracle-java8-installer
 
 after_success:
   - Rscript -e 'covr::codecov(function_exclusions = "^\\.onLoad$")'
