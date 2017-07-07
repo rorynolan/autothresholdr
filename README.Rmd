@@ -17,33 +17,33 @@ An R package for thresholding images.
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 
 ## Installation
-### Everyone except Mac OS X
-Install the latest [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
 
-### Mac OS X
+### Platform Dependencies
+
+#### Mac OS X
 
 Mac OS X comes with a legacy Apple Java 6. Update your Java installation to a newer version provided by Oracle.
 
 1. Install [Oracle JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
 
-2. Update R Java configuration by executing from the command line (you might have to run it as a super user by prepending `sudo` depending on your installation).
+1. Update R Java configuration by executing from the command line (you might have to run it as a super user by prepending `sudo` depending on your installation).
 ```
 R CMD javareconf
 ```
 
-3. Re-install *rJava* from sources in order to properly link to the non-system
+1. Re-install *rJava* from sources in order to properly link to the non-system
 Java installation.
 ```r
 install.packages("rJava", type="source")
 ```
 
-Then, to make everything work with Rstudio, run
+1. Then, to make everything work with Rstudio, run
 ```
 sudo ln -f -s $(/usr/libexec/java_home)/jre/lib/server/libjvm.dylib /usr/local/lib
 ```
 (taken from http://stackoverflow.com/questions/30738974/rjava-load-error-in-rstudio-r-after-upgrading-to-osx-yosemite).
 
-You can verify your configuration by running the following commands. This should return the Java version string corresponding to the one downloaded and installed in step 1.
+You can verify your `rJava` configuration by running the following commands. This should return the Java version string corresponding to the one downloaded and installed in step 1.
 
 ```r
 library(rJava)
@@ -51,8 +51,29 @@ library(rJava)
 .jcall("java/lang/System", "S", "getProperty", "java.runtime.version")
 ## [1] "1.8.0_112-b16" 
 ```
+Thanks to @aoles for these instructions. Check out his great work on image analysis in R at https://github.com/aoles.
+
+#### Linux
+
+1. Install the latest [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html). Be sure to install **both** 32-bit and 64-bit.
+
+1. On **Ubuntu** (similarly for other debian **linux**), you need to do:
+```
+sudo apt-get update
+sudo apt-get install libssl-dev libtiff5-dev libfftw3-dev 
+sudo apt-get install libcurl4-openssl-dev libxml2-dev 
+sudo apt-get install default-jre default-jdk libboost-all-dev
+```
+
+#### Windows
+
+1. Install the latest [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html). Be sure to install **both** 32-bit and 64-bit.
+
+1. Go to https://cran.r-project.org/bin/windows/Rtools/ and install the latest version of Rtools.
+
 
 ### Everyone!
+
 #### Installing the Release Version (recommended)
 In R, run
 ```{r Install autothresholdr, eval=FALSE}

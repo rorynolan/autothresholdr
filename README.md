@@ -8,11 +8,9 @@ An R package for thresholding images.
 Installation
 ------------
 
-### Everyone except Mac OS X
+### Platform Dependencies
 
-Install the latest [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
-
-### Mac OS X
+#### Mac OS X
 
 Mac OS X comes with a legacy Apple Java 6. Update your Java installation to a newer version provided by Oracle.
 
@@ -28,13 +26,13 @@ Mac OS X comes with a legacy Apple Java 6. Update your Java installation to a ne
     install.packages("rJava", type="source")
     ```
 
-Then, to make everything work with Rstudio, run
+4.  Then, to make everything work with Rstudio, run
 
-    sudo ln -f -s $(/usr/libexec/java_home)/jre/lib/server/libjvm.dylib /usr/local/lib
+        sudo ln -f -s $(/usr/libexec/java_home)/jre/lib/server/libjvm.dylib /usr/local/lib
 
-(taken from <http://stackoverflow.com/questions/30738974/rjava-load-error-in-rstudio-r-after-upgrading-to-osx-yosemite>).
+    (taken from <http://stackoverflow.com/questions/30738974/rjava-load-error-in-rstudio-r-after-upgrading-to-osx-yosemite>).
 
-You can verify your configuration by running the following commands. This should return the Java version string corresponding to the one downloaded and installed in step 1.
+You can verify your `rJava` configuration by running the following commands. This should return the Java version string corresponding to the one downloaded and installed in step 1.
 
 ``` r
 library(rJava)
@@ -42,6 +40,25 @@ library(rJava)
 .jcall("java/lang/System", "S", "getProperty", "java.runtime.version")
 ## [1] "1.8.0_112-b16" 
 ```
+
+Thanks to @aoles for these instructions. Check out his great work on image analysis in R at <https://github.com/aoles>.
+
+#### Linux
+
+1.  Install the latest [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html). Be sure to install **both** 32-bit and 64-bit.
+
+2.  On **Ubuntu** (similarly for other debian **linux**), you need to do:
+
+        sudo apt-get update
+        sudo apt-get install libssl-dev libtiff5-dev libfftw3-dev 
+        sudo apt-get install libcurl4-openssl-dev libxml2-dev 
+        sudo apt-get install default-jre default-jdk libboost-all-dev
+
+#### Windows
+
+1.  Install the latest [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html). Be sure to install **both** 32-bit and 64-bit.
+
+2.  Go to <https://cran.r-project.org/bin/windows/Rtools/> and install the latest version of Rtools.
 
 ### Everyone!
 
@@ -83,7 +100,7 @@ img <- imageData(readImage(system.file("extdata", "eg.tif",
 display(normalize(img), method = "r")
 ```
 
-![](README_files/figure-markdown_github/the%20image-1.png)
+![](README_files/figure-markdown_github-ascii_identifiers/the%20image-1.png)
 
 It's a bit of a cell, the black part is where the cell is not. The threshold is supposed to tell us what is *dark* (not cell) and what is *bright* (cell). By playing around, we see that something like 4 is a good value.
 
@@ -91,7 +108,7 @@ It's a bit of a cell, the black part is where the cell is not. The threshold is 
 display(img > 4, method = "r")
 ```
 
-![](README_files/figure-markdown_github/guess%20four-1.png)
+![](README_files/figure-markdown_github-ascii_identifiers/guess%20four-1.png)
 
 But what if we have many images and we don't want to *play around*, we want a method of calculating the threshold automatically. <http://imagej.net/Auto_Threshold> gives many such methods and they are provided to you in R via this package. Go to that webpage for a nice comparison of the methods.
 
@@ -109,13 +126,13 @@ auto_thresh(img, "h")
 auto_thresh_mask(img, "h") %>% display(method = "r")
 ```
 
-![](README_files/figure-markdown_github/thresh%20mask%20apply-1.png)
+![](README_files/figure-markdown_github-ascii_identifiers/thresh%20mask%20apply-1.png)
 
 ``` r
 auto_thresh_apply_mask(img, "h") %>% normalize %>%  display(method = "r")
 ```
 
-![](README_files/figure-markdown_github/thresh%20mask%20apply-2.png)
+![](README_files/figure-markdown_github-ascii_identifiers/thresh%20mask%20apply-2.png)
 
 In this last image, the `NA` pixels are greyed.
 
