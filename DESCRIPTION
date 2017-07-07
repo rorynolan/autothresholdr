@@ -33,3 +33,4 @@ Suggests: testthat,
     rmarkdown
 VignetteBuilder: knitr
 LinkingTo: Rcpp
+Roxygen: list(markdown = TRUE)

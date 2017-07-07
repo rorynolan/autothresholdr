@@ -11,16 +11,16 @@
 #' fact that the java routine invoked inside this function prefers integers,
 #' which we get by using a sum but not by using a mean.
 #'
-#' \itemize{ \item{\code{NA} values are automatically ignored.} \item{For
-#' \code{ignore.white = TRUE}, if the maximum value in the array is one of
-#' \code{2^8-1}, \code{2^12-1}, \code{2^16-1} or \code{2^32-1}, then those max
+#' \itemize{ \item{`NA` values are automatically ignored.} \item{For
+#' `ignore.white = TRUE`, if the maximum value in the array is one of
+#' `2^8-1`, `2^12-1`, `2^16-1` or `2^32-1`, then those max
 #' values are ignored. That's because they're the white values in 8, 12, 16 and
 #' 32-bit images respectively (and these are the common image bit sizes to work
-#' with). This guesswork has to be done because \code{R} does not know how many
+#' with). This guesswork has to be done because `R` does not know how many
 #' bits the image was on disk. This guess is very unlikely to be wrong, and if
 #' it is, the consequences are negligible anyway. If you're very concerned, then
-#' just specify the max value in the \code{ignore.white} argument.} \item{If you
-#' have set \code{ignore.black = TRUE} and/or \code{ignore.white = TRUE} but you
+#' just specify the max value in the `ignore.white` argument.} \item{If you
+#' have set `ignore.black = TRUE` and/or `ignore.white = TRUE` but you
 #' are still getting error/warning messages telling you to try them, then your
 #' chosen method is not working for the given array, so you should try a
 #' different method.} }
@@ -32,7 +32,7 @@
 #' @param ignore_black Ignore black pixels/elements (zeros) when performing the
 #'   thresholding?
 #' @param ignore_white Ignore white pixels when performing the thresholding? If
-#'   set to \code{TRUE}, the function makes a good guess as to what the white
+#'   set to `TRUE`, the function makes a good guess as to what the white
 #'   (saturated) value would be (see "Details"). If this is set to a number, all
 #'   pixels with value greater than or equal to that number are ignored.
 #' @param fail To which value should pixels not exceeeding the threshold be set?
@@ -62,6 +62,7 @@ mean_stack_thresh <- function(arr3d, method, fail = NA,
     stop("The array given for thresholding is constant ",
          "(all the values are the same). Aborting.")
   }
+  fail <- translate_fail(arr3d, fail)
   if (is.numeric(method)) {
     thresh <- method
   } else {
@@ -93,16 +94,16 @@ mean_stack_thresh <- function(arr3d, method, fail = NA,
 #' in the image stack, either all the pixels therein are thresholded away, all
 #' are untouched).
 #'
-#' \itemize{ \item{\code{NA} values are automatically ignored.} \item{For
-#' \code{ignore.white = TRUE}, if the maximum value in the array is one of
-#' \code{2^8-1}, \code{2^12-1}, \code{2^16-1} or \code{2^32-1}, then those max
+#' \itemize{ \item{`NA` values are automatically ignored.} \item{For
+#' `ignore.white = TRUE`, if the maximum value in the array is one of
+#' `2^8-1`, `2^12-1`, `2^16-1` or `2^32-1`, then those max
 #' values are ignored. That's because they're the white values in 8, 12, 16 and
 #' 32-bit images respectively (and these are the common image bit sizes to work
-#' with). This guesswork has to be done because \code{R} does not know how many
+#' with). This guesswork has to be done because `R` does not know how many
 #' bits the image was on disk. This guess is very unlikely to be wrong, and if
 #' it is, the consequences are negligible anyway. If you're very concerned, then
-#' just specify the max value in the \code{ignore.white} argument.} \item{If you
-#' have set \code{ignore.black = TRUE} and/or \code{ignore.white = TRUE} but you
+#' just specify the max value in the `ignore.white` argument.} \item{If you
+#' have set `ignore.black = TRUE` and/or `ignore.white = TRUE` but you
 #' are still getting error/warning messages telling you to try them, then your
 #' chosen method is not working for the given array, so you should try a
 #' different method.} }
@@ -115,7 +116,7 @@ mean_stack_thresh <- function(arr3d, method, fail = NA,
 #' @param ignore_black Ignore black pixels/elements (zeros) when performing the
 #'   thresholding?
 #' @param ignore_white Ignore white pixels when performing the thresholding? If
-#'   set to \code{TRUE}, the function makes a good guess as to what the white
+#'   set to `TRUE`, the function makes a good guess as to what the white
 #'   (saturated) value would be (see "Details"). If this is set to a number, all
 #'   pixels with value greater than or equal to that number are ignored.
 #'
@@ -143,6 +144,7 @@ med_stack_thresh <- function(arr3d, method, fail = NA,
     stop("The array given for thresholding is constant ",
          "(all the values are the same). Aborting.")
   }
+  fail <- translate_fail(arr3d, fail)
   thresh <- auto_thresh(arr3d, method, ignore_black = ignore_black,
                         ignore_white = ignore_white)
   med.stack <- median_pillars(arr3d)

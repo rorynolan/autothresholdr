@@ -1,3 +1,10 @@
+### 0.7.0
+
+#### MINOR IMPROVEMENTS
+* The `fail` arguments of `auto_thresh_apply_mask()`, `mean_stack_thresh()` and `med_stack_thresh()` now work like the `na` argument of `nandb::WriteIntImage()`.
+* `auto_thresh_mask()` and `auto_thresh_apply_mask()` now have the abbreviations `mask()` and `apply_mask()`.
+
+
 ### 0.6.0
 
 #### NEW FEATURES

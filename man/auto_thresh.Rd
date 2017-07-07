@@ -4,6 +4,8 @@
 \alias{auto_thresh}
 \alias{auto_thresh_mask}
 \alias{auto_thresh_apply_mask}
+\alias{mask}
+\alias{apply_mask}
 \title{Automatically threshold an image.}
 \usage{
 auto_thresh(int_arr, method, ignore_black = FALSE, ignore_white = FALSE)
@@ -13,16 +15,21 @@ auto_thresh_mask(int_arr, method, ignore_black = FALSE,
 
 auto_thresh_apply_mask(int_arr, method, fail = NA, ignore_black = FALSE,
   ignore_white = FALSE)
+
+mask(int_arr, method, ignore_black = FALSE, ignore_white = FALSE)
+
+apply_mask(int_arr, method, fail = NA, ignore_black = FALSE,
+  ignore_white = FALSE)
 }
 \arguments{
 \item{int_arr}{An array (or vector) of \emph{integers}.}
 
 \item{method}{The name of the method you wish to use (e.g. "Huang"). Partial
-matching is performed i.e. \code{method = "h"} is enough to get you "Huang"
-and \code{method = "in"} is enough to get you "Intermodes". To perform
-\emph{manual} thresholding (where you set the threshold yourself), supply
-the threshold here as a number e.g. `method = 3`. So note that this would
-\emph{not} select the third method in the above list of methods.}
+matching is performed i.e. \code{method = "h"} is enough to get you "Huang" and
+\code{method = "in"} is enough to get you "Intermodes". To perform \emph{manual}
+thresholding (where you set the threshold yourself), supply the threshold
+here as a number e.g. \code{method = 3}. So note that this would \emph{not}
+select the third method in the above list of methods.}
 
 \item{ignore_black}{Ignore black pixels/elements (zeros) when performing the
 thresholding?}
@@ -32,23 +39,29 @@ set to \code{TRUE}, the function makes a good guess as to what the white
 (saturated) value would be (see "Details"). If this is set to a number, all
 pixels with value greater than or equal to that number are ignored.}
 
-\item{fail}{When using \code{auto_thresh_apply_mask}, to what value do you
-wish to set the pixels which fail to exceed the threshold.}
+\item{fail}{When using \code{auto_thresh_apply_mask}, to what value do you wish to
+set the pixels which fail to exceed the threshold. \code{fail = 'saturate'} sets
+them to saturated value (see "Details"). \code{fail = 'zero'} sets them to zero.
+You can also specify directly here a natural number (must be between 0 and
+2 ^ 16 - 1) to use in place of \code{NA}s.}
 }
 \value{
-\code{auto_thresh} returns an integer, the image threshold value.
-  Pixels exceeding this threshold are passed, but pixels at or below this
-  level are failed.
+\code{auto_thresh()} returns an integer, the image threshold value. Pixels
+exceeding this threshold are passed, but pixels at or below this level are
+failed.
 
-  \code{auto_thresh_mask} returns a binarized version of the input, with a
-  value of \code{TRUE} at points which exceed the threshold and \code{FALSE}
-  at those which do not. This has an attribute "threshold" to tell you what
-  the threshold value was.
+\code{auto_thresh_mask()} returns a binarized version of the input, with a value
+of \code{TRUE} at points which exceed the threshold and \code{FALSE} at those which
+do not. This has an attribute "threshold" to tell you what the threshold
+value was.
 
-  \code{auto_thresh_apply_mask} returns the original input masked by the
-  threshold, i.e. all points not exceeding the threshold are set to a
-  user-defined value (default \code{NA}). This has an attribute "threshold"
-  to tell you what the threshold value was.
+\code{auto_thresh_apply_mask()} returns the original input masked by the
+threshold, i.e. all points not exceeding the threshold are set to a
+user-defined value (default \code{NA}). This has an attribute `threshold to
+tell you what the threshold value was.
+
+\code{mask()} is the same as \code{auto_thresh_mask()} and \code{apply_mask()} is the same
+as \code{auto_thresh_apply_mask()}.
 }
 \description{
 These functions apply the ImageJ "Auto Threshold" plugin's image thresholding
@@ -59,22 +72,23 @@ methods. The available methods are "IJDefault", "Huang", "Huang2",
 }
 \details{
 \itemize{ \item{\code{NA} values are automatically ignored.} \item{For
-\code{ignore_white = TRUE}, if the maximum value in the array is one of
-\code{2^8-1}, \code{2^12-1}, \code{2^16-1} or \code{2^32-1}, then those max
-values are ignored. That's because they're the white values in 8, 12, 16 and
-32-bit images respectively (and these are the common image bit sizes to work
-with). This guesswork has to be done because \code{R} does not know how many
-bits the image was on disk. This guess is very unlikely to be wrong, and if
-it is, the consequences are negligible anyway. If you're very concerned, then
-just specify the max value in the \code{ignore_white} argument.} \item{If you
-have set \code{ignore_black = TRUE} and/or \code{ignore_white = TRUE} but you
-are still getting error/warning messages telling you to try them, then your
-chosen method is not working for the given array, so you should try a
-different method.} }
+\code{ignore_white = TRUE}, if the maximum value in the array is one of \code{2^8-1},
+\code{2^12-1}, \code{2^16-1} or \code{2^32-1}, then those max values are ignored. That's
+because they're the white values in 8, 12, 16 and 32-bit images respectively
+(and these are the common image bit sizes to work with). This guesswork has
+to be done because \code{R} does not know how many bits the image was on disk.
+This guess is very unlikely to be wrong, and if it is, the consequences are
+negligible anyway. If you're very concerned, then just specify the max value
+in the \code{ignore_white} argument.} \item{If you have set \code{ignore_black = TRUE}
+and/or \code{ignore_white = TRUE} but you are still getting error/warning messages
+telling you to try them, then your chosen method is not working for the given
+array, so you should try a different method.} }
+
+For a given array, if all values are less than \code{2 ^ 8}, saturated value is \code{2 ^ 8 - 1}, otherwise, saturated value is \code{2 ^ 16 - 1}.
 }
 \section{Acknowledgements}{
  Gabriel Landini coded all of these functions
-  together in one Java file for the ImageJ plugin.
+together in one Java file for the ImageJ plugin.
 }
 
 \examples{
@@ -93,42 +107,42 @@ EBImage::display(EBImage::normalize(masked), method = "r")
 }
 \references{
 \itemize{ \item{Huang, L-K & Wang, M-J J (1995), "Image
-  thresholding by minimizing the measure of fuzziness", Pattern Recognition
-  28(1): 41-51} \item{Prewitt, JMS & Mendelsohn, ML (1966), "The analysis of
-  cell images", Annals of the New York Academy of Sciences 128: 1035-1053}
-  \item{Ridler, TW & Calvard, S (1978), "Picture thresholding using an
-  iterative selection method", IEEE Transactions on Systems, Man and
-  Cybernetics 8: 630-632} \item{Li, CH & Lee, CK (1993), "Minimum Cross
-  Entropy Thresholding", Pattern Recognition 26(4): 617-625} \item{Li, CH &
-  Tam, PKS (1998), "An Iterative Algorithm for Minimum Cross Entropy
-  Thresholding", Pattern Recognition Letters 18(8): 771-776} \item{Sezgin, M
-  & Sankur, B (2004), "Survey over Image Thresholding Techniques and
-  Quantitative Performance Evaluation", Journal of Electronic Imaging 13(1):
-  146-165} \item{Kapur, JN; Sahoo, PK & Wong, ACK (1985), "A New Method for
-  Gray-Level Picture Thresholding Using the Entropy of the Histogram",
-  Graphical Models and Image Processing 29(3): 273-285} \item{Glasbey, CA
-  (1993), "An analysis of histogram-based thresholding algorithms", CVGIP:
-  Graphical Models and Image Processing 55: 532-537} \item{Kittler, J &
-  Illingworth, J (1986), "Minimum error thresholding", Pattern Recognition
-  19: 41-47} \item{Prewitt, JMS & Mendelsohn, ML (1966), "The analysis of
-  cell images", Annals of the New York Academy of Sciences 128: 1035-1053}
-  \item{Tsai, W (1985), "Moment-preserving thresholding: a new approach",
-  Computer Vision, Graphics, and Image Processing 29: 377-393} \item{Otsu, N
-  (1979), "A threshold selection method from gray-level histograms", IEEE
-  Trans. Sys., Man., Cyber. 9: 62-66, doi:10.1109/TSMC.1979.4310076}
-  \item{Doyle, W (1962), "Operation useful for similarity-invariant pattern
-  recognition", Journal of the Association for Computing Machinery 9:
-  259-267, doi:10.1145/321119.321123} \item{Kapur, JN; Sahoo, PK & Wong, ACK
-  (1985), "A New Method for Gray-Level Picture Thresholding Using the Entropy
-  of the Histogram", Graphical Models and Image Processing 29(3): 273-285}
-  \item{Shanbhag, Abhijit G. (1994), "Utilization of information measure as a
-  means of image thresholding", Graph. Models Image Process. (Academic Press,
-  Inc.) 56 (5): 414--419, ISSN 1049-9652} \item{Zack GW, Rogers WE, Latt SA
-  (1977), "Automatic measurement of sister chromatid exchange frequency", J.
-  Histochem. Cytochem. 25 (7): 74153, PMID 70454} \item{Yen JC, Chang FJ,
-  Chang S (1995), "A New Criterion for Automatic Multilevel Thresholding",
-  IEEE Trans. on Image Processing 4 (3): 370-378, ISSN 1057-7149,
-  doi:10.1109/83.366472} \item{Sezgin, M & Sankur, B (2004), "Survey over
-  Image Thresholding Techniques and Quantitative Performance Evaluation",
-  Journal of Electronic Imaging 13(1): 146-165} }
+thresholding by minimizing the measure of fuzziness", Pattern Recognition
+28(1): 41-51} \item{Prewitt, JMS & Mendelsohn, ML (1966), "The analysis of
+cell images", Annals of the New York Academy of Sciences 128: 1035-1053}
+\item{Ridler, TW & Calvard, S (1978), "Picture thresholding using an
+iterative selection method", IEEE Transactions on Systems, Man and
+Cybernetics 8: 630-632} \item{Li, CH & Lee, CK (1993), "Minimum Cross
+Entropy Thresholding", Pattern Recognition 26(4): 617-625} \item{Li, CH &
+Tam, PKS (1998), "An Iterative Algorithm for Minimum Cross Entropy
+Thresholding", Pattern Recognition Letters 18(8): 771-776} \item{Sezgin, M
+& Sankur, B (2004), "Survey over Image Thresholding Techniques and
+Quantitative Performance Evaluation", Journal of Electronic Imaging 13(1):
+146-165} \item{Kapur, JN; Sahoo, PK & Wong, ACK (1985), "A New Method for
+Gray-Level Picture Thresholding Using the Entropy of the Histogram",
+Graphical Models and Image Processing 29(3): 273-285} \item{Glasbey, CA
+(1993), "An analysis of histogram-based thresholding algorithms", CVGIP:
+Graphical Models and Image Processing 55: 532-537} \item{Kittler, J &
+Illingworth, J (1986), "Minimum error thresholding", Pattern Recognition
+19: 41-47} \item{Prewitt, JMS & Mendelsohn, ML (1966), "The analysis of
+cell images", Annals of the New York Academy of Sciences 128: 1035-1053}
+\item{Tsai, W (1985), "Moment-preserving thresholding: a new approach",
+Computer Vision, Graphics, and Image Processing 29: 377-393} \item{Otsu, N
+(1979), "A threshold selection method from gray-level histograms", IEEE
+Trans. Sys., Man., Cyber. 9: 62-66, doi:10.1109/TSMC.1979.4310076}
+\item{Doyle, W (1962), "Operation useful for similarity-invariant pattern
+recognition", Journal of the Association for Computing Machinery 9:
+259-267, doi:10.1145/321119.321123} \item{Kapur, JN; Sahoo, PK & Wong, ACK
+(1985), "A New Method for Gray-Level Picture Thresholding Using the Entropy
+of the Histogram", Graphical Models and Image Processing 29(3): 273-285}
+\item{Shanbhag, Abhijit G. (1994), "Utilization of information measure as a
+means of image thresholding", Graph. Models Image Process. (Academic Press,
+Inc.) 56 (5): 414--419, ISSN 1049-9652} \item{Zack GW, Rogers WE, Latt SA
+(1977), "Automatic measurement of sister chromatid exchange frequency", J.
+Histochem. Cytochem. 25 (7): 74153, PMID 70454} \item{Yen JC, Chang FJ,
+Chang S (1995), "A New Criterion for Automatic Multilevel Thresholding",
+IEEE Trans. on Image Processing 4 (3): 370-378, ISSN 1057-7149,
+doi:10.1109/83.366472} \item{Sezgin, M & Sankur, B (2004), "Survey over
+Image Thresholding Techniques and Quantitative Performance Evaluation",
+Journal of Electronic Imaging 13(1): 146-165} }
 }

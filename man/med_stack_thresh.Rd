@@ -12,7 +12,7 @@ med_stack_thresh(arr3d, method, fail = NA, ignore_black = FALSE,
 slice is the \eqn{n}th image in the time series.}
 
 \item{method}{The thresholding method to use. See
-[autothresholdr::auto_thresh].}
+\link[autothresholdr:auto_thresh]{autothresholdr::auto_thresh}.}
 
 \item{fail}{To which value should pixels not exceeeding the threshold be set?}
 
@@ -26,8 +26,8 @@ pixels with value greater than or equal to that number are ignored.}
 }
 \value{
 A 3d array, the thresholded stack. Pillars not exceeding the
-  threshold are set to zero. The attribute 'threshold' gives the value used
-  for thresholding.
+threshold are set to zero. The attribute 'threshold' gives the value used
+for thresholding.
 }
 \description{
 This function finds a threshold based on all of the frames, then takes the
