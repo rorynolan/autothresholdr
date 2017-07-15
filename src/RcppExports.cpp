@@ -8,6 +8,193 @@
 
 using namespace Rcpp;
 
+// IJDefault
+int IJDefault(IntegerVector data);
+RcppExport SEXP autothresholdr_IJDefault(SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(IJDefault(data));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Huang
+int Huang(IntegerVector data);
+RcppExport SEXP autothresholdr_Huang(SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(Huang(data));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Huang2
+int Huang2(IntegerVector data);
+RcppExport SEXP autothresholdr_Huang2(SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(Huang2(data));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Intermodes
+int Intermodes(IntegerVector data);
+RcppExport SEXP autothresholdr_Intermodes(SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(Intermodes(data));
+    return rcpp_result_gen;
+END_RCPP
+}
+// IsoData
+int IsoData(IntegerVector data);
+RcppExport SEXP autothresholdr_IsoData(SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(IsoData(data));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Li
+int Li(IntegerVector data);
+RcppExport SEXP autothresholdr_Li(SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(Li(data));
+    return rcpp_result_gen;
+END_RCPP
+}
+// MaxEntropy
+int MaxEntropy(IntegerVector data);
+RcppExport SEXP autothresholdr_MaxEntropy(SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(MaxEntropy(data));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Mean
+int Mean(IntegerVector data);
+RcppExport SEXP autothresholdr_Mean(SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(Mean(data));
+    return rcpp_result_gen;
+END_RCPP
+}
+// MinErrorI
+int MinErrorI(IntegerVector data);
+RcppExport SEXP autothresholdr_MinErrorI(SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(MinErrorI(data));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Minimum
+int Minimum(IntegerVector data);
+RcppExport SEXP autothresholdr_Minimum(SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(Minimum(data));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Moments
+int Moments(IntegerVector data);
+RcppExport SEXP autothresholdr_Moments(SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(Moments(data));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Otsu
+int Otsu(IntegerVector data);
+RcppExport SEXP autothresholdr_Otsu(SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(Otsu(data));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Percentile
+int Percentile(IntegerVector data);
+RcppExport SEXP autothresholdr_Percentile(SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(Percentile(data));
+    return rcpp_result_gen;
+END_RCPP
+}
+// RenyiEntropy
+int RenyiEntropy(IntegerVector data);
+RcppExport SEXP autothresholdr_RenyiEntropy(SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(RenyiEntropy(data));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Shanbhag
+int Shanbhag(IntegerVector data);
+RcppExport SEXP autothresholdr_Shanbhag(SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(Shanbhag(data));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Triangle
+int Triangle(IntegerVector data);
+RcppExport SEXP autothresholdr_Triangle(SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(Triangle(data));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Yen
+int Yen(IntegerVector data);
+RcppExport SEXP autothresholdr_Yen(SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(Yen(data));
+    return rcpp_result_gen;
+END_RCPP
+}
 // sum_pillars
 NumericMatrix sum_pillars(NumericVector arr3d);
 static SEXP autothresholdr_sum_pillars_try(SEXP arr3dSEXP) {
@@ -152,6 +339,23 @@ RcppExport SEXP autothresholdr_RcppExport_registerCCallable() {
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"autothresholdr_IJDefault", (DL_FUNC) &autothresholdr_IJDefault, 1},
+    {"autothresholdr_Huang", (DL_FUNC) &autothresholdr_Huang, 1},
+    {"autothresholdr_Huang2", (DL_FUNC) &autothresholdr_Huang2, 1},
+    {"autothresholdr_Intermodes", (DL_FUNC) &autothresholdr_Intermodes, 1},
+    {"autothresholdr_IsoData", (DL_FUNC) &autothresholdr_IsoData, 1},
+    {"autothresholdr_Li", (DL_FUNC) &autothresholdr_Li, 1},
+    {"autothresholdr_MaxEntropy", (DL_FUNC) &autothresholdr_MaxEntropy, 1},
+    {"autothresholdr_Mean", (DL_FUNC) &autothresholdr_Mean, 1},
+    {"autothresholdr_MinErrorI", (DL_FUNC) &autothresholdr_MinErrorI, 1},
+    {"autothresholdr_Minimum", (DL_FUNC) &autothresholdr_Minimum, 1},
+    {"autothresholdr_Moments", (DL_FUNC) &autothresholdr_Moments, 1},
+    {"autothresholdr_Otsu", (DL_FUNC) &autothresholdr_Otsu, 1},
+    {"autothresholdr_Percentile", (DL_FUNC) &autothresholdr_Percentile, 1},
+    {"autothresholdr_RenyiEntropy", (DL_FUNC) &autothresholdr_RenyiEntropy, 1},
+    {"autothresholdr_Shanbhag", (DL_FUNC) &autothresholdr_Shanbhag, 1},
+    {"autothresholdr_Triangle", (DL_FUNC) &autothresholdr_Triangle, 1},
+    {"autothresholdr_Yen", (DL_FUNC) &autothresholdr_Yen, 1},
     {"autothresholdr_sum_pillars", (DL_FUNC) &autothresholdr_sum_pillars, 1},
     {"autothresholdr_mean_pillars", (DL_FUNC) &autothresholdr_mean_pillars, 1},
     {"autothresholdr_var_pillars", (DL_FUNC) &autothresholdr_var_pillars, 1},

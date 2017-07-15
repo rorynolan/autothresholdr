@@ -11,10 +11,13 @@ mean_stack_thresh(arr3d, method, fail = NA, ignore_black = FALSE,
 \item{arr3d}{A 3-dimensional array (the image stack) where the \eqn{n}th
 slice is the \eqn{n}th image in the time series.}
 
-\item{method}{The thresholding method to use. See
-\link[autothresholdr:auto_thresh]{autothresholdr::auto_thresh}.}
+\item{method}{The thresholding method to use. See \code{\link[=auto_thresh]{auto_thresh()}}.}
 
-\item{fail}{To which value should pixels not exceeeding the threshold be set?}
+\item{fail}{To what value do you wish to set the pixels which fail to exceed
+the threshold. \code{fail = 'saturate'} sets them to saturated value (see
+"Details"). \code{fail = 'zero'} sets them to zero. You can also specify
+directly here a natural number (must be between 0 and 2 ^ 16 - 1) to use in
+place of \code{NA}s.}
 
 \item{ignore_black}{Ignore black pixels/elements (zeros) when performing the
 thresholding?}
@@ -36,6 +39,9 @@ for a given pillar in the image stack, either all the pixels therein are
 thresholded away, all are untouched).
 }
 \details{
+Values greater than or equal to the found threshold \emph{pass} the
+thresholding and values less than the threshold \emph{fail} the thresholding.
+
 It's called \code{mean_stack_thresh()} and not \code{sum_stack_thresh()} because its
 easier for people to visualise the mean if an image series rather than the
 sum, but for the sake of this procedure, both are equivalent, except for the
@@ -43,18 +49,17 @@ fact that the java routine invoked inside this function prefers integers,
 which we get by using a sum but not by using a mean.
 
 \itemize{ \item{\code{NA} values are automatically ignored.} \item{For
-\code{ignore.white = TRUE}, if the maximum value in the array is one of
-\code{2^8-1}, \code{2^12-1}, \code{2^16-1} or \code{2^32-1}, then those max
-values are ignored. That's because they're the white values in 8, 12, 16 and
-32-bit images respectively (and these are the common image bit sizes to work
-with). This guesswork has to be done because \code{R} does not know how many
-bits the image was on disk. This guess is very unlikely to be wrong, and if
-it is, the consequences are negligible anyway. If you're very concerned, then
-just specify the max value in the \code{ignore.white} argument.} \item{If you
-have set \code{ignore.black = TRUE} and/or \code{ignore.white = TRUE} but you
-are still getting error/warning messages telling you to try them, then your
-chosen method is not working for the given array, so you should try a
-different method.} }
+\code{ignore.white = TRUE}, if the maximum value in the array is one of \code{2^8-1},
+\code{2^12-1}, \code{2^16-1} or \code{2^32-1}, then those max values are ignored. That's
+because they're the white values in 8, 12, 16 and 32-bit images respectively
+(and these are the common image bit sizes to work with). This guesswork has
+to be done because \code{R} does not know how many bits the image was on disk.
+This guess is very unlikely to be wrong, and if it is, the consequences are
+negligible anyway. If you're very concerned, then just specify the max value
+in the \code{ignore.white} argument.} \item{If you have set \code{ignore.black = TRUE}
+and/or \code{ignore.white = TRUE} but you are still getting error/warning messages
+telling you to try them, then your chosen method is not working for the given
+array, so you should try a different method.} }
 }
 \examples{
 library(EBImage)

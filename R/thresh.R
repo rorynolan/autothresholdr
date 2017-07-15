@@ -6,6 +6,9 @@
 #' "Moments", "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle",
 #' "Yen". Read about them at \url{http://imagej.net/Auto_Threshold}.
 #'
+#' Values greater than or equal to the found threshold \emph{pass} the
+#' thresholding and values less than the threshold \emph{fail} the thresholding.
+#'
 #' \itemize{ \item{`NA` values are automatically ignored.} \item{For
 #' `ignore_white = TRUE`, if the maximum value in the array is one of `2^8-1`,
 #' `2^12-1`, `2^16-1` or `2^32-1`, then those max values are ignored. That's
@@ -118,7 +121,14 @@
 auto_thresh <- function(int_arr, method,
                         ignore_black = FALSE, ignore_white = FALSE) {
   stopifnot(length(method) == 1)
-  if (is.numeric(method)) return(method)
+  if (is.numeric(method)) {
+    thresh <- method
+    attributes(thresh) <- c(attributes(thresh),
+                            list(autothresh_method = NA,
+                                 ignore_black = ignore_black,
+                                 ignore_white = ignore_white))
+    return(thresh)
+  }
   method <- tolower(method)
   if (startsWith("default", method)) method <- "IJDefault"
   if (startsWith("huang", method)) method <- "Huang"
@@ -148,8 +158,15 @@ auto_thresh <- function(int_arr, method,
     stop("The image you're trying to threshold has only one unique value, ",
          "to perform thresholding, it needs at least two unique values.")
   }
-  autothresh_class <- rJava::.jnew("Auto_Threshold_R")
-  rJava::.jcall(autothresh_class, "I", method, im_hist) + rim[1]
+  thresh <- eval_text(method)(im_hist)
+  if (thresh < 0) {
+    stop(method, " method failed to find threshold.")
+  }
+  attributes(thresh) <- c(attributes(thresh),
+                          list(autothresh_method = method,
+                               ignore_black = ignore_black,
+                               ignore_white = ignore_white))
+  thresh
 }
 
 #' @rdname auto_thresh
@@ -158,8 +175,11 @@ auto_thresh_mask <- function(int_arr, method,
                              ignore_black = FALSE, ignore_white = FALSE) {
   thresh <- auto_thresh(int_arr, method,
                         ignore_black = ignore_black, ignore_white = ignore_white)
-  mask <- int_arr > thresh
-  attr(mask, "threshold") <- thresh
+  mask <- int_arr >= thresh
+  desirable_thresh_atts <- c("autothresh_method",
+                             "ignore_black", "ignore_white")
+  attributes(mask)[c(desirable_thresh_atts, "threshold")] <-
+    c(attributes(thresh)[desirable_thresh_atts], thresh)
   mask
 }
 
@@ -172,7 +192,10 @@ auto_thresh_apply_mask <- function(int_arr, method, fail = NA,
                            ignore_white = ignore_white)
   fail <- translate_fail(int_arr, fail)
   int_arr[!mask] <- fail
-  attr(int_arr, "threshold") <- attr(mask, "threshold")
+  desirable_mask_atts <- c("autothresh_method", "ignore_black", "ignore_white",
+                           "threshold")
+  attributes(int_arr)[desirable_mask_atts] <-
+    attributes(mask)[desirable_mask_atts]
   int_arr
 }
 

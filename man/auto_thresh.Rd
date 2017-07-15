@@ -71,6 +71,9 @@ methods. The available methods are "IJDefault", "Huang", "Huang2",
 "Yen". Read about them at \url{http://imagej.net/Auto_Threshold}.
 }
 \details{
+Values greater than or equal to the found threshold \emph{pass} the
+thresholding and values less than the threshold \emph{fail} the thresholding.
+
 \itemize{ \item{\code{NA} values are automatically ignored.} \item{For
 \code{ignore_white = TRUE}, if the maximum value in the array is one of \code{2^8-1},
 \code{2^12-1}, \code{2^16-1} or \code{2^32-1}, then those max values are ignored. That's

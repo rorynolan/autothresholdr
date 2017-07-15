@@ -14,7 +14,8 @@ slice is the \eqn{n}th image in the time series.}
 \item{method}{The thresholding method to use. See
 \link[autothresholdr:auto_thresh]{autothresholdr::auto_thresh}.}
 
-\item{fail}{To which value should pixels not exceeeding the threshold be set?}
+\item{fail}{To which value should pixels failing to meet the threshold be
+set?}
 
 \item{ignore_black}{Ignore black pixels/elements (zeros) when performing the
 thresholding?}
@@ -31,25 +32,27 @@ for thresholding.
 }
 \description{
 This function finds a threshold based on all of the frames, then takes the
-median of all the frames in the stack image, uses this to create a mask
-and then applies this mask to every frame in the stack (so for a given pillar
-in the image stack, either all the pixels therein are thresholded away, all
-are untouched).
+median of all the frames in the stack image, uses this to create a mask and
+then applies this mask to every frame in the stack (so for a given pillar in
+the image stack, either all the pixels therein are thresholded away, all are
+untouched).
 }
 \details{
+Values greater than or equal to the found threshold \emph{pass} the
+thresholding and values less than the threshold \emph{fail} the thresholding.
+
 \itemize{ \item{\code{NA} values are automatically ignored.} \item{For
-\code{ignore.white = TRUE}, if the maximum value in the array is one of
-\code{2^8-1}, \code{2^12-1}, \code{2^16-1} or \code{2^32-1}, then those max
-values are ignored. That's because they're the white values in 8, 12, 16 and
-32-bit images respectively (and these are the common image bit sizes to work
-with). This guesswork has to be done because \code{R} does not know how many
-bits the image was on disk. This guess is very unlikely to be wrong, and if
-it is, the consequences are negligible anyway. If you're very concerned, then
-just specify the max value in the \code{ignore.white} argument.} \item{If you
-have set \code{ignore.black = TRUE} and/or \code{ignore.white = TRUE} but you
-are still getting error/warning messages telling you to try them, then your
-chosen method is not working for the given array, so you should try a
-different method.} }
+\code{ignore.white = TRUE}, if the maximum value in the array is one of \code{2^8-1},
+\code{2^12-1}, \code{2^16-1} or \code{2^32-1}, then those max values are ignored. That's
+because they're the white values in 8, 12, 16 and 32-bit images respectively
+(and these are the common image bit sizes to work with). This guesswork has
+to be done because \code{R} does not know how many bits the image was on disk.
+This guess is very unlikely to be wrong, and if it is, the consequences are
+negligible anyway. If you're very concerned, then just specify the max value
+in the \code{ignore.white} argument.} \item{If you have set \code{ignore.black = TRUE}
+and/or \code{ignore.white = TRUE} but you are still getting error/warning messages
+telling you to try them, then your chosen method is not working for the given
+array, so you should try a different method.} }
 }
 \examples{
 library(EBImage)

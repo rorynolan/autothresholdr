@@ -1,8 +1,14 @@
-### 0.7.0
+## 1.0.0
+
+#### NEW FEATURES
+* The `rJava` (and hence java) dependency has been removed. All functions which used to be in java are now done in `Rcpp`.
 
 #### MINOR IMPROVEMENTS
 * The `fail` arguments of `auto_thresh_apply_mask()`, `mean_stack_thresh()` and `med_stack_thresh()` now work like the `na` argument of `nandb::WriteIntImage()`.
 * `auto_thresh_mask()` and `auto_thresh_apply_mask()` now have the abbreviations `mask()` and `apply_mask()`.
+
+#### BUG FIXES
+* It is now the case that for a threshold *x*, values greater than or equal to *x* are deemed to "pass" the thresholding and values less than *x* are deemed to "fail" the thresholding. Before what was happening was that values greater than *x* were deemed to have passed and values less than or equal to *x* were deemed to have failed.
 
 
 ### 0.6.0
@@ -22,15 +28,14 @@
 ### 0.5.0
 
 #### MINOR IMPROVEMENTS
-* Rename all exported functions to be in snake_case.
-* The skip.consts option in the stack_thresh functions is gone.
-  - Now these functions error if you pass them a constant array.
+* Renamed all exported functions to be in `snake_case`.
+* The skip.consts option in the stack_thresh functions is gone. Now these functions error if you pass them a constant array.
 
 
 ### 0.4.0
 
 #### MINOR IMPROVEMENTS
-* Add MeanStackThresh and MedStackThresh.
+* Add `MeanStackThresh()` and `MedStackThresh()`.
 
 
 ### 0.3.0

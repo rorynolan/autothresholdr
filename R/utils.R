@@ -44,3 +44,9 @@ translate_fail <- function(arr, fail) {
   }
   fail
 }
+
+eval_text <- function(string) {
+  checkmate::assert_scalar(string)
+  checkmate::assert_character(string)
+  eval(parse(text = string))
+}
