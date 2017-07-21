@@ -6,59 +6,77 @@
 \alias{auto_thresh_apply_mask}
 \alias{mask}
 \alias{apply_mask}
-\title{Automatically threshold an image.}
+\title{Automatically threshold an image}
 \usage{
-auto_thresh(int_arr, method, ignore_black = FALSE, ignore_white = FALSE)
+auto_thresh(int_arr, method, ignore_black = FALSE, ignore_white = FALSE,
+  ignore_na = FALSE)
 
 auto_thresh_mask(int_arr, method, ignore_black = FALSE,
-  ignore_white = FALSE)
+  ignore_white = FALSE, ignore_na = FALSE)
 
 auto_thresh_apply_mask(int_arr, method, fail = NA, ignore_black = FALSE,
-  ignore_white = FALSE)
+  ignore_white = FALSE, ignore_na = FALSE)
 
-mask(int_arr, method, ignore_black = FALSE, ignore_white = FALSE)
+mask(int_arr, method, ignore_black = FALSE, ignore_white = FALSE,
+  ignore_na = FALSE)
 
 apply_mask(int_arr, method, fail = NA, ignore_black = FALSE,
-  ignore_white = FALSE)
+  ignore_white = FALSE, ignore_na = FALSE)
 }
 \arguments{
 \item{int_arr}{An array (or vector) of \emph{integers}.}
 
-\item{method}{The name of the method you wish to use (e.g. "Huang"). Partial
-matching is performed i.e. \code{method = "h"} is enough to get you "Huang" and
-\code{method = "in"} is enough to get you "Intermodes". To perform \emph{manual}
-thresholding (where you set the threshold yourself), supply the threshold
-here as a number e.g. \code{method = 3}. So note that this would \emph{not}
-select the third method in the above list of methods.}
+\item{method}{The name of the thresholding method you wish to use. The
+available methods are \code{"IJDefault"}, \code{"Huang"}, \code{"Huang2"}, \code{"Intermodes"},
+\code{"IsoData"}, \code{"Li"}, \code{"MaxEntropy"}, \code{"Mean"}, \code{"MinErrorI"}, \code{"Minimum"},
+\code{"Moments"}, \code{"Otsu"}, \code{"Percentile"}, \code{"RenyiEntropy"}, \code{"Shanbhag"},
+\code{"Triangle"} and \code{"Yen"}. Partial matching is performed i.e. \code{method = "h"}
+is enough to get you \code{"Huang"} and \code{method = "in"} is enough to get you
+\code{"Intermodes"}. To perform \emph{manual} thresholding (where you set the
+threshold yourself), supply the threshold here as a number e.g. \code{method = 3}; so note that this would \emph{not} select the third method in the above
+list of methods.}
 
 \item{ignore_black}{Ignore black pixels/elements (zeros) when performing the
 thresholding?}
 
 \item{ignore_white}{Ignore white pixels when performing the thresholding? If
 set to \code{TRUE}, the function makes a good guess as to what the white
-(saturated) value would be (see "Details"). If this is set to a number, all
+(saturated) value would be (see 'Details'). If this is set to a number, all
 pixels with value greater than or equal to that number are ignored.}
 
-\item{fail}{When using \code{auto_thresh_apply_mask}, to what value do you wish to
-set the pixels which fail to exceed the threshold. \code{fail = 'saturate'} sets
-them to saturated value (see "Details"). \code{fail = 'zero'} sets them to zero.
-You can also specify directly here a natural number (must be between 0 and
-2 ^ 16 - 1) to use in place of \code{NA}s.}
+\item{ignore_na}{This should be \code{TRUE} if \code{NA}s in \code{int_arr} should be
+ignored or \code{FALSE} if you want the presence of \code{NA}s in \code{int_arr} to throw
+an error.}
+
+\item{fail}{When using \code{auto_thresh_apply_mask()}, to what value do you wish
+to set the pixels which fail to exceed the threshold? \code{fail = 'saturate'}
+sets them to saturated value (see "Details"). \code{fail = 'zero'} sets them to
+zero. You can also specify directly here a natural number (must be between
+\code{0} and \code{2^16 - 1}) to use in place of \code{NA}s.}
 }
 \value{
 \code{auto_thresh()} returns an integer, the image threshold value. Pixels
-exceeding this threshold are passed, but pixels at or below this level are
-failed.
+exceeding this threshold pass the thresholding, pixels at or below this
+level fail. This has the attribute \code{autothresh_method} to tell you which
+method was used to find this threshold and attributes \code{ignore_black} and
+\code{ignore_white} to tell you what \code{ignore_black} and \code{ignore_white} were set
+to during the finding of this threshold.
 
 \code{auto_thresh_mask()} returns a binarized version of the input, with a value
 of \code{TRUE} at points which exceed the threshold and \code{FALSE} at those which
-do not. This has an attribute "threshold" to tell you what the threshold
-value was.
+do not. This has an attribute \code{threshold} to tell you what the threshold
+value was, the attribute \code{autothresh_method} to tell you which method was
+used to find this threshold and attributes \code{ignore_black} and
+\code{ignore_white} to tell you what \code{ignore_black} and \code{ignore_white} were set
+to during the finding of this threshold.
 
 \code{auto_thresh_apply_mask()} returns the original input masked by the
 threshold, i.e. all points not exceeding the threshold are set to a
-user-defined value (default \code{NA}). This has an attribute `threshold to
-tell you what the threshold value was.
+user-defined value (default \code{NA}). This has an attribute \code{threshold} to
+tell you what the threshold value was, the attribute \code{autothresh_method} to
+tell you which method was used to find this threshold and attributes
+\code{ignore_black} and \code{ignore_white} to tell you what \code{ignore_black} and
+\code{ignore_white} were set to during the finding of this threshold.
 
 \code{mask()} is the same as \code{auto_thresh_mask()} and \code{apply_mask()} is the same
 as \code{auto_thresh_apply_mask()}.
@@ -67,27 +85,30 @@ as \code{auto_thresh_apply_mask()}.
 These functions apply the ImageJ "Auto Threshold" plugin's image thresholding
 methods. The available methods are "IJDefault", "Huang", "Huang2",
 "Intermodes", "IsoData", "Li", "MaxEntropy", "Mean", "MinErrorI", "Minimum",
-"Moments", "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle",
+"Moments", "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle" and
 "Yen". Read about them at \url{http://imagej.net/Auto_Threshold}.
 }
 \details{
-Values greater than or equal to the found threshold \emph{pass} the
-thresholding and values less than the threshold \emph{fail} the thresholding.
+\itemize{\item Values greater than or equal to the found threshold
+\emph{pass} the thresholding and values less than the threshold \emph{fail}
+the thresholding.
 
-\itemize{ \item{\code{NA} values are automatically ignored.} \item{For
-\code{ignore_white = TRUE}, if the maximum value in the array is one of \code{2^8-1},
-\code{2^12-1}, \code{2^16-1} or \code{2^32-1}, then those max values are ignored. That's
-because they're the white values in 8, 12, 16 and 32-bit images respectively
-(and these are the common image bit sizes to work with). This guesswork has
-to be done because \code{R} does not know how many bits the image was on disk.
-This guess is very unlikely to be wrong, and if it is, the consequences are
-negligible anyway. If you're very concerned, then just specify the max value
-in the \code{ignore_white} argument.} \item{If you have set \code{ignore_black = TRUE}
-and/or \code{ignore_white = TRUE} but you are still getting error/warning messages
-telling you to try them, then your chosen method is not working for the given
-array, so you should try a different method.} }
+\item{For \code{ignore_white = TRUE}, if the maximum value in the array is one of
+\code{2^8-1}, \code{2^12-1}, \code{2^16-1} or \code{2^32-1}, then those max values are ignored.
+That's because they're the white values in 8, 12, 16 and 32-bit images
+respectively (and these are the common image bit sizes to work with). This
+guesswork has to be done because \code{R} does not know how many bits the image
+was on disk. This guess is very unlikely to be wrong, and if it is, the
+consequences are negligible anyway. If you're very concerned, then just
+specify the white value as an integer in this \code{ignore_white} argument.}
 
-For a given array, if all values are less than \code{2 ^ 8}, saturated value is \code{2 ^ 8 - 1}, otherwise, saturated value is \code{2 ^ 16 - 1}.
+\item{If you have set \code{ignore_black = TRUE} and/or \code{ignore_white = TRUE} but
+you are still getting error/warning messages telling you to try them, then
+your chosen method is not working for the given array, so you should try a
+different method.}
+
+\item For a given array, if all values are less than \code{2^8}, saturated value
+is \code{2^8 - 1}, otherwise, saturated value is \code{2^16 - 1}. }
 }
 \section{Acknowledgements}{
  Gabriel Landini coded all of these functions

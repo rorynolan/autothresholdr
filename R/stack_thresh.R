@@ -3,48 +3,72 @@
 #' This function finds a threshold based on the sum all of the frames, uses this
 #' to create a mask and then applies this mask to every frame in the stack (so
 #' for a given pillar in the image stack, either all the pixels therein are
-#' thresholded away, all are untouched).
-#'
-#' Values greater than or equal to the found threshold \emph{pass} the
-#' thresholding and values less than the threshold \emph{fail} the thresholding.
+#' thresholded away or all are untouched, where pillar `i,j` in array `arr3d` is
+#' `arr3d[i, j, ]`).
 #'
 #' It's called `mean_stack_thresh()` and not `sum_stack_thresh()` because its
-#' easier for people to visualise the mean if an image series rather than the
-#' sum, but for the sake of this procedure, both are equivalent, except for the
-#' fact that the java routine invoked inside this function prefers integers,
-#' which we get by using a sum but not by using a mean.
+#' easier for people to visualise the mean of an image series than to visualize
+#' the sum, but for the sake of this procedure, both are equivalent, except for
+#' the fact that the thresholding routine invoked inside this function prefers
+#' integers, which we get by using a sum but not by using a mean.
 #'
-#' \itemize{ \item{`NA` values are automatically ignored.} \item{For
-#' `ignore.white = TRUE`, if the maximum value in the array is one of `2^8-1`,
-#' `2^12-1`, `2^16-1` or `2^32-1`, then those max values are ignored. That's
-#' because they're the white values in 8, 12, 16 and 32-bit images respectively
-#' (and these are the common image bit sizes to work with). This guesswork has
-#' to be done because `R` does not know how many bits the image was on disk.
-#' This guess is very unlikely to be wrong, and if it is, the consequences are
-#' negligible anyway. If you're very concerned, then just specify the max value
-#' in the `ignore.white` argument.} \item{If you have set `ignore.black = TRUE`
-#' and/or `ignore.white = TRUE` but you are still getting error/warning messages
-#' telling you to try them, then your chosen method is not working for the given
-#' array, so you should try a different method.} }
+#' \itemize{\item Values greater than or equal to the found threshold
+#' \emph{pass} the thresholding and values less than the threshold \emph{fail}
+#' the thresholding.
 #'
-#' @param arr3d A 3-dimensional array (the image stack) where the \eqn{n}th
-#'   slice is the \eqn{n}th image in the time series.
-#' @param method The thresholding method to use. See [auto_thresh()].
+#' \item{For `ignore_white = TRUE`, if the maximum value in the array is one of
+#' `2^8-1`, `2^12-1`, `2^16-1` or `2^32-1`, then those max values are ignored.
+#' That's because they're the white values in 8, 12, 16 and 32-bit images
+#' respectively (and these are the common image bit sizes to work with). This
+#' guesswork has to be done because `R` does not know how many bits the image
+#' was on disk. This guess is very unlikely to be wrong, and if it is, the
+#' consequences are negligible anyway. If you're very concerned, then just
+#' specify the white value as an integer in this `ignore_white` argument.}
+#'
+#' \item{If you have set `ignore_black = TRUE` and/or `ignore_white = TRUE` but
+#' you are still getting error/warning messages telling you to try them, then
+#' your chosen method is not working for the given array, so you should try a
+#' different method.}
+#'
+#' \item For a given array, if all values are less than `2^8`, saturated value
+#' is `2^8 - 1`, otherwise, saturated value is `2^16 - 1`. }
+#'
+#' @param arr3d A 3-dimensional array (the image stack, possibly a time-series
+#'   of images) where the \eqn{n}th slice is the \eqn{n}th image in the stack.
+#' @param method The name of the thresholding method you wish to use. The
+#'   available methods are `"IJDefault"`, `"Huang"`, `"Huang2"`, `"Intermodes"`,
+#'   `"IsoData"`, `"Li"`, `"MaxEntropy"`, `"Mean"`, `"MinErrorI"`, `"Minimum"`,
+#'   `"Moments"`, `"Otsu"`, `"Percentile"`, `"RenyiEntropy"`, `"Shanbhag"`,
+#'   `"Triangle"` and `"Yen"`. Partial matching is performed i.e. `method = "h"`
+#'   is enough to get you `"Huang"` and `method = "in"` is enough to get you
+#'   `"Intermodes"`. To perform \emph{manual} thresholding (where you set the
+#'   threshold yourself), supply the threshold here as a number e.g. `method =
+#'   3.8` (so note that this would \emph{not} select the third method in the
+#'   above list of methods). This manual threshold will then be used to
+#'   threshold the mean of the stack to create a 2D mask and then this mask will
+#'   be applied to all frames in the stack.
 #' @param ignore_black Ignore black pixels/elements (zeros) when performing the
 #'   thresholding?
 #' @param ignore_white Ignore white pixels when performing the thresholding? If
 #'   set to `TRUE`, the function makes a good guess as to what the white
-#'   (saturated) value would be (see "Details"). If this is set to a number, all
+#'   (saturated) value would be (see 'Details'). If this is set to a number, all
 #'   pixels with value greater than or equal to that number are ignored.
-#' @param fail To what value do you wish to set the pixels which fail to exceed
-#'   the threshold. `fail = 'saturate'` sets them to saturated value (see
-#'   "Details"). `fail = 'zero'` sets them to zero. You can also specify
-#'   directly here a natural number (must be between 0 and 2 ^ 16 - 1) to use in
-#'   place of `NA`s.
+#' @param fail When using `auto_thresh_apply_mask()`, to what value do you wish
+#'   to set the pixels which fail to exceed the threshold? `fail = 'saturate'`
+#'   sets them to saturated value (see 'Details'). `fail = 'zero'` sets them to
+#'   zero. You can also specify directly here a natural number (must be between
+#'   `0` and `2^16 - 1`) to use in place of `NA`s.
+#' @param ignore_na This should be `TRUE` if `NA`s in `int_arr` should be
+#'   ignored or `FALSE` if you want the presence of `NA`s in `int_arr` to throw
+#'   an error.
 #'
 #' @return A 3d array, the thresholded stack. Pillars not exceeding the
-#'   threshold are set to zero. The attribute 'threshold' gives the value used
-#'   for thresholding.
+#'   threshold are set to the `fail` value (default `NA`). This array has an
+#'   attribute `threshold` to tell you what the threshold value was, the
+#'   attribute `autothresh_method` to tell you which method was used to find
+#'   this threshold and attributes `ignore_black` and `ignore_white` to tell you
+#'   what `ignore_black` and `ignore_white` were set to during the finding of
+#'   this threshold.
 #'
 #' @examples
 #' library(EBImage)
@@ -60,7 +84,8 @@
 #'
 #' @export
 mean_stack_thresh <- function(arr3d, method, fail = NA,
-                              ignore_black = FALSE, ignore_white = FALSE) {
+                              ignore_black = FALSE, ignore_white = FALSE,
+                              ignore_na = FALSE) {
   d <- dim(arr3d)
   stopifnot(length(d) == 3, length(method) == 1)
   if (length(unique(as.vector(arr3d))) == 1) {
@@ -79,9 +104,14 @@ mean_stack_thresh <- function(arr3d, method, fail = NA,
       scaling_factor <- max32int / mx
       sum_stack <- round(sum_stack * scaling_factor)
     }
-    thresh <- auto_thresh(sum_stack, method, ignore_black = ignore_black,
-                          ignore_white = ignore_white) /
-      (scaling_factor * d[3])
+    thresh <- auto_thresh(sum_stack, method,
+                          ignore_black = ignore_black,
+                          ignore_white = ignore_white,
+                          ignore_na = ignore_na) %T>% {
+      thresh_atts <- attributes(.)
+      . <- . / (scaling_factor * d[3])
+      attributes(.) <- thresh_atts
+    }
   }
   mean_stack <- mean_pillars(arr3d)
   mean_stack_mask <- mean_stack >= thresh
@@ -99,41 +129,66 @@ mean_stack_thresh <- function(arr3d, method, fail = NA,
 #' This function finds a threshold based on all of the frames, then takes the
 #' median of all the frames in the stack image, uses this to create a mask and
 #' then applies this mask to every frame in the stack (so for a given pillar in
-#' the image stack, either all the pixels therein are thresholded away, all are
-#' untouched).
+#' the image stack, either all the pixels therein are thresholded away or all
+#' are untouched, where pillar `i,j` in array `arr3d` is `arr3d[i, j, ]`).
 #'
-#' Values greater than or equal to the found threshold \emph{pass} the
-#' thresholding and values less than the threshold \emph{fail} the thresholding.
+#' \itemize{\item Values greater than or equal to the found threshold
+#' \emph{pass} the thresholding and values less than the threshold \emph{fail}
+#' the thresholding.
 #'
-#' \itemize{ \item{`NA` values are automatically ignored.} \item{For
-#' `ignore.white = TRUE`, if the maximum value in the array is one of `2^8-1`,
-#' `2^12-1`, `2^16-1` or `2^32-1`, then those max values are ignored. That's
-#' because they're the white values in 8, 12, 16 and 32-bit images respectively
-#' (and these are the common image bit sizes to work with). This guesswork has
-#' to be done because `R` does not know how many bits the image was on disk.
-#' This guess is very unlikely to be wrong, and if it is, the consequences are
-#' negligible anyway. If you're very concerned, then just specify the max value
-#' in the `ignore.white` argument.} \item{If you have set `ignore.black = TRUE`
-#' and/or `ignore.white = TRUE` but you are still getting error/warning messages
-#' telling you to try them, then your chosen method is not working for the given
-#' array, so you should try a different method.} }
+#' \item{For `ignore_white = TRUE`, if the maximum value in the array is one of
+#' `2^8-1`, `2^12-1`, `2^16-1` or `2^32-1`, then those max values are ignored.
+#' That's because they're the white values in 8, 12, 16 and 32-bit images
+#' respectively (and these are the common image bit sizes to work with). This
+#' guesswork has to be done because `R` does not know how many bits the image
+#' was on disk. This guess is very unlikely to be wrong, and if it is, the
+#' consequences are negligible anyway. If you're very concerned, then just
+#' specify the white value as an integer in this `ignore_white` argument.}
 #'
-#' @param arr3d A 3-dimensional array (the image stack) where the \eqn{n}th
-#'   slice is the \eqn{n}th image in the time series.
-#' @param method The thresholding method to use. See
-#'   [autothresholdr::auto_thresh].
-#' @param fail To which value should pixels failing to meet the threshold be
-#'   set?
+#' \item{If you have set `ignore_black = TRUE` and/or `ignore_white = TRUE` but
+#' you are still getting error/warning messages telling you to try them, then
+#' your chosen method is not working for the given array, so you should try a
+#' different method.}
+#'
+#' \item For a given array, if all values are less than `2^8`, saturated value
+#' is `2^8 - 1`, otherwise, saturated value is `2^16 - 1`. }
+#'
+#' @param arr3d A 3-dimensional array (the image stack, possibly a time-series
+#'   of images) where the \eqn{n}th slice is the \eqn{n}th image in the stack.
+#' @param method The name of the thresholding method you wish to use. The
+#'   available methods are `"IJDefault"`, `"Huang"`, `"Huang2"`, `"Intermodes"`,
+#'   `"IsoData"`, `"Li"`, `"MaxEntropy"`, `"Mean"`, `"MinErrorI"`, `"Minimum"`,
+#'   `"Moments"`, `"Otsu"`, `"Percentile"`, `"RenyiEntropy"`, `"Shanbhag"`,
+#'   `"Triangle"` and `"Yen"`. Partial matching is performed i.e. `method = "h"`
+#'   is enough to get you `"Huang"` and `method = "in"` is enough to get you
+#'   `"Intermodes"`. To perform \emph{manual} thresholding (where you set the
+#'   threshold yourself), supply the threshold here as a number e.g. `method =
+#'   3` (so note that this would \emph{not} select the third method in the above
+#'   list of methods). This manual threshold will then be used to threshold the
+#'   mean of the stack to create a 2D mask and then this mask will be applied to
+#'   all frames in the stack.
 #' @param ignore_black Ignore black pixels/elements (zeros) when performing the
 #'   thresholding?
 #' @param ignore_white Ignore white pixels when performing the thresholding? If
 #'   set to `TRUE`, the function makes a good guess as to what the white
-#'   (saturated) value would be (see "Details"). If this is set to a number, all
+#'   (saturated) value would be (see 'Details'). If this is set to a number, all
 #'   pixels with value greater than or equal to that number are ignored.
+#' @param fail When using `auto_thresh_apply_mask()`, to what value do you wish
+#'   to set the pixels which fail to exceed the threshold? `fail = 'saturate'`
+#'   sets them to saturated value (see 'Details'). `fail = 'zero'` sets them to
+#'   zero. You can also specify directly here a natural number (must be between
+#'   `0` and `2^16 - 1`) to use in place of `NA`s.
+#' @param ignore_na This should be `TRUE` if `NA`s in `int_arr` should be
+#'   ignored or `FALSE` if you want the presence of `NA`s in `int_arr` to throw
+#'   an error.
 #'
 #' @return A 3d array, the thresholded stack. Pillars not exceeding the
-#'   threshold are set to zero. The attribute 'threshold' gives the value used
-#'   for thresholding.
+#'   threshold are set to the `fail` value (default `NA`). This array has an
+#'   attribute `threshold` to tell you what the threshold value was, the
+#'   attribute `autothresh_method` to tell you which method was used to find
+#'   this threshold and attributes `ignore_black` and `ignore_white` to tell you
+#'   what `ignore_black` and `ignore_white` were set to during the finding of
+#'   this threshold.
 #'
 #' @examples
 #' library(EBImage)
@@ -149,7 +204,8 @@ mean_stack_thresh <- function(arr3d, method, fail = NA,
 #'
 #' @export
 med_stack_thresh <- function(arr3d, method, fail = NA,
-                             ignore_black = FALSE, ignore_white = FALSE) {
+                             ignore_black = FALSE, ignore_white = FALSE,
+                             ignore_na = FALSE) {
   stopifnot(length(dim(arr3d)) == 3)
   if (length(unique(as.vector(arr3d))) == 1) {
     stop("The array given for thresholding is constant ",
@@ -157,7 +213,8 @@ med_stack_thresh <- function(arr3d, method, fail = NA,
   }
   fail <- translate_fail(arr3d, fail)
   thresh <- auto_thresh(arr3d, method, ignore_black = ignore_black,
-                        ignore_white = ignore_white)
+                        ignore_white = ignore_white,
+                        ignore_na = ignore_na)
   med_stack <- median_pillars(arr3d)
   med_stack_mask <- med_stack >= thresh
   set_indices <- rep(!as.vector(med_stack_mask), dim(arr3d)[3])

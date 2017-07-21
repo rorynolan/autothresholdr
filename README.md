@@ -72,7 +72,7 @@ library(magrittr)
 We'll be using the image that comes with the package:
 
 ``` r
-img <- imageData(readImage(system.file("extdata", "eg.tif", 
+img <- imageData(readImage(system.file("extdata", "fiji_eg.tif", 
                                        package = "autothresholdr"), 
                            as.is = TRUE))
 display(normalize(img), method = "r")
@@ -80,13 +80,13 @@ display(normalize(img), method = "r")
 
 ![](README_files/figure-markdown_github-ascii_identifiers/the%20image-1.png)
 
-It's a bit of a cell, the black part is where the cell is not. The threshold is supposed to tell us what is *dark* (not cell) and what is *bright* (cell). By playing around, we see that something like 4 is a good value.
+It's a bit of a cell, the black part is where the cell is not. The threshold is supposed to tell us what is *dark* (not cell) and what is *bright* (cell). By playing around, we see that something like 20 might (for some purposes) be a good value.
 
 ``` r
-display(img > 4, method = "r")
+display(img > 20, method = "r")
 ```
 
-![](README_files/figure-markdown_github-ascii_identifiers/guess%20four-1.png)
+![](README_files/figure-markdown_github-ascii_identifiers/guess%20twenty-1.png)
 
 But what if we have many images and we don't want to *play around*, we want a method of calculating the threshold automatically. <http://imagej.net/Auto_Threshold> gives many such methods and they are provided to you in R via this package. Go to that webpage for a nice comparison of the methods.
 
@@ -98,7 +98,7 @@ Let's see each with Huang thresholding.
 auto_thresh(img, "h")
 ```
 
-    #> [1] 5
+    #> [1] 23
     #> attr(,"autothresh_method")
     #> [1] "Huang"
     #> attr(,"ignore_black")

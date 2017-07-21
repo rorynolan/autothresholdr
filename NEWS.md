@@ -6,6 +6,7 @@
 #### MINOR IMPROVEMENTS
 * The `fail` arguments of `auto_thresh_apply_mask()`, `mean_stack_thresh()` and `med_stack_thresh()` now work like the `na` argument of `nandb::WriteIntImage()`.
 * `auto_thresh_mask()` and `auto_thresh_apply_mask()` now have the abbreviations `mask()` and `apply_mask()`.
+* The functions now have an `ignore_na` argument for `NA` handling.
 
 #### BUG FIXES
 * It is now the case that for a threshold *x*, values greater than or equal to *x* are deemed to "pass" the thresholding and values less than *x* are deemed to "fail" the thresholding. Before what was happening was that values greater than *x* were deemed to have passed and values less than or equal to *x* were deemed to have failed.

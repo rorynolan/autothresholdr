@@ -40,4 +40,8 @@ test_that("auto_thresh works", {
   img_neg <- img %T>% {.[1] <- -1}
   expect_error(auto_thresh(img_neg, "huang"))
   expect_error(auto_thresh(matrix(1, nrow = 2, ncol = 2), "huang"))
+  expect_error(auto_thresh(c(1, NA), method = "tri"), "input int_arr has NA ")
+  x <- 13
+  attributes(x)[desirable_thresh_atts] <- list("Otsu", FALSE, FALSE)
+  expect_equal(auto_thresh(img %T>% {.[1] <- NA}, "Otsu", ignore_na = TRUE), x)
 })

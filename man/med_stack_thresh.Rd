@@ -5,54 +5,79 @@
 \title{Threshold every image frame in a stack based on their median.}
 \usage{
 med_stack_thresh(arr3d, method, fail = NA, ignore_black = FALSE,
-  ignore_white = FALSE)
+  ignore_white = FALSE, ignore_na = FALSE)
 }
 \arguments{
-\item{arr3d}{A 3-dimensional array (the image stack) where the \eqn{n}th
-slice is the \eqn{n}th image in the time series.}
+\item{arr3d}{A 3-dimensional array (the image stack, possibly a time-series
+of images) where the \eqn{n}th slice is the \eqn{n}th image in the stack.}
 
-\item{method}{The thresholding method to use. See
-\link[autothresholdr:auto_thresh]{autothresholdr::auto_thresh}.}
+\item{method}{The name of the thresholding method you wish to use. The
+available methods are \code{"IJDefault"}, \code{"Huang"}, \code{"Huang2"}, \code{"Intermodes"},
+\code{"IsoData"}, \code{"Li"}, \code{"MaxEntropy"}, \code{"Mean"}, \code{"MinErrorI"}, \code{"Minimum"},
+\code{"Moments"}, \code{"Otsu"}, \code{"Percentile"}, \code{"RenyiEntropy"}, \code{"Shanbhag"},
+\code{"Triangle"} and \code{"Yen"}. Partial matching is performed i.e. \code{method = "h"}
+is enough to get you \code{"Huang"} and \code{method = "in"} is enough to get you
+\code{"Intermodes"}. To perform \emph{manual} thresholding (where you set the
+threshold yourself), supply the threshold here as a number e.g. \code{method = 3} (so note that this would \emph{not} select the third method in the above
+list of methods). This manual threshold will then be used to threshold the
+mean of the stack to create a 2D mask and then this mask will be applied to
+all frames in the stack.}
 
-\item{fail}{To which value should pixels failing to meet the threshold be
-set?}
+\item{fail}{When using \code{auto_thresh_apply_mask()}, to what value do you wish
+to set the pixels which fail to exceed the threshold? \code{fail = 'saturate'}
+sets them to saturated value (see 'Details'). \code{fail = 'zero'} sets them to
+zero. You can also specify directly here a natural number (must be between
+\code{0} and \code{2^16 - 1}) to use in place of \code{NA}s.}
 
 \item{ignore_black}{Ignore black pixels/elements (zeros) when performing the
 thresholding?}
 
 \item{ignore_white}{Ignore white pixels when performing the thresholding? If
 set to \code{TRUE}, the function makes a good guess as to what the white
-(saturated) value would be (see "Details"). If this is set to a number, all
+(saturated) value would be (see 'Details'). If this is set to a number, all
 pixels with value greater than or equal to that number are ignored.}
+
+\item{ignore_na}{This should be \code{TRUE} if \code{NA}s in \code{int_arr} should be
+ignored or \code{FALSE} if you want the presence of \code{NA}s in \code{int_arr} to throw
+an error.}
 }
 \value{
 A 3d array, the thresholded stack. Pillars not exceeding the
-threshold are set to zero. The attribute 'threshold' gives the value used
-for thresholding.
+threshold are set to the \code{fail} value (default \code{NA}). This array has an
+attribute \code{threshold} to tell you what the threshold value was, the
+attribute \code{autothresh_method} to tell you which method was used to find
+this threshold and attributes \code{ignore_black} and \code{ignore_white} to tell you
+what \code{ignore_black} and \code{ignore_white} were set to during the finding of
+this threshold.
 }
 \description{
 This function finds a threshold based on all of the frames, then takes the
 median of all the frames in the stack image, uses this to create a mask and
 then applies this mask to every frame in the stack (so for a given pillar in
-the image stack, either all the pixels therein are thresholded away, all are
-untouched).
+the image stack, either all the pixels therein are thresholded away or all
+are untouched, where pillar \code{i,j} in array \code{arr3d} is \code{arr3d[i, j, ]}).
 }
 \details{
-Values greater than or equal to the found threshold \emph{pass} the
-thresholding and values less than the threshold \emph{fail} the thresholding.
+\itemize{\item Values greater than or equal to the found threshold
+\emph{pass} the thresholding and values less than the threshold \emph{fail}
+the thresholding.
 
-\itemize{ \item{\code{NA} values are automatically ignored.} \item{For
-\code{ignore.white = TRUE}, if the maximum value in the array is one of \code{2^8-1},
-\code{2^12-1}, \code{2^16-1} or \code{2^32-1}, then those max values are ignored. That's
-because they're the white values in 8, 12, 16 and 32-bit images respectively
-(and these are the common image bit sizes to work with). This guesswork has
-to be done because \code{R} does not know how many bits the image was on disk.
-This guess is very unlikely to be wrong, and if it is, the consequences are
-negligible anyway. If you're very concerned, then just specify the max value
-in the \code{ignore.white} argument.} \item{If you have set \code{ignore.black = TRUE}
-and/or \code{ignore.white = TRUE} but you are still getting error/warning messages
-telling you to try them, then your chosen method is not working for the given
-array, so you should try a different method.} }
+\item{For \code{ignore_white = TRUE}, if the maximum value in the array is one of
+\code{2^8-1}, \code{2^12-1}, \code{2^16-1} or \code{2^32-1}, then those max values are ignored.
+That's because they're the white values in 8, 12, 16 and 32-bit images
+respectively (and these are the common image bit sizes to work with). This
+guesswork has to be done because \code{R} does not know how many bits the image
+was on disk. This guess is very unlikely to be wrong, and if it is, the
+consequences are negligible anyway. If you're very concerned, then just
+specify the white value as an integer in this \code{ignore_white} argument.}
+
+\item{If you have set \code{ignore_black = TRUE} and/or \code{ignore_white = TRUE} but
+you are still getting error/warning messages telling you to try them, then
+your chosen method is not working for the given array, so you should try a
+different method.}
+
+\item For a given array, if all values are less than \code{2^8}, saturated value
+is \code{2^8 - 1}, otherwise, saturated value is \code{2^16 - 1}. }
 }
 \examples{
 library(EBImage)
