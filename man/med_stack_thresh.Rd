@@ -52,10 +52,11 @@ this threshold.
 }
 \description{
 This function finds a threshold based on all of the frames, then takes the
-median of all the frames in the stack image, uses this to create a mask and
-then applies this mask to every frame in the stack (so for a given pillar in
-the image stack, either all the pixels therein are thresholded away or all
-are untouched, where pillar \code{i,j} in array \code{arr3d} is \code{arr3d[i, j, ]}).
+median of all the frames in the stack image, uses this to create a mask with
+the found threshold and then applies this mask to every frame in the stack
+(so for a given pillar in the image stack, either all the pixels therein are
+thresholded away or all are untouched, where pillar \code{i,j} in array \code{arr3d} is
+\code{arr3d[i, j, ]}).
 }
 \details{
 \itemize{\item Values greater than or equal to the found threshold

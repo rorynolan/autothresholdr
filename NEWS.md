@@ -46,6 +46,6 @@
 * Improve OSX installation instructions in README.md.
 
 
-## autothresholdr 0.2.0
+## 0.2.0
 
 * The first CRAN-worthy version.

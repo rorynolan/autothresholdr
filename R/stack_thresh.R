@@ -127,10 +127,11 @@ mean_stack_thresh <- function(arr3d, method, fail = NA,
 #' Threshold every image frame in a stack based on their median.
 #'
 #' This function finds a threshold based on all of the frames, then takes the
-#' median of all the frames in the stack image, uses this to create a mask and
-#' then applies this mask to every frame in the stack (so for a given pillar in
-#' the image stack, either all the pixels therein are thresholded away or all
-#' are untouched, where pillar `i,j` in array `arr3d` is `arr3d[i, j, ]`).
+#' median of all the frames in the stack image, uses this to create a mask with
+#' the found threshold and then applies this mask to every frame in the stack
+#' (so for a given pillar in the image stack, either all the pixels therein are
+#' thresholded away or all are untouched, where pillar `i,j` in array `arr3d` is
+#' `arr3d[i, j, ]`).
 #'
 #' \itemize{\item Values greater than or equal to the found threshold
 #' \emph{pass} the thresholding and values less than the threshold \emph{fail}
