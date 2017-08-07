@@ -15,7 +15,6 @@ Installation
         sudo apt-get update
         sudo apt-get install libssl-dev libtiff5-dev libfftw3-dev 
         sudo apt-get install libcurl4-openssl-dev libxml2-dev 
-        sudo apt-get install default-jre default-jdk libboost-all-dev
 
 2.  In R, run
 
