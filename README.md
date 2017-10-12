@@ -19,8 +19,6 @@ Installation
 2.  In R, run
 
 ``` r
-source("https://bioconductor.org/biocLite.R")
-biocLite("EBImage")
 install.packages("autothresholdr")
 ```
 
@@ -31,8 +29,6 @@ install.packages("autothresholdr")
 2.  In R, run
 
 ``` r
-source("https://bioconductor.org/biocLite.R")
-biocLite("EBImage")
 install.packages("autothresholdr")
 ```
 
@@ -41,8 +37,6 @@ install.packages("autothresholdr")
 In R, run
 
 ``` r
-source("https://bioconductor.org/biocLite.R")
-biocLite("EBImage")
 install.packages("autothresholdr")
 ```
 
@@ -52,8 +46,6 @@ Installing the development version
 The release version is recommended (and installed with `install.packages("autothresholdr")` as above), but to install the development version, in R enter
 
 ``` r
-source("https://bioconductor.org/biocLite.R")
-biocLite("EBImage")
 devtools::install_github("rorynolan/autothresholdr")
 ```
 
@@ -64,17 +56,16 @@ Let's load `autothresholdr` and some friends.
 
 ``` r
 library(autothresholdr)
-library(EBImage)
 library(magrittr)
+library(graphics)
 ```
 
 We'll be using the image that comes with the package:
 
 ``` r
-img <- imageData(readImage(system.file("extdata", "fiji_eg.tif", 
-                                       package = "autothresholdr"), 
-                           as.is = TRUE))
-display(normalize(img), method = "r")
+img <- system.file("extdata", "fiji_eg.tif", package = "autothresholdr") %>%
+  tiff::readTIFF(as.is = TRUE)
+image(img)
 ```
 
 ![](README_files/figure-markdown_github-ascii_identifiers/the%20image-1.png)
@@ -82,7 +73,7 @@ display(normalize(img), method = "r")
 It's a bit of a cell, the black part is where the cell is not. The threshold is supposed to tell us what is *dark* (not cell) and what is *bright* (cell). By playing around, we see that something like 20 might (for some purposes) be a good value.
 
 ``` r
-display(img > 20, method = "r")
+image(img >= 20)
 ```
 
 ![](README_files/figure-markdown_github-ascii_identifiers/guess%20twenty-1.png)
@@ -98,21 +89,25 @@ auto_thresh(img, "h")
 ```
 
     #> [1] 23
-    #> attr(,"autothresh_method")
-    #> [1] "Huang"
     #> attr(,"ignore_black")
     #> [1] FALSE
     #> attr(,"ignore_white")
     #> [1] FALSE
+    #> attr(,"ignore_na")
+    #> [1] FALSE
+    #> attr(,"autothresh_method")
+    #> [1] "Huang"
+    #> attr(,"class")
+    #> [1] "th"      "integer"
 
 ``` r
-auto_thresh_mask(img, "h") %>% display(method = "r")
+auto_thresh_mask(img, "h") %>% image()
 ```
 
 ![](README_files/figure-markdown_github-ascii_identifiers/thresh%20mask%20apply-1.png)
 
 ``` r
-auto_thresh_apply_mask(img, "h") %>% normalize %>%  display(method = "r")
+auto_thresh_apply_mask(img, "h") %>% image()
 ```
 
 ![](README_files/figure-markdown_github-ascii_identifiers/thresh%20mask%20apply-2.png)
