@@ -45,8 +45,8 @@
 #'   threshold yourself), supply the threshold here as a number e.g. `method =
 #'   3.8` (so note that this would \emph{not} select the third method in the
 #'   above list of methods). This manual threshold will then be used to
-#'   threshold the mean of the stack to create a 2D mask and then this mask will
-#'   be applied to all frames in the stack.
+#'   threshold the sum stack to create a 2D mask and then this mask will be
+#'   applied to all frames in the stack.
 #' @param ignore_black Ignore black pixels/elements (zeros) when performing the
 #'   thresholding?
 #' @param ignore_white Ignore white pixels when performing the thresholding? If
@@ -57,30 +57,26 @@
 #'   to set the pixels which fail to exceed the threshold? `fail = 'saturate'`
 #'   sets them to saturated value (see 'Details'). `fail = 'zero'` sets them to
 #'   zero. You can also specify directly here a natural number (must be between
-#'   `0` and `2^16 - 1`) to use in place of `NA`s.
+#'   `0` and `2^16 - 1`) to use.
 #' @param ignore_na This should be `TRUE` if `NA`s in `int_arr` should be
 #'   ignored or `FALSE` if you want the presence of `NA`s in `int_arr` to throw
 #'   an error.
 #'
-#' @return A 3d array, the thresholded stack. Pillars not exceeding the
-#'   threshold are set to the `fail` value (default `NA`). This array has an
-#'   attribute `threshold` to tell you what the threshold value was, the
-#'   attribute `autothresh_method` to tell you which method was used to find
-#'   this threshold and attributes `ignore_black` and `ignore_white` to tell you
-#'   what `ignore_black` and `ignore_white` were set to during the finding of
-#'   this threshold.
+#' @return An object of class [stack_threshed_arr] which is the thresholded
+#'   stack (a 3D array). Pillars not exceeding the threshold are set to the
+#'   `fail` value (default `NA`).
 #'
 #' @examples
-#' library(EBImage)
-#' img <- imageData(readImage(system.file('extdata', '50.tif',
-#'                                        package = 'autothresholdr'),
-#'                            as.is = TRUE))
-#' display(normalize(img[, , 1]), method = 'raster')
+#' library(magrittr)
+#' img <- system.file('extdata', '50.tif', package = 'autothresholdr') %>%
+#'   tiff::readTIFF(as.is = TRUE, all = TRUE) %>%
+#'   purrr::reduce(~ abind::abind(.x, .y, along = 3))
+#' graphics::image(img[, , 1])
 #' img_thresh_mask <- mean_stack_thresh(img, 'Otsu')
-#' display(img_thresh_mask[, , 1] > 0, method = 'r')
-#' display(normalize(img[, , 1]), method = 'raster')
+#' graphics::image(img_thresh_mask[, , 1] > 0)
+#' graphics::image(img[, , 1])
 #' img_thresh_mask <- med_stack_thresh(img, 'Triangle')
-#' display(img_thresh_mask[, , 1] > 0, method = 'r')
+#' graphics::image(img_thresh_mask[, , 1] > 0)
 #'
 #' @export
 mean_stack_thresh <- function(arr3d, method, fail = NA,
@@ -117,11 +113,9 @@ mean_stack_thresh <- function(arr3d, method, fail = NA,
   mean_stack_mask <- mean_stack >= thresh
   set_indices <- rep(!as.vector(mean_stack_mask), d[3])
   arr3d[set_indices] <- fail
-  desirable_thresh_atts <- c("autothresh_method",
-                             "ignore_black", "ignore_white")
-  attributes(arr3d)[c(desirable_thresh_atts, "threshold")] <-
-    c(attributes(thresh)[desirable_thresh_atts], thresh)
-  arr3d
+  stack_thresh_method <- "mean"
+  stack_threshed_arr(arr = arr3d, thresh = thresh, fail_value = fail,
+                     stack_thresh_method = stack_thresh_method)
 }
 
 #' Threshold every image frame in a stack based on their median.
@@ -166,8 +160,8 @@ mean_stack_thresh <- function(arr3d, method, fail = NA,
 #'   threshold yourself), supply the threshold here as a number e.g. `method =
 #'   3` (so note that this would \emph{not} select the third method in the above
 #'   list of methods). This manual threshold will then be used to threshold the
-#'   mean of the stack to create a 2D mask and then this mask will be applied to
-#'   all frames in the stack.
+#'   median stack to create a 2D mask and then this mask will be applied to all
+#'   frames in the stack.
 #' @param ignore_black Ignore black pixels/elements (zeros) when performing the
 #'   thresholding?
 #' @param ignore_white Ignore white pixels when performing the thresholding? If
@@ -178,30 +172,26 @@ mean_stack_thresh <- function(arr3d, method, fail = NA,
 #'   to set the pixels which fail to exceed the threshold? `fail = 'saturate'`
 #'   sets them to saturated value (see 'Details'). `fail = 'zero'` sets them to
 #'   zero. You can also specify directly here a natural number (must be between
-#'   `0` and `2^16 - 1`) to use in place of `NA`s.
+#'   `0` and `2^16 - 1`) to use.
 #' @param ignore_na This should be `TRUE` if `NA`s in `int_arr` should be
 #'   ignored or `FALSE` if you want the presence of `NA`s in `int_arr` to throw
 #'   an error.
 #'
-#' @return A 3d array, the thresholded stack. Pillars not exceeding the
-#'   threshold are set to the `fail` value (default `NA`). This array has an
-#'   attribute `threshold` to tell you what the threshold value was, the
-#'   attribute `autothresh_method` to tell you which method was used to find
-#'   this threshold and attributes `ignore_black` and `ignore_white` to tell you
-#'   what `ignore_black` and `ignore_white` were set to during the finding of
-#'   this threshold.
+#' @return An object of class [stack_threshed_arr] which is the thresholded
+#'   stack (a 3D array). Pillars not exceeding the threshold are set to the
+#'   `fail` value (default `NA`).
 #'
 #' @examples
-#' library(EBImage)
-#' img <- imageData(readImage(system.file('extdata', '50.tif',
-#'                                        package = 'autothresholdr'),
-#'                            as.is = TRUE))
-#' display(normalize(img[, , 1]), method = 'raster')
+#' library(magrittr)
+#' img <- system.file('extdata', '50.tif', package = 'autothresholdr') %>%
+#'   tiff::readTIFF(as.is = TRUE, all = TRUE) %>%
+#'   purrr::reduce(~ abind::abind(.x, .y, along = 3))
+#' graphics::image(img[, , 1])
 #' img_thresh_mask <- mean_stack_thresh(img, 'Otsu')
-#' display(img_thresh_mask[, , 1] > 0, method = 'r')
-#' display(normalize(img[, , 1]), method = 'raster')
+#' graphics::image(img_thresh_mask[, , 1] > 0)
+#' graphics::image(img[, , 1])
 #' img_thresh_mask <- med_stack_thresh(img, 'Triangle')
-#' display(img_thresh_mask[, , 1] > 0, method = 'r')
+#' graphics::image(img_thresh_mask[, , 1] > 0)
 #'
 #' @export
 med_stack_thresh <- function(arr3d, method, fail = NA,
@@ -220,9 +210,7 @@ med_stack_thresh <- function(arr3d, method, fail = NA,
   med_stack_mask <- med_stack >= thresh
   set_indices <- rep(!as.vector(med_stack_mask), dim(arr3d)[3])
   arr3d[set_indices] <- fail
-  desirable_thresh_atts <- c("autothresh_method",
-                             "ignore_black", "ignore_white")
-  attributes(arr3d)[c(desirable_thresh_atts, "threshold")] <-
-    c(attributes(thresh)[desirable_thresh_atts], thresh)
-  arr3d
+  stack_thresh_method <- "median"
+  stack_threshed_arr(arr = arr3d, thresh = thresh, fail_value = fail,
+                     stack_thresh_method = stack_thresh_method)
 }

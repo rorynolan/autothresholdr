@@ -49,33 +49,22 @@
 #'   to set the pixels which fail to exceed the threshold? `fail = 'saturate'`
 #'   sets them to saturated value (see "Details"). `fail = 'zero'` sets them to
 #'   zero. You can also specify directly here a natural number (must be between
-#'   `0` and `2^16 - 1`) to use in place of `NA`s.
+#'   `0` and `2^16 - 1`) to use.
 #' @param ignore_na This should be `TRUE` if `NA`s in `int_arr` should be
 #'   ignored or `FALSE` if you want the presence of `NA`s in `int_arr` to throw
 #'   an error.
 #'
-#' @return `auto_thresh()` returns an integer, the image threshold value. Pixels
-#'   exceeding this threshold pass the thresholding, pixels at or below this
-#'   level fail. This has the attribute `autothresh_method` to tell you which
-#'   method was used to find this threshold and attributes `ignore_black` and
-#'   `ignore_white` to tell you what `ignore_black` and `ignore_white` were set
-#'   to during the finding of this threshold.
+#' @return `auto_thresh()` returns an object of class [th] containing the
+#'   threshold value. Pixels exceeding this threshold pass the thresholding,
+#'   pixels at or below this level fail.
 #'
-#'   `auto_thresh_mask()` returns a binarized version of the input, with a value
-#'   of `TRUE` at points which exceed the threshold and `FALSE` at those which
-#'   do not. This has an attribute `threshold` to tell you what the threshold
-#'   value was, the attribute `autothresh_method` to tell you which method was
-#'   used to find this threshold and attributes `ignore_black` and
-#'   `ignore_white` to tell you what `ignore_black` and `ignore_white` were set
-#'   to during the finding of this threshold.
+#'   `auto_thresh_mask()` returns an object of class [masked_arr] which is a
+#'   binarized version of the input, with a value of `TRUE` at points which
+#'   exceed the threshold and `FALSE` at those which do not.
 #'
-#'   `auto_thresh_apply_mask()` returns the original input masked by the
+#'   `auto_thresh_apply_mask()` returns and object of class [threshed_arr] which is the original input masked by the
 #'   threshold, i.e. all points not exceeding the threshold are set to a
-#'   user-defined value (default `NA`). This has an attribute `threshold` to
-#'   tell you what the threshold value was, the attribute `autothresh_method` to
-#'   tell you which method was used to find this threshold and attributes
-#'   `ignore_black` and `ignore_white` to tell you what `ignore_black` and
-#'   `ignore_white` were set to during the finding of this threshold.
+#'   user-defined value (default `NA`).
 #'
 #'   `mask()` is the same as `auto_thresh_mask()` and `apply_mask()` is the same
 #'   as `auto_thresh_apply_mask()`.
@@ -121,21 +110,22 @@
 #'   Journal of Electronic Imaging 13(1): 146-165} }
 #'
 #' @section Acknowledgements: Gabriel Landini coded all of these functions
-#'   together in one Java file for the ImageJ plugin.
+#'   in Java. These java functions were then translated to C++.
 #'
 #' @examples
-#' img <- EBImage::readImage(system.file("extdata", "eg.tif",
-#'                           package = "autothresholdr"), as.is = TRUE)
+#' library(magrittr)
+#' img <- system.file("extdata", "eg.tif", package = "autothresholdr") %>%
+#'   tiff::readTIFF(as.is = TRUE)
 #' auto_thresh(img, "huang")
 #' auto_thresh(img, "tri")
 #' auto_thresh(img, "Otsu")
 #' auto_thresh(img, 9)
 #' mask <- auto_thresh_mask(img, "huang")
-#' EBImage::display(mask, method = "r")
+#' graphics::image(mask)
 #' masked <- auto_thresh_apply_mask(img, "huang")
-#' EBImage::display(EBImage::normalize(masked), method = "r")
+#' graphics::image(masked, method = "r")
 #' masked <- auto_thresh_apply_mask(img, 25)
-#' EBImage::display(EBImage::normalize(masked), method = "r")
+#' graphics::image(masked)
 #' @export
 auto_thresh <- function(int_arr, method,
                         ignore_black = FALSE, ignore_white = FALSE,
@@ -153,11 +143,7 @@ auto_thresh <- function(int_arr, method,
                     checkmate::check_array(int_arr, any.missing = !ignore_na))
   if (is.numeric(method)) {
     thresh <- method
-    attributes(thresh) <- c(attributes(thresh),
-                            list(autothresh_method = NA,
-                                 ignore_black = ignore_black,
-                                 ignore_white = ignore_white))
-    return(thresh)
+    return(th(thresh, NA, NA, NA, NA))
   }
   method <- tolower(method)
   if (startsWith("default", method)) method <- "IJDefault"
@@ -192,11 +178,8 @@ auto_thresh <- function(int_arr, method,
   if (thresh < 0) {
     stop(method, " method failed to find threshold.")
   }
-  attributes(thresh) <- c(attributes(thresh),
-                          list(autothresh_method = method,
-                               ignore_black = ignore_black,
-                               ignore_white = ignore_white))
-  thresh
+  th(thresh = thresh, ignore_black = ignore_black, ignore_white = ignore_white,
+     ignore_na = ignore_na, autothresh_method = method)
 }
 
 #' @rdname auto_thresh
@@ -209,11 +192,7 @@ auto_thresh_mask <- function(int_arr, method,
                         ignore_white = ignore_white,
                         ignore_na = ignore_na)
   mask <- int_arr >= thresh
-  desirable_thresh_atts <- c("autothresh_method",
-                             "ignore_black", "ignore_white")
-  attributes(mask)[c(desirable_thresh_atts, "threshold")] <-
-    c(attributes(thresh)[desirable_thresh_atts], thresh)
-  mask
+  masked_arr(arr = mask, thresh = thresh)
 }
 
 #' @rdname auto_thresh
@@ -227,11 +206,7 @@ auto_thresh_apply_mask <- function(int_arr, method, fail = NA,
                            ignore_na = ignore_na)
   fail <- translate_fail(int_arr, fail)
   int_arr[!mask] <- fail
-  desirable_mask_atts <- c("autothresh_method", "ignore_black", "ignore_white",
-                           "threshold")
-  attributes(int_arr)[desirable_mask_atts] <-
-    attributes(mask)[desirable_mask_atts]
-  int_arr
+  threshed_arr(arr = int_arr, thresh = attr(mask, "thresh"))
 }
 
 #' @rdname auto_thresh

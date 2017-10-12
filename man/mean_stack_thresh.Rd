@@ -20,14 +20,14 @@ is enough to get you \code{"Huang"} and \code{method = "in"} is enough to get yo
 \code{"Intermodes"}. To perform \emph{manual} thresholding (where you set the
 threshold yourself), supply the threshold here as a number e.g. \code{method = 3.8} (so note that this would \emph{not} select the third method in the
 above list of methods). This manual threshold will then be used to
-threshold the mean of the stack to create a 2D mask and then this mask will
-be applied to all frames in the stack.}
+threshold the sum stack to create a 2D mask and then this mask will be
+applied to all frames in the stack.}
 
 \item{fail}{When using \code{auto_thresh_apply_mask()}, to what value do you wish
 to set the pixels which fail to exceed the threshold? \code{fail = 'saturate'}
 sets them to saturated value (see 'Details'). \code{fail = 'zero'} sets them to
 zero. You can also specify directly here a natural number (must be between
-\code{0} and \code{2^16 - 1}) to use in place of \code{NA}s.}
+\code{0} and \code{2^16 - 1}) to use.}
 
 \item{ignore_black}{Ignore black pixels/elements (zeros) when performing the
 thresholding?}
@@ -42,13 +42,9 @@ ignored or \code{FALSE} if you want the presence of \code{NA}s in \code{int_arr}
 an error.}
 }
 \value{
-A 3d array, the thresholded stack. Pillars not exceeding the
-threshold are set to the \code{fail} value (default \code{NA}). This array has an
-attribute \code{threshold} to tell you what the threshold value was, the
-attribute \code{autothresh_method} to tell you which method was used to find
-this threshold and attributes \code{ignore_black} and \code{ignore_white} to tell you
-what \code{ignore_black} and \code{ignore_white} were set to during the finding of
-this threshold.
+An object of class \link{stack_threshed_arr} which is the thresholded
+stack (a 3D array). Pillars not exceeding the threshold are set to the
+\code{fail} value (default \code{NA}).
 }
 \description{
 This function finds a threshold based on the sum all of the frames, uses this
@@ -86,15 +82,15 @@ different method.}
 is \code{2^8 - 1}, otherwise, saturated value is \code{2^16 - 1}. }
 }
 \examples{
-library(EBImage)
-img <- imageData(readImage(system.file('extdata', '50.tif',
-                                       package = 'autothresholdr'),
-                           as.is = TRUE))
-display(normalize(img[, , 1]), method = 'raster')
+library(magrittr)
+img <- system.file('extdata', '50.tif', package = 'autothresholdr') \%>\%
+  tiff::readTIFF(as.is = TRUE, all = TRUE) \%>\%
+  purrr::reduce(~ abind::abind(.x, .y, along = 3))
+graphics::image(img[, , 1])
 img_thresh_mask <- mean_stack_thresh(img, 'Otsu')
-display(img_thresh_mask[, , 1] > 0, method = 'r')
-display(normalize(img[, , 1]), method = 'raster')
+graphics::image(img_thresh_mask[, , 1] > 0)
+graphics::image(img[, , 1])
 img_thresh_mask <- med_stack_thresh(img, 'Triangle')
-display(img_thresh_mask[, , 1] > 0, method = 'r')
+graphics::image(img_thresh_mask[, , 1] > 0)
 
 }

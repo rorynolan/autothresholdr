@@ -2,115 +2,98 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 IJDefault <- function(data) {
-    .Call(autothresholdr_IJDefault, data)
+    .Call(`_autothresholdr_IJDefault`, data)
 }
 
 Huang <- function(data) {
-    .Call(autothresholdr_Huang, data)
+    .Call(`_autothresholdr_Huang`, data)
 }
 
 Huang2 <- function(data) {
-    .Call(autothresholdr_Huang2, data)
+    .Call(`_autothresholdr_Huang2`, data)
 }
 
 Intermodes <- function(data) {
-    .Call(autothresholdr_Intermodes, data)
+    .Call(`_autothresholdr_Intermodes`, data)
 }
 
 IsoData <- function(data) {
-    .Call(autothresholdr_IsoData, data)
+    .Call(`_autothresholdr_IsoData`, data)
 }
 
 Li <- function(data) {
-    .Call(autothresholdr_Li, data)
+    .Call(`_autothresholdr_Li`, data)
 }
 
 MaxEntropy <- function(data) {
-    .Call(autothresholdr_MaxEntropy, data)
+    .Call(`_autothresholdr_MaxEntropy`, data)
 }
 
 Mean <- function(data) {
-    .Call(autothresholdr_Mean, data)
+    .Call(`_autothresholdr_Mean`, data)
 }
 
 MinErrorI <- function(data) {
-    .Call(autothresholdr_MinErrorI, data)
+    .Call(`_autothresholdr_MinErrorI`, data)
 }
 
 Minimum <- function(data) {
-    .Call(autothresholdr_Minimum, data)
+    .Call(`_autothresholdr_Minimum`, data)
 }
 
 Moments <- function(data) {
-    .Call(autothresholdr_Moments, data)
+    .Call(`_autothresholdr_Moments`, data)
 }
 
 Otsu <- function(data) {
-    .Call(autothresholdr_Otsu, data)
+    .Call(`_autothresholdr_Otsu`, data)
 }
 
 Percentile <- function(data) {
-    .Call(autothresholdr_Percentile, data)
+    .Call(`_autothresholdr_Percentile`, data)
 }
 
 RenyiEntropy <- function(data) {
-    .Call(autothresholdr_RenyiEntropy, data)
+    .Call(`_autothresholdr_RenyiEntropy`, data)
 }
 
 Shanbhag <- function(data) {
-    .Call(autothresholdr_Shanbhag, data)
+    .Call(`_autothresholdr_Shanbhag`, data)
 }
 
 Triangle <- function(data) {
-    .Call(autothresholdr_Triangle, data)
+    .Call(`_autothresholdr_Triangle`, data)
 }
 
 Yen <- function(data) {
-    .Call(autothresholdr_Yen, data)
+    .Call(`_autothresholdr_Yen`, data)
 }
 
-#' Get the sums/means/medians/variances of pillars of a 3d array.
-#'
-#' For a 3-dimensional array \code{arr3d}, pillar \code{ij} is defined as
-#' \code{arr3d[i, j, ]}. These functions compute the mean, median and variance
-#' of each pillar.
-#'
-#' @param arr3d A 3-dimensional array.
-#'
-#' @return A matrix where element \code{i,j} is equal to
-#' \code{sum(arr3d[i, j, ])}, \code{mean(arr3d[i, j, ])},
-#' \code{median(arr3d[i, j, ])}, or \code{var(arr3d[i, j, ])}.
-#'
-#' @examples
-#' m3 <- array(1:16, dim = c(2, 2, 4))
-#' mean_pillars(m3)
-#' median_pillars(m3)
-#' var_pillars(m3)
-#'
+#' @rdname pillar-stats
 #' @export
 sum_pillars <- function(arr3d) {
-    .Call(autothresholdr_sum_pillars, arr3d)
+    .Call(`_autothresholdr_sum_pillars`, arr3d)
 }
 
-#' @rdname sum_pillars
+#' @rdname pillar-stats
 #' @export
 mean_pillars <- function(arr3d) {
-    .Call(autothresholdr_mean_pillars, arr3d)
+    .Call(`_autothresholdr_mean_pillars`, arr3d)
 }
 
-#' @rdname sum_pillars
+#' @rdname pillar-stats
 #' @export
 var_pillars <- function(arr3d) {
-    .Call(autothresholdr_var_pillars, arr3d)
+    .Call(`_autothresholdr_var_pillars`, arr3d)
 }
 
-#' @rdname sum_pillars
+#' @rdname pillar-stats
 #' @export
 median_pillars <- function(arr3d) {
-    .Call(autothresholdr_median_pillars, arr3d)
+    .Call(`_autothresholdr_median_pillars`, arr3d)
 }
 
 # Register entry points for exported C++ functions
 methods::setLoadAction(function(ns) {
-    .Call('autothresholdr_RcppExport_registerCCallable', PACKAGE = 'autothresholdr')
+    .Call('_autothresholdr_RcppExport_registerCCallable', PACKAGE = 'autothresholdr')
 })

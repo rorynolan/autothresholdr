@@ -1,7 +1,7 @@
 test_that("mean_stack_thresh works", {
-  library(EBImage)
-  img <- imageData(readImage(system.file("extdata", "50.tif",
-    package = "autothresholdr"), as.is = TRUE))
+  img <- system.file('extdata', '50.tif', package = 'autothresholdr') %>%
+    tiff::readTIFF(as.is = TRUE, all = TRUE) %>%
+    purrr::reduce(~ abind::abind(.x, .y, along = 3))
   img_thresh_mask <- mean_stack_thresh(img, "Otsu")
   expect_equal(round(mean(img_thresh_mask, na.rm = TRUE), 2), 24.09)
   img_thresh_mask <- mean_stack_thresh(img, 13.2)

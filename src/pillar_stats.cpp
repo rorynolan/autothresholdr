@@ -3,24 +3,7 @@ using namespace Rcpp;
 
 // [[Rcpp::interfaces(r, cpp)]]
 
-//' Get the sums/means/medians/variances of pillars of a 3d array.
-//'
-//' For a 3-dimensional array \code{arr3d}, pillar \code{ij} is defined as
-//' \code{arr3d[i, j, ]}. These functions compute the mean, median and variance
-//' of each pillar.
-//'
-//' @param arr3d A 3-dimensional array.
-//'
-//' @return A matrix where element \code{i,j} is equal to
-//' \code{sum(arr3d[i, j, ])}, \code{mean(arr3d[i, j, ])},
-//' \code{median(arr3d[i, j, ])}, or \code{var(arr3d[i, j, ])}.
-//'
-//' @examples
-//' m3 <- array(1:16, dim = c(2, 2, 4))
-//' mean_pillars(m3)
-//' median_pillars(m3)
-//' var_pillars(m3)
-//'
+//' @rdname pillar-stats
 //' @export
 // [[Rcpp::export]]
 NumericMatrix sum_pillars(NumericVector arr3d) {
@@ -40,7 +23,7 @@ NumericMatrix sum_pillars(NumericVector arr3d) {
   return sums;
 }
 
-//' @rdname sum_pillars
+//' @rdname pillar-stats
 //' @export
 // [[Rcpp::export]]
 NumericMatrix mean_pillars(NumericVector arr3d) {
@@ -60,7 +43,7 @@ NumericMatrix mean_pillars(NumericVector arr3d) {
   return means;
 }
 
-//' @rdname sum_pillars
+//' @rdname pillar-stats
 //' @export
 // [[Rcpp::export]]
 NumericMatrix var_pillars(NumericVector arr3d) {
@@ -80,7 +63,7 @@ NumericMatrix var_pillars(NumericVector arr3d) {
   return vars;
 }
 
-//' @rdname sum_pillars
+//' @rdname pillar-stats
 //' @export
 // [[Rcpp::export]]
 NumericMatrix median_pillars(NumericVector arr3d) {

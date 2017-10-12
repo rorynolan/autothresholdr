@@ -52,31 +52,20 @@ an error.}
 to set the pixels which fail to exceed the threshold? \code{fail = 'saturate'}
 sets them to saturated value (see "Details"). \code{fail = 'zero'} sets them to
 zero. You can also specify directly here a natural number (must be between
-\code{0} and \code{2^16 - 1}) to use in place of \code{NA}s.}
+\code{0} and \code{2^16 - 1}) to use.}
 }
 \value{
-\code{auto_thresh()} returns an integer, the image threshold value. Pixels
-exceeding this threshold pass the thresholding, pixels at or below this
-level fail. This has the attribute \code{autothresh_method} to tell you which
-method was used to find this threshold and attributes \code{ignore_black} and
-\code{ignore_white} to tell you what \code{ignore_black} and \code{ignore_white} were set
-to during the finding of this threshold.
+\code{auto_thresh()} returns an object of class \link{th} containing the
+threshold value. Pixels exceeding this threshold pass the thresholding,
+pixels at or below this level fail.
 
-\code{auto_thresh_mask()} returns a binarized version of the input, with a value
-of \code{TRUE} at points which exceed the threshold and \code{FALSE} at those which
-do not. This has an attribute \code{threshold} to tell you what the threshold
-value was, the attribute \code{autothresh_method} to tell you which method was
-used to find this threshold and attributes \code{ignore_black} and
-\code{ignore_white} to tell you what \code{ignore_black} and \code{ignore_white} were set
-to during the finding of this threshold.
+\code{auto_thresh_mask()} returns an object of class \link{masked_arr} which is a
+binarized version of the input, with a value of \code{TRUE} at points which
+exceed the threshold and \code{FALSE} at those which do not.
 
-\code{auto_thresh_apply_mask()} returns the original input masked by the
+\code{auto_thresh_apply_mask()} returns and object of class \link{threshed_arr} which is the original input masked by the
 threshold, i.e. all points not exceeding the threshold are set to a
-user-defined value (default \code{NA}). This has an attribute \code{threshold} to
-tell you what the threshold value was, the attribute \code{autothresh_method} to
-tell you which method was used to find this threshold and attributes
-\code{ignore_black} and \code{ignore_white} to tell you what \code{ignore_black} and
-\code{ignore_white} were set to during the finding of this threshold.
+user-defined value (default \code{NA}).
 
 \code{mask()} is the same as \code{auto_thresh_mask()} and \code{apply_mask()} is the same
 as \code{auto_thresh_apply_mask()}.
@@ -112,22 +101,23 @@ is \code{2^8 - 1}, otherwise, saturated value is \code{2^16 - 1}. }
 }
 \section{Acknowledgements}{
  Gabriel Landini coded all of these functions
-together in one Java file for the ImageJ plugin.
+in Java. These java functions were then translated to C++.
 }
 
 \examples{
-img <- EBImage::readImage(system.file("extdata", "eg.tif",
-                          package = "autothresholdr"), as.is = TRUE)
+library(magrittr)
+img <- system.file("extdata", "eg.tif", package = "autothresholdr") \%>\%
+  tiff::readTIFF(as.is = TRUE)
 auto_thresh(img, "huang")
 auto_thresh(img, "tri")
 auto_thresh(img, "Otsu")
 auto_thresh(img, 9)
 mask <- auto_thresh_mask(img, "huang")
-EBImage::display(mask, method = "r")
+graphics::image(mask)
 masked <- auto_thresh_apply_mask(img, "huang")
-EBImage::display(EBImage::normalize(masked), method = "r")
+graphics::image(masked, method = "r")
 masked <- auto_thresh_apply_mask(img, 25)
-EBImage::display(EBImage::normalize(masked), method = "r")
+graphics::image(masked)
 }
 \references{
 \itemize{ \item{Huang, L-K & Wang, M-J J (1995), "Image

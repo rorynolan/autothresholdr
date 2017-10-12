@@ -1,50 +1,36 @@
+library(magrittr)
+img <- system.file("extdata", "eg.tif", package = "autothresholdr") %>%
+  tiff::readTIFF(as.is = TRUE)
+
 test_that("IJDefault works", {
   expect_equal(autothresholdr:::IJDefault(c(0, 2, 0)), 1,
                check.attributes = FALSE)
 })
 
 test_that("Huang2 works", {
-  img <- EBImage::readImage(system.file("extdata", "eg.tif",
-           package = "autothresholdr"), as.is = TRUE) %>%
-    EBImage::imageData()
   expect_equal(auto_thresh(img, "Huang"), auto_thresh(img, "Huang2"),
                check.attributes = FALSE)
   expect_equal(autothresholdr:::Huang2(3), 0, check.attributes = FALSE)
 })
 
 test_that("Intermodes works", {
-  img <- EBImage::readImage(system.file("extdata", "eg.tif",
-           package = "autothresholdr"), as.is = TRUE) %>%
-    EBImage::imageData()
-  expect_equal(auto_thresh(img, "inter"), 12, check.attributes = FALSE)
+  expect_equal(as.vector(auto_thresh(img, "inter")), 12)
 })
 
 test_that("IsoData works", {
-  img <- EBImage::readImage(system.file("extdata", "eg.tif",
-           package = "autothresholdr"), as.is = TRUE) %>%
-    EBImage::imageData()
-  expect_equal(auto_thresh(img, "iso"), 13, check.attributes = FALSE)
+  expect_equal(as.vector(auto_thresh(img, "iso")), 13)
 })
 
 test_that("Li works", {
-  img <- EBImage::readImage(system.file("extdata", "eg.tif",
-           package = "autothresholdr"), as.is = TRUE) %>%
-    EBImage::imageData()
-  expect_equal(auto_thresh(img, "Li"), 7, check.attributes = FALSE)
+  expect_equal(as.vector(auto_thresh(img, "Li")), 7)
 })
 
 test_that("Intermodes works", {
-  img <- EBImage::readImage(system.file("extdata", "eg.tif",
-           package = "autothresholdr"), as.is = TRUE) %>%
-    EBImage::imageData()
-  expect_equal(auto_thresh(img, "inter"), 12, check.attributes = FALSE)
+  expect_equal(as.vector(auto_thresh(img, "inter")), 12)
 })
 
 test_that("MaxEntropy works", {
-  img <- EBImage::readImage(system.file("extdata", "eg.tif",
-           package = "autothresholdr"), as.is = TRUE) %>%
-    EBImage::imageData()
-  expect_error(auto_thresh(img, "maxe"), "failed to find threshold")
+  expect_error(as.vector(auto_thresh(img, "maxe")), "failed to find threshold")
 })
 
 test_that("Mean works", {
@@ -52,57 +38,34 @@ test_that("Mean works", {
 })
 
 test_that("MinErrorI works", {
-  img <- EBImage::readImage(system.file("extdata", "eg.tif",
-           package = "autothresholdr"), as.is = TRUE) %>%
-    EBImage::imageData()
-  expect_equal(auto_thresh(img, "mine"), 21, check.attributes = FALSE)
+  expect_equal(as.vector(auto_thresh(img, "mine")), 21)
 })
 
 test_that("Intermodes works", {
-  img <- EBImage::readImage(system.file("extdata", "eg.tif",
-           package = "autothresholdr"), as.is = TRUE) %>%
-    EBImage::imageData()
-  expect_equal(auto_thresh(img, "inter"), 12, check.attributes = FALSE)
+  expect_equal(as.vector(auto_thresh(img, "inter")), 12)
 })
 
 test_that("Minimum works", {
-  img <- EBImage::readImage(system.file("extdata", "eg.tif",
-           package = "autothresholdr"), as.is = TRUE) %>%
-    EBImage::imageData()
-  expect_equal(auto_thresh(img, "mini"), 7, check.attributes = FALSE)
+  expect_equal(as.vector(auto_thresh(img, "mini")), 7)
 })
 
 test_that("Moments works", {
-  img <- EBImage::readImage(system.file("extdata", "eg.tif",
-           package = "autothresholdr"), as.is = TRUE) %>%
-    EBImage::imageData()
-  expect_equal(auto_thresh(img, "mom"), 19, check.attributes = FALSE)
+  expect_equal(as.vector(auto_thresh(img, "mom")), 19)
 })
 
 test_that("Percentile works", {
-  img <- EBImage::readImage(system.file("extdata", "eg.tif",
-           package = "autothresholdr"), as.is = TRUE) %>%
-    EBImage::imageData()
-  expect_equal(auto_thresh(img, "perc"), 22, check.attributes = FALSE)
+  expect_equal(as.vector(auto_thresh(img, "perc")), 22)
 })
 
 test_that("RenyiEntropy works", {
-  img <- EBImage::readImage(system.file("extdata", "eg.tif",
-           package = "autothresholdr"), as.is = TRUE) %>%
-    EBImage::imageData()
-  expect_equal(auto_thresh(img, "ren"), 34, check.attributes = FALSE)
+  expect_equal(as.vector(auto_thresh(img, "ren")), 34)
 })
 
 test_that("Shanbhag works", {
-  img <- EBImage::readImage(system.file("extdata", "eg.tif",
-           package = "autothresholdr"), as.is = TRUE) %>%
-    EBImage::imageData()
-  expect_equal(auto_thresh(img, "shan"), 23, check.attributes = FALSE)
+  ans <- th(23L, FALSE, FALSE, FALSE, "Shanbhag")
+  expect_equal(auto_thresh(img, "shan"), ans)
 })
 
 test_that("Yen works", {
-  img <- EBImage::readImage(system.file("extdata", "eg.tif",
-           package = "autothresholdr"), as.is = TRUE) %>%
-    EBImage::imageData()
   expect_error(auto_thresh(img, "y"), "failed to find threshold")
 })
