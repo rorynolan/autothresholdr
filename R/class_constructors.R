@@ -83,11 +83,11 @@ stack_threshed_arr <- function(arr, thresh, fail_value, stack_thresh_method) {
   arr
 }
 
-#' Masked array class.
+#' Array mask class.
 #'
 #' A *mask* of an array with respect to a given threshold is found by taking the
 #' original array and setting all elements falling below the threshold to
-#' `FALSE` and the others to `TRUE`. An object of class [masked_arr] has the
+#' `FALSE` and the others to `TRUE`. An object of class [arr_mask] has the
 #' attribute `thresh` detailing the threshold value that was applied.
 #'
 #' @param arr An array of logicals (the mask).
@@ -96,9 +96,9 @@ stack_threshed_arr <- function(arr, thresh, fail_value, stack_thresh_method) {
 #' @return An object of class `masked_arr`.
 #'
 #' @export
-masked_arr <- function(arr, thresh) {
+arr_mask <- function(arr, thresh) {
   checkmate::check_logical(arr)
   attr(arr, "thresh") <- thresh
-  class(arr) <- "masked_arr"
+  class(arr) <- "arr_mask"
   arr
 }

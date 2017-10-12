@@ -1,3 +1,13 @@
+### 1.1.0
+
+#### NEW FEATURES
+* The package now has it's own S3 class system:
+    - Class `th` for thresholds
+    - Class `threshed_arr` for thresholded arrays
+    - Class `stack_threshed_arr` for stack-thresholded arrays
+    - Class `arr_mask` for a mask of an array
+    
+
 ## 1.0.0
 
 #### NEW FEATURES

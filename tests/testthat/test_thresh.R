@@ -18,7 +18,7 @@ test_that("auto_thresh works", {
   x <- th(99, NA, NA, NA, NA)
   expect_equal(auto_thresh(img, 99), x)
   mask <- auto_thresh_mask(img, "huang")
-  expect_equal(mask, masked_arr(img >= 5, auto_thresh(img, "h")))
+  expect_equal(mask, arr_mask(img >= 5, auto_thresh(img, "h")))
   masked <- auto_thresh_apply_mask(img, "huang")
   thresh <- auto_thresh(img, "huang")
   expect_equal(masked, threshed_arr(img %T>% {.[. < thresh] <- NA}, thresh))

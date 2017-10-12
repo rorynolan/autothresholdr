@@ -58,7 +58,7 @@
 #'   threshold value. Pixels exceeding this threshold pass the thresholding,
 #'   pixels at or below this level fail.
 #'
-#'   `auto_thresh_mask()` returns an object of class [masked_arr] which is a
+#'   `auto_thresh_mask()` returns an object of class [arr_mask] which is a
 #'   binarized version of the input, with a value of `TRUE` at points which
 #'   exceed the threshold and `FALSE` at those which do not.
 #'
@@ -192,7 +192,7 @@ auto_thresh_mask <- function(int_arr, method,
                         ignore_white = ignore_white,
                         ignore_na = ignore_na)
   mask <- int_arr >= thresh
-  masked_arr(arr = mask, thresh = thresh)
+  arr_mask(arr = mask, thresh = thresh)
 }
 
 #' @rdname auto_thresh

@@ -82,7 +82,7 @@ But what if we have many images and we don't want to *play around*, we want a me
 
 The function `auto_thresh` finds the threshold, `auto_thresh_mask` gets the mask (an array with a `TRUE` for elements exceeding the threshold and `FALSE` elsewhere) and `auto_thresh_apply_mask` applies the mask to the original image by setting the elements that don't exceed the threshold to `NA`.
 
-Let's see each with Huang thresholding.
+Let's see each with Huang thresholding. i
 
 ``` r
 auto_thresh(img, "h")
@@ -112,4 +112,4 @@ auto_thresh_apply_mask(img, "h") %>% image()
 
 ![](README_files/figure-markdown_github-ascii_identifiers/thresh%20mask%20apply-2.png)
 
-In this last image, the `NA` pixels are greyed.
+In this last image, the `NA` pixels are white.
