@@ -49,6 +49,12 @@ th <- function(thresh, ignore_black, ignore_white, ignore_na,
 threshed_arr <- function(arr, thresh) {
   attr(arr, "thresh") <- thresh
   class(arr) %<>% c("threshed_arr", .)
+  if (is.matrix(arr)) {
+    if (! "matrix" %in% class(arr)) class(arr) %<>% c("matrix")
+  }
+  if (is.array(arr)) {
+    if (! "array" %in% class(arr)) class(arr) %<>% c("array")
+  }
   arr
 }
 
@@ -80,6 +86,12 @@ stack_threshed_arr <- function(arr, thresh, fail_value, stack_thresh_method) {
   to_add <- c("thresh", "fail_value", "stack_thresh_method")
   for (att in to_add) attr(arr, att) <- get(att)
   class(arr) %<>% c("stack_threshed_arr", .)
+  if (is.matrix(arr)) {
+    if (! "matrix" %in% class(arr)) class(arr) %<>% c("matrix")
+  }
+  if (is.array(arr)) {
+    if (! "array" %in% class(arr)) class(arr) %<>% c("array")
+  }
   arr
 }
 
@@ -99,6 +111,12 @@ stack_threshed_arr <- function(arr, thresh, fail_value, stack_thresh_method) {
 arr_mask <- function(arr, thresh) {
   checkmate::check_logical(arr)
   attr(arr, "thresh") <- thresh
-  class(arr) <- "arr_mask"
+  class(arr) %<>% c("arr_mask", .)
+  if (is.matrix(arr)) {
+    if (! "matrix" %in% class(arr)) class(arr) %<>% c("matrix")
+  }
+  if (is.array(arr)) {
+    if (! "array" %in% class(arr)) class(arr) %<>% c("array")
+  }
   arr
 }
