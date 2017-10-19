@@ -4,9 +4,6 @@ language: R
 sudo: true
 cache: packages
 
-bioc_packages:
-  - EBImage
-
 apt_packages:
   - libssl-dev
   - libtiff4-dev

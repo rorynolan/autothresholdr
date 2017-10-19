@@ -7,6 +7,9 @@
     - Class `stack_threshed_arr` for stack-thresholded arrays
     - Class `arr_mask` for a mask of an array
     
+#### MINOR IMPROVEMENTS
+* The package no longer depends on `EBImage` package from Bioconductor. `EBImage` is a great package but CRAN packages are easier to install if they depend on CRAN packages only.
+    
 
 ## 1.0.0
 
