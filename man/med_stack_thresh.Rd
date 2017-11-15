@@ -79,13 +79,12 @@ is \code{2^8 - 1}, otherwise, saturated value is \code{2^16 - 1}. }
 \examples{
 library(magrittr)
 img <- system.file('extdata', '50.tif', package = 'autothresholdr') \%>\%
-  tiff::readTIFF(as.is = TRUE, all = TRUE) \%>\%
-  purrr::reduce(~ abind::abind(.x, .y, along = 3))
-graphics::image(img[, , 1])
+  detrendr::read_tif()
+detrendr::display(img[, , 1])
 img_thresh_mask <- mean_stack_thresh(img, 'Otsu')
-graphics::image(img_thresh_mask[, , 1] > 0)
-graphics::image(img[, , 1])
+detrendr::display(img_thresh_mask[, , 1])
+detrendr::display(img[, , 1])
 img_thresh_mask <- med_stack_thresh(img, 'Triangle')
-graphics::image(img_thresh_mask[, , 1] > 0)
+detrendr::display(img_thresh_mask[, , 1])
 
 }

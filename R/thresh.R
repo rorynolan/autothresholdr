@@ -115,17 +115,17 @@
 #' @examples
 #' library(magrittr)
 #' img <- system.file("extdata", "eg.tif", package = "autothresholdr") %>%
-#'   tiff::readTIFF(as.is = TRUE)
+#'   detrendr::read_tif()
 #' auto_thresh(img, "huang")
 #' auto_thresh(img, "tri")
 #' auto_thresh(img, "Otsu")
 #' auto_thresh(img, 9)
 #' mask <- auto_thresh_mask(img, "huang")
-#' graphics::image(mask)
+#' detrendr::display(mask)
 #' masked <- auto_thresh_apply_mask(img, "huang")
-#' graphics::image(masked, method = "r")
+#' detrendr::display(masked)
 #' masked <- auto_thresh_apply_mask(img, 25)
-#' graphics::image(masked)
+#' detrendr::display(masked)
 #' @export
 auto_thresh <- function(int_arr, method,
                         ignore_black = FALSE, ignore_white = FALSE,

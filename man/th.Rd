@@ -24,7 +24,7 @@ and \code{FALSE} otherwise.}
 An object of class \code{th}.
 }
 \description{
-A threshold found automatically via \code{\link[=auto_thresh]{auto_thresh()}}. It is a scalar (the
+A threshold found automatically via \code{\link[=auto_thresh]{auto_thresh()}}. It is a number (the
 value of the threshold) with 4 attributes: \itemize{\item \code{ignore_black} is
 \code{TRUE} if black values were ignored during the thresholding and \code{FALSE}
 otherwise. \item \code{ignore_white} is \code{TRUE} if white values were ignored during

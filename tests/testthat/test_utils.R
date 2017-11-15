@@ -1,3 +1,5 @@
+context("Utils")
+
 test_that("can_be_integer works", {
   expect_false(can_be_integer(c(3, 3.5, NA)))
   expect_error(can_be_integer(rep(NA, 2)))

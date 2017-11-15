@@ -1,7 +1,9 @@
+context("Thresholding")
+
 test_that("auto_thresh works", {
   suppressPackageStartupMessages(library(magrittr, quietly = TRUE))
   img <- system.file("extdata", "eg.tif", package = "autothresholdr") %>%
-    tiff::readTIFF(as.is = TRUE)
+    detrendr::read_tif()
   expect_equal(auto_thresh(img, "IJD"), auto_thresh(img, "default"))
   x <- th(5L, FALSE, FALSE, FALSE, "Huang")
   expect_equal(auto_thresh(img, "H"), x)

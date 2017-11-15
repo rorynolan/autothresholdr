@@ -10,27 +10,28 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment = "#>")
+knitr::opts_chunk$set(echo = TRUE, comment = "#>", 
+                      fig.width = 7, fig.height = 6)
 ```
 
 # Thresholding Images
 This is a package for thresholding images. Let's load it and some friends.
 ```{r load libraries, results='hide'}
 library(autothresholdr)
-library(graphics)
+library(detrendr)
 library(magrittr)
 ```
 We'll be using the image that comes with the package:
 ```{r the image}
 img <- system.file("extdata", "fiji_eg.tif", package = "autothresholdr") %>%
-  tiff::readTIFF(as.is = TRUE)
-image(img)
+  read_tif()
+display(img)
 ```
 
 It's a bit of a cell, the black part is where the cell is not. The threshold is supposed to tell us what is *dark* (not cell) and what is *bright* (cell). By playing around, we see that something like 20 might (for some purposes) be a good value.
 
 ```{r guess twenty}
-suppressWarnings(image(img > 20, method = "r"))
+display(img > 20)
 ```
 
 But what if we have many images and we don't want to *play around*, we want a method of calculating the threshold automatically. http://imagej.net/Auto_Threshold gives many such methods and they are provided to you in R via this package. Go to that webpage for a nice comparison of the methods.
@@ -41,21 +42,20 @@ Let's see each with Huang thresholding.
 
 ```{r thresh mask apply}
 auto_thresh(img, "huang")
-auto_thresh_mask(img, "huang") %>% {suppressWarnings(image(.))}
-auto_thresh_apply_mask(img, "huang") %>% image()
+auto_thresh_mask(img, "huang") %>% display()
+auto_thresh_apply_mask(img, "huang") %>% display()
 ```
 
-In this last image, the `NA` pixels are greyed.
+In this last image, the `NA` pixels are white
 
 ## Stacks of Images
 We can do the same thing with an image stack.
 ```{r the image stack}
 img <- system.file('extdata', '50.tif', package = 'autothresholdr') %>%
-    tiff::readTIFF(as.is = TRUE, all = TRUE) %>%
-    purrr::reduce(~ abind::abind(.x, .y, along = 3))
-image(img[, , 1])
-mean_stack_thresh(img, "tri")[, , 1] %>% image()
-med_stack_thresh(img, "tri")[, , 1] %>% image()
+    read_tif()
+display(img[, , 1])
+mean_stack_thresh(img, "tri")[, , 1] %>% display()
+med_stack_thresh(img, "tri")[, , 1] %>% display()
 ```
 
 These are indeed (on close inspection) slightly different.

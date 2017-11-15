@@ -69,14 +69,13 @@
 #' @examples
 #' library(magrittr)
 #' img <- system.file('extdata', '50.tif', package = 'autothresholdr') %>%
-#'   tiff::readTIFF(as.is = TRUE, all = TRUE) %>%
-#'   purrr::reduce(~ abind::abind(.x, .y, along = 3))
-#' graphics::image(img[, , 1])
+#'   detrendr::read_tif()
+#' detrendr::display(img[, , 1])
 #' img_thresh_mask <- mean_stack_thresh(img, 'Otsu')
-#' graphics::image(img_thresh_mask[, , 1] > 0)
-#' graphics::image(img[, , 1])
+#' detrendr::display(img_thresh_mask[, , 1])
+#' detrendr::display(img[, , 1])
 #' img_thresh_mask <- med_stack_thresh(img, 'Triangle')
-#' graphics::image(img_thresh_mask[, , 1] > 0)
+#' detrendr::display(img_thresh_mask[, , 1])
 #'
 #' @export
 mean_stack_thresh <- function(arr3d, method, fail = NA,
@@ -108,6 +107,10 @@ mean_stack_thresh <- function(arr3d, method, fail = NA,
       . <- . / (scaling_factor * d[3])
       attributes(.) <- thresh_atts
     }
+  }
+  if (("integer" %in% class(thresh)) &&
+       (!can_be_integer(thresh, na_rm = FALSE))) {
+    class(thresh) %<>% setdiff("integer")
   }
   mean_stack <- mean_pillars(arr3d)
   mean_stack_mask <- mean_stack >= thresh
@@ -184,14 +187,13 @@ mean_stack_thresh <- function(arr3d, method, fail = NA,
 #' @examples
 #' library(magrittr)
 #' img <- system.file('extdata', '50.tif', package = 'autothresholdr') %>%
-#'   tiff::readTIFF(as.is = TRUE, all = TRUE) %>%
-#'   purrr::reduce(~ abind::abind(.x, .y, along = 3))
-#' graphics::image(img[, , 1])
+#'   detrendr::read_tif()
+#' detrendr::display(img[, , 1])
 #' img_thresh_mask <- mean_stack_thresh(img, 'Otsu')
-#' graphics::image(img_thresh_mask[, , 1] > 0)
-#' graphics::image(img[, , 1])
+#' detrendr::display(img_thresh_mask[, , 1])
+#' detrendr::display(img[, , 1])
 #' img_thresh_mask <- med_stack_thresh(img, 'Triangle')
-#' graphics::image(img_thresh_mask[, , 1] > 0)
+#' detrendr::display(img_thresh_mask[, , 1])
 #'
 #' @export
 med_stack_thresh <- function(arr3d, method, fail = NA,

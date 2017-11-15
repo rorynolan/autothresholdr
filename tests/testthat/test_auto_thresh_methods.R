@@ -1,3 +1,5 @@
+context("Auto thresh methods")
+
 library(magrittr)
 img <- system.file("extdata", "eg.tif", package = "autothresholdr") %>%
   tiff::readTIFF(as.is = TRUE)

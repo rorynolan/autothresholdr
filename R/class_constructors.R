@@ -1,6 +1,6 @@
 #' Automatically found threshold class.
 #'
-#' A threshold found automatically via [auto_thresh()]. It is a scalar (the
+#' A threshold found automatically via [auto_thresh()]. It is a number (the
 #' value of the threshold) with 4 attributes: \itemize{\item `ignore_black` is
 #' `TRUE` if black values were ignored during the thresholding and `FALSE`
 #' otherwise. \item `ignore_white` is `TRUE` if white values were ignored during

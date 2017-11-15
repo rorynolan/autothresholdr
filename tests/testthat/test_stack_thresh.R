@@ -1,7 +1,8 @@
+context("Stack thresholding")
+
 test_that("mean_stack_thresh works", {
   img <- system.file('extdata', '50.tif', package = 'autothresholdr') %>%
-    tiff::readTIFF(as.is = TRUE, all = TRUE) %>%
-    purrr::reduce(~ abind::abind(.x, .y, along = 3))
+    detrendr::read_tif()
   img_thresh_mask <- mean_stack_thresh(img, "Otsu")
   expect_equal(round(mean(img_thresh_mask, na.rm = TRUE), 2), 24.09)
   img_thresh_mask <- mean_stack_thresh(img, 13.2)
@@ -12,8 +13,8 @@ test_that("mean_stack_thresh works", {
   expect_equal(round(mean(img_thresh_mask, na.rm = TRUE), 3), 23.622 + 2 ^ 32)
   img_thresh_mask <- mean_stack_thresh(img + 2 ^ 32, "Otsu")
   expect_equal(round(mean(img_thresh_mask, na.rm = TRUE), 2), 24.09 + 2 ^ 32)
-  const.arr <- array(2, dim = rep(2, 3))
-  expect_error(mean_stack_thresh(const.arr, "tri"))
-  expect_error(med_stack_thresh(const.arr, "tri"))
-  expect_equal(sum(var_pillars(const.arr)), 0)
+  const_arr <- array(2, dim = rep(2, 3))
+  expect_error(mean_stack_thresh(const_arr, "tri"))
+  expect_error(med_stack_thresh(const_arr, "tri"))
+  expect_equal(sum(var_pillars(const_arr)), 0)
 })
