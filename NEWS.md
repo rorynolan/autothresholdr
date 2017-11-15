@@ -2,10 +2,10 @@
 
 #### NEW FEATURES
 * The package now has it's own S3 class system:
-    - Class `th` for thresholds
-    - Class `threshed_arr` for thresholded arrays
-    - Class `stack_threshed_arr` for stack-thresholded arrays
-    - Class `arr_mask` for a mask of an array
+    - Class `th` for thresholds.
+    - Class `threshed_arr` for thresholded arrays.
+    - Class `stack_threshed_arr` for stack-thresholded arrays.
+    - Class `arr_mask` for a mask of an array.
     
 #### MINOR IMPROVEMENTS
 * The package no longer depends on `EBImage` package from Bioconductor. `EBImage` is a great package but CRAN packages are easier to install if they depend on CRAN packages only.

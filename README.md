@@ -57,26 +57,33 @@ Let's load `autothresholdr` and some friends.
 ``` r
 library(autothresholdr)
 library(magrittr)
-library(graphics)
+library(detrendr)
 ```
+
+    #> 
+    #> Attaching package: 'detrendr'
+
+    #> The following objects are masked from 'package:autothresholdr':
+    #> 
+    #>     mean_pillars, median_pillars, var_pillars
 
 We'll be using the image that comes with the package:
 
 ``` r
 img <- system.file("extdata", "fiji_eg.tif", package = "autothresholdr") %>%
-  tiff::readTIFF(as.is = TRUE)
-image(img)
+  read_tif()
+display(img)
 ```
 
-![](README_files/figure-markdown_github-ascii_identifiers/the%20image-1.png)
+![](README_files/figure-markdown_github/the%20image-1.png)
 
 It's a bit of a cell, the black part is where the cell is not. The threshold is supposed to tell us what is *dark* (not cell) and what is *bright* (cell). By playing around, we see that something like 20 might (for some purposes) be a good value.
 
 ``` r
-image(img >= 20)
+display(img >= 20)
 ```
 
-![](README_files/figure-markdown_github-ascii_identifiers/guess%20twenty-1.png)
+![](README_files/figure-markdown_github/guess%20twenty-1.png)
 
 But what if we have many images and we don't want to *play around*, we want a method of calculating the threshold automatically. <http://imagej.net/Auto_Threshold> gives many such methods and they are provided to you in R via this package. Go to that webpage for a nice comparison of the methods.
 
@@ -101,15 +108,15 @@ auto_thresh(img, "h")
     #> [1] "th"      "integer"
 
 ``` r
-auto_thresh_mask(img, "h") %>% image()
+auto_thresh_mask(img, "h") %>% display()
 ```
 
-![](README_files/figure-markdown_github-ascii_identifiers/thresh%20mask%20apply-1.png)
+![](README_files/figure-markdown_github/thresh%20mask%20apply-1.png)
 
 ``` r
-auto_thresh_apply_mask(img, "h") %>% image()
+auto_thresh_apply_mask(img, "h") %>% display()
 ```
 
-![](README_files/figure-markdown_github-ascii_identifiers/thresh%20mask%20apply-2.png)
+![](README_files/figure-markdown_github/thresh%20mask%20apply-2.png)
 
 In this last image, the `NA` pixels are white.

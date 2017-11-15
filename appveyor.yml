@@ -10,10 +10,8 @@ init:
 install:
   ps: Bootstrap
 
-# Adapt as necessary starting from here
 
-environment:
-  JAVA_HOME: ""
+# Adapt as necessary starting from here
 
 build_script:
   - travis-tool.sh install_deps

@@ -60,19 +60,19 @@ Let's load `autothresholdr` and some friends.
 ```{r load libraries, results='hide'}
 library(autothresholdr)
 library(magrittr)
-library(graphics)
+library(detrendr)
 ```
 We'll be using the image that comes with the package:
 ```{r the image}
 img <- system.file("extdata", "fiji_eg.tif", package = "autothresholdr") %>%
-  tiff::readTIFF(as.is = TRUE)
-image(img)
+  read_tif()
+display(img)
 ```
 
 It's a bit of a cell, the black part is where the cell is not. The threshold is supposed to tell us what is *dark* (not cell) and what is *bright* (cell). By playing around, we see that something like 20 might (for some purposes) be a good value.
 
 ```{r guess twenty}
-image(img >= 20)
+display(img >= 20)
 ```
 
 But what if we have many images and we don't want to *play around*, we want a method of calculating the threshold automatically. http://imagej.net/Auto_Threshold gives many such methods and they are provided to you in R via this package. Go to that webpage for a nice comparison of the methods.
@@ -83,8 +83,8 @@ Let's see each with Huang thresholding.
 i
 ```{r thresh mask apply}
 auto_thresh(img, "h")
-auto_thresh_mask(img, "h") %>% image()
-auto_thresh_apply_mask(img, "h") %>% image()
+auto_thresh_mask(img, "h") %>% display()
+auto_thresh_apply_mask(img, "h") %>% display()
 ```
 
 In this last image, the `NA` pixels are white.
