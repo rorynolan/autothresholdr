@@ -1,25 +1,3 @@
-#' Check if a number could be considered to be an integer.
-#'
-#' Could the input numeric vector be considered to be an integer vector, i.e. is
-#' it equal to its floor?
-#' @param x A numeric vector.
-#' @param na_rm Should NAs be removed?
-#' @return A boolean. `TRUE` if the argument can be considered to be integer or
-#'   `FALSE` otherwise.
-#' @examples
-#' can_be_integer(c(3.0, 6))
-#' can_be_integer(c(3.0, 6, NA))
-#' can_be_integer(c(3, 3.5, NA))
-#' @export
-can_be_integer <- function(x, na_rm = TRUE) {
-  if (na_rm) {
-    na_poss <- is.na(x)
-    if (sum(na_poss) == length(x)) stop ("x is all NAs")
-    x <- x[!na_poss]
-  }
-  isTRUE(all.equal(x, floor(x)))
-}
-
 ## Translate the fail argument from what the user selects to what failed pixels
 ## should be set to.
 translate_fail <- function(arr, fail) {

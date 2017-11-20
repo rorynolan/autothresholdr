@@ -130,7 +130,8 @@
 auto_thresh <- function(int_arr, method,
                         ignore_black = FALSE, ignore_white = FALSE,
                         ignore_na = FALSE) {
-  stopifnot(length(method) == 1)
+  checkmate::assert(checkmate::check_number(method),
+                    checkmate::check_string(method))
   if (anyNA(int_arr)) {
     if (!ignore_na) {
       stop("The input int_arr has NA values. To ignore them set ",
@@ -139,8 +140,11 @@ auto_thresh <- function(int_arr, method,
       int_arr <- int_arr[!is.na(int_arr)]
     }
   }
-  checkmate::assert(checkmate::check_vector(int_arr, any.missing = !ignore_na),
-                    checkmate::check_array(int_arr, any.missing = !ignore_na))
+  checkmate::assert(checkmate::check_vector(int_arr, any.missing = FALSE),
+                    checkmate::check_array(int_arr, any.missing = FALSE))
+  checkmate::assert_numeric(int_arr, any.missing = FALSE,
+                            lower = 0, upper = .Machine$integer.max)
+  checkmate::assert_integerish(int_arr, any.missing = FALSE)
   if (is.numeric(method)) {
     thresh <- method
     return(th(thresh, NA, NA, NA, NA))
@@ -155,9 +159,6 @@ auto_thresh <- function(int_arr, method,
   method <- RSAGA::match.arg.ext(method, available_methods,
                                  ignore.case = TRUE, numeric = TRUE) %>%
                                  {available_methods[.]}
-  if ((!can_be_integer(int_arr)) || any(int_arr < 0, na.rm = TRUE)) {
-    stop("int_arr must be a matrix of non-negative integers.")
-  }
   if (ignore_black) int_arr[int_arr == 0] <- NA
   if (ignore_white) {
     if (isTRUE(ignore_white)) {
@@ -216,3 +217,14 @@ mask <- auto_thresh_mask
 #' @rdname auto_thresh
 #' @export
 apply_mask <- auto_thresh_apply_mask
+
+library(checkmate)
+check_integerish(1)
+check_integerish(100)
+2 ^ 30
+check_integerish(2 ^ 30)
+.Machine$integer.max
+check_integerish(.Machine$integer.max)
+check_integerish(.Machine$integer.max + 1)
+check_integerish(2^31)
+check_integerish(2^32)

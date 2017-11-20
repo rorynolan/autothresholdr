@@ -108,8 +108,8 @@ mean_stack_thresh <- function(arr3d, method, fail = NA,
       attributes(.) <- thresh_atts
     }
   }
-  if (("integer" %in% class(thresh)) &&
-       (!can_be_integer(thresh, na_rm = FALSE))) {
+  if ((inherits(thresh, "integer")) &&
+      (!isTRUE(checkmate::check_integerish(as.vector(thresh))))) {
     class(thresh) %<>% setdiff("integer")
   }
   mean_stack <- mean_pillars(arr3d)
@@ -199,7 +199,7 @@ mean_stack_thresh <- function(arr3d, method, fail = NA,
 med_stack_thresh <- function(arr3d, method, fail = NA,
                              ignore_black = FALSE, ignore_white = FALSE,
                              ignore_na = FALSE) {
-  stopifnot(length(dim(arr3d)) == 3)
+  checkmate::assert_array(arr3d, d = 3)
   if (length(unique(as.vector(arr3d))) == 1) {
     stop("The array given for thresholding is constant ",
          "(all the values are the same). Aborting.")
