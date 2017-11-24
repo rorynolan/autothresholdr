@@ -10,7 +10,7 @@ translate_fail <- function(arr, fail) {
                                  ignore.case = TRUE)
   }
   if (fail == "zero") {
-    fail = 0
+    fail <- 0
   } else if (fail == "saturate") {
     mx <- max(arr, na.rm = TRUE)
     if (mx >= 2 ^ 8) {

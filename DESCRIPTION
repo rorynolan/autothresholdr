@@ -22,7 +22,7 @@ Imports:
     magrittr,
     Rcpp,
     checkmate,
-    detrendr
+    ijtiff
 RoxygenNote: 6.0.1
 URL: https://www.github.com/rorynolan/autothresholdr
 BugReports: https://www.github.com/rorynolan/autothresholdr/issues

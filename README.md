@@ -3,7 +3,7 @@ autothresholdr
 
 An R package for thresholding images.
 
-[![Travis-CI Build Status](https://travis-ci.org/rorynolan/autothresholdr.svg?branch=master)](https://travis-ci.org/rorynolan/autothresholdr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rorynolan/autothresholdr?branch=master&svg=true)](https://ci.appveyor.com/project/rorynolan/autothresholdr) [![codecov](https://codecov.io/gh/rorynolan/autothresholdr/branch/master/graph/badge.svg)](https://codecov.io/gh/rorynolan/autothresholdr) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/autothresholdr)](https://cran.r-project.org/package=autothresholdr) ![RStudio CRAN total downloads](http://cranlogs.r-pkg.org/badges/grand-total/autothresholdr) [![RStudio CRAN monthly downloads](http://cranlogs.r-pkg.org/badges/autothresholdr)](http://cran.rstudio.com/web/packages/autothresholdr/index.html) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Travis-CI Build Status](https://travis-ci.org/rorynolan/autothresholdr.svg?branch=master)](https://travis-ci.org/rorynolan/autothresholdr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rorynolan/autothresholdr?branch=master&svg=true)](https://ci.appveyor.com/project/rorynolan/autothresholdr) [![codecov](https://codecov.io/gh/rorynolan/autothresholdr/branch/master/graph/badge.svg)](https://codecov.io/gh/rorynolan/autothresholdr) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/autothresholdr)](https://cran.r-project.org/package=autothresholdr) ![RStudio CRAN total downloads](http://cranlogs.r-pkg.org/badges/grand-total/autothresholdr) [![RStudio CRAN monthly downloads](http://cranlogs.r-pkg.org/badges/autothresholdr)](http://cran.rstudio.com/web/packages/autothresholdr/index.html) [![Rdocumentation](http://www.rdocumentation.org/badges/version/autothresholdr)](http://www.rdocumentation.org/packages/autothresholdr) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 
 Installation
 ------------
@@ -57,22 +57,17 @@ Let's load `autothresholdr` and some friends.
 ``` r
 library(autothresholdr)
 library(magrittr)
-library(detrendr)
+library(ijtiff)
 ```
-
-    #> 
-    #> Attaching package: 'detrendr'
-
-    #> The following objects are masked from 'package:autothresholdr':
-    #> 
-    #>     mean_pillars, median_pillars, var_pillars
 
 We'll be using the image that comes with the package:
 
 ``` r
-img <- system.file("extdata", "fiji_eg.tif", package = "autothresholdr") %>%
-  read_tif()
-display(img)
+img_matrix <- system.file("extdata", "fiji_eg.tif", 
+                          package = "autothresholdr") %>%
+  read_tif() %>% 
+  {.[, , 1, 1]}
+display(img_matrix)
 ```
 
 ![](README_files/figure-markdown_github/the%20image-1.png)
@@ -80,7 +75,7 @@ display(img)
 It's a bit of a cell, the black part is where the cell is not. The threshold is supposed to tell us what is *dark* (not cell) and what is *bright* (cell). By playing around, we see that something like 20 might (for some purposes) be a good value.
 
 ``` r
-display(img >= 20)
+display(img_matrix >= 20)
 ```
 
 ![](README_files/figure-markdown_github/guess%20twenty-1.png)
@@ -92,7 +87,7 @@ The function `auto_thresh` finds the threshold, `auto_thresh_mask` gets the mask
 Let's see each with Huang thresholding. i
 
 ``` r
-auto_thresh(img, "h")
+auto_thresh(img_matrix, "h")
 ```
 
     #> [1] 23
@@ -108,13 +103,13 @@ auto_thresh(img, "h")
     #> [1] "th"      "integer"
 
 ``` r
-auto_thresh_mask(img, "h") %>% display()
+auto_thresh_mask(img_matrix, "h") %>% display()
 ```
 
 ![](README_files/figure-markdown_github/thresh%20mask%20apply-1.png)
 
 ``` r
-auto_thresh_apply_mask(img, "h") %>% display()
+auto_thresh_apply_mask(img_matrix, "h") %>% display()
 ```
 
 ![](README_files/figure-markdown_github/thresh%20mask%20apply-2.png)

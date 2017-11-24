@@ -83,13 +83,14 @@ is \code{2^8 - 1}, otherwise, saturated value is \code{2^16 - 1}. }
 }
 \examples{
 library(magrittr)
-img <- system.file('extdata', '50.tif', package = 'autothresholdr') \%>\%
-  detrendr::read_tif()
-detrendr::display(img[, , 1])
-img_thresh_mask <- mean_stack_thresh(img, 'Otsu')
-detrendr::display(img_thresh_mask[, , 1])
-detrendr::display(img[, , 1])
-img_thresh_mask <- med_stack_thresh(img, 'Triangle')
-detrendr::display(img_thresh_mask[, , 1])
+img_3d <- system.file('extdata', '50.tif', package = 'autothresholdr') \%>\%
+  ijtiff::read_tif() \%>\%
+  {.[, , 1, ]}  # select first channel
+ijtiff::display(img_3d[, , 1])
+img_3d_thresh_mask <- mean_stack_thresh(img_3d, 'Otsu')
+ijtiff::display(img_3d_thresh_mask[, , 1])
+ijtiff::display(img_3d[, , 1])
+img_3d_thresh_mask <- med_stack_thresh(img_3d, 'Triangle')
+ijtiff::display(img_3d_thresh_mask[, , 1])
 
 }

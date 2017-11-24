@@ -105,19 +105,18 @@ in Java. These java functions were then translated to C++.
 }
 
 \examples{
-library(magrittr)
-img <- system.file("extdata", "eg.tif", package = "autothresholdr") \%>\%
-  detrendr::read_tif()
+img_location <- system.file("extdata", "eg.tif", package = "autothresholdr")
+img <- ijtiff::read_tif(img_location)
 auto_thresh(img, "huang")
 auto_thresh(img, "tri")
 auto_thresh(img, "Otsu")
 auto_thresh(img, 9)
 mask <- auto_thresh_mask(img, "huang")
-detrendr::display(mask)
+ijtiff::display(mask[, , 1, 1])
 masked <- auto_thresh_apply_mask(img, "huang")
-detrendr::display(masked)
+ijtiff::display(masked[, , 1, 1])
 masked <- auto_thresh_apply_mask(img, 25)
-detrendr::display(masked)
+ijtiff::display(masked[, , 1, 1])
 }
 \references{
 \itemize{ \item{Huang, L-K & Wang, M-J J (1995), "Image
