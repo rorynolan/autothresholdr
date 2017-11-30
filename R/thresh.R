@@ -216,14 +216,3 @@ mask <- auto_thresh_mask
 #' @rdname auto_thresh
 #' @export
 apply_mask <- auto_thresh_apply_mask
-
-library(checkmate)
-check_integerish(1)
-check_integerish(100)
-2 ^ 30
-check_integerish(2 ^ 30)
-.Machine$integer.max
-check_integerish(.Machine$integer.max)
-check_integerish(.Machine$integer.max + 1)
-check_integerish(2^31)
-check_integerish(2^32)

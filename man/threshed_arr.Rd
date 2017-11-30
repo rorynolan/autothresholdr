@@ -25,5 +25,5 @@ The term 'array' is used loosely here in that vectors and matrices qualify as
 arrays.
 }
 \seealso{
-\link{stack_threshed_arr}, \code{\link[=apply_mask]{apply_mask()}}.
+\link{stack_threshed_img}, \code{\link[=apply_mask]{apply_mask()}}.
 }

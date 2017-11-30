@@ -2,14 +2,16 @@
 % Please edit documentation in R/stack_thresh.R
 \name{mean_stack_thresh}
 \alias{mean_stack_thresh}
-\title{Threshold every image frame in a stack based on their mean.}
+\title{Threshold every image frame in an image stack based on their mean.}
 \usage{
-mean_stack_thresh(arr3d, method, fail = NA, ignore_black = FALSE,
+mean_stack_thresh(img, method, fail = NA, ignore_black = FALSE,
   ignore_white = FALSE, ignore_na = FALSE)
 }
 \arguments{
-\item{arr3d}{A 3-dimensional array (the image stack, possibly a time-series
-of images) where the \eqn{n}th slice is the \eqn{n}th image in the stack.}
+\item{img}{A 4-dimensional array in the style of an
+\link[ijtiff:ijtiff_img]{ijtiff_img} (indexed by \code{img[y, x, channel, frame]})
+or a 3-dimensional array which is a single channel of an
+\link[ijtiff:ijtiff_img]{ijtiff_img} (indexed by \code{img[y, x, frame]}).}
 
 \item{method}{The name of the thresholding method you wish to use. The
 available methods are \code{"IJDefault"}, \code{"Huang"}, \code{"Huang2"}, \code{"Intermodes"},
@@ -21,7 +23,9 @@ is enough to get you \code{"Huang"} and \code{method = "in"} is enough to get yo
 threshold yourself), supply the threshold here as a number e.g. \code{method = 3.8} (so note that this would \emph{not} select the third method in the
 above list of methods). This manual threshold will then be used to
 threshold the sum stack to create a 2D mask and then this mask will be
-applied to all frames in the stack.}
+applied to all frames in the stack. If you want a different method for each
+channel, specify this parameter as a vector or list, one element per
+channel.}
 
 \item{fail}{When using \code{auto_thresh_apply_mask()}, to what value do you wish
 to set the pixels which fail to exceed the threshold? \code{fail = 'saturate'}
@@ -42,16 +46,19 @@ ignored or \code{FALSE} if you want the presence of \code{NA}s in \code{int_arr}
 an error.}
 }
 \value{
-An object of class \link{stack_threshed_arr} which is the thresholded
-stack (a 3D array). Pillars not exceeding the threshold are set to the
-\code{fail} value (default \code{NA}).
+An object of class \link{stack_threshed_img} which is the thresholded
+image (an array in the style of an \link[ijtiff:ijtiff_img]{ijtiff_img}).
+Pillars not exceeding the threshold are set to the \code{fail} value (default
+\code{NA}).
 }
 \description{
-This function finds a threshold based on the sum all of the frames, uses this
-to create a mask and then applies this mask to every frame in the stack (so
-for a given pillar in the image stack, either all the pixels therein are
-thresholded away or all are untouched, where pillar \code{i,j} in array \code{arr3d} is
-\code{arr3d[i, j, ]}).
+An \link[ijtiff:ijtiff_img]{ijtiff_img} is a 4-dimensional array indexed by
+\code{img[y, x, channel, frame]}. For each channel (which consists of a stack of
+frames), this function finds a threshold based on the sum all of the frames,
+uses this to create a mask and then applies this mask to every frame in the
+stack (so for a given pillar in the image stack, either all the pixels
+therein are thresholded away or all are untouched, where pillar \code{x,y} of
+channel \code{ch} is \code{img[y, x, ch, ]}).
 }
 \details{
 It's called \code{mean_stack_thresh()} and not \code{sum_stack_thresh()} because its
@@ -65,8 +72,8 @@ integers, which we get by using a sum but not by using a mean.
 the thresholding.
 
 \item{For \code{ignore_white = TRUE}, if the maximum value in the array is one of
-\code{2^8-1}, \code{2^12-1}, \code{2^16-1} or \code{2^32-1}, then those max values are ignored.
-That's because they're the white values in 8, 12, 16 and 32-bit images
+\code{2^8-1}, \code{2^16-1} or \code{2^32-1}, then those max values are ignored.
+That's because they're the white values in 8, 16 and 32-bit images
 respectively (and these are the common image bit sizes to work with). This
 guesswork has to be done because \code{R} does not know how many bits the image
 was on disk. This guess is very unlikely to be wrong, and if it is, the
@@ -82,15 +89,13 @@ different method.}
 is \code{2^8 - 1}, otherwise, saturated value is \code{2^16 - 1}. }
 }
 \examples{
-library(magrittr)
-img_3d <- system.file('extdata', '50.tif', package = 'autothresholdr') \%>\%
-  ijtiff::read_tif() \%>\%
-  {.[, , 1, ]}  # select first channel
-ijtiff::display(img_3d[, , 1])
-img_3d_thresh_mask <- mean_stack_thresh(img_3d, 'Otsu')
-ijtiff::display(img_3d_thresh_mask[, , 1])
-ijtiff::display(img_3d[, , 1])
-img_3d_thresh_mask <- med_stack_thresh(img_3d, 'Triangle')
-ijtiff::display(img_3d_thresh_mask[, , 1])
+img <- ijtiff::read_tif(system.file('extdata', '50.tif',
+                                    package = 'autothresholdr'))
+ijtiff::display(img[, , 1, 1])
+img_thresh_mask <- mean_stack_thresh(img, 'Otsu')
+ijtiff::display(img_thresh_mask[, , 1, 1])
+ijtiff::display(img[, , 1, 1])
+img_thresh_mask <- mean_stack_thresh(img, 'Huang')
+ijtiff::display(img_thresh_mask[, , 1, 1])
 
 }

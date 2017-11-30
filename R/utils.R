@@ -13,12 +13,13 @@ translate_fail <- function(arr, fail) {
     fail <- 0
   } else if (fail == "saturate") {
     mx <- max(arr, na.rm = TRUE)
-    if (mx >= 2 ^ 8) {
-      bits.per.sample <- 16
-    } else {
-      bits.per.sample <- 8
+    bits_per_sample <- 8
+    if (mx > 2 ^ 16 - 1) {
+      bits_per_sample <- 32
+    } else if (mx > 2 ^ 8 - 1) {
+      bits_per_sample <- 16
     }
-    fail <- 2 ^ bits.per.sample - 1
+    fail <- 2 ^ bits_per_sample - 1
   }
   fail
 }

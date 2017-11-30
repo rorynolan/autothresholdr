@@ -13,7 +13,6 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-",
   fig.width = 7, fig.height = 6
 )
 ```
@@ -27,18 +26,16 @@ library(magrittr)
 ```
 We'll be using the image that comes with the package:
 ```{r the image}
-img_matrix <- system.file("extdata", "fiji_eg.tif", 
-                          package = "autothresholdr") %>%
-  read_tif() %>% 
-  {.[, , 1, 1]}
-dim(img_matrix)
-display(img_matrix)
+img <- read_tif(system.file("extdata", "fiji_eg.tif", 
+                            package = "autothresholdr"))
+dim(img)
+display(img[, , 1, 1])  # first channel, first frame
 ```
 
 It's a bit of a cell, the black part is where the cell is not. The threshold is supposed to tell us what is *dark* (not cell) and what is *bright* (cell). By playing around, we see that something like 20 might (for some purposes) be a good value.
 
 ```{r guess twenty}
-display(img_matrix > 20)
+display(img[, , 1, 1] > 20)
 ```
 
 But what if we have many images and we don't want to *play around*, we want a method of calculating the threshold automatically. http://imagej.net/Auto_Threshold gives many such methods and they are provided to you in R via this package. Go to that webpage for a nice comparison of the methods.
@@ -48,9 +45,9 @@ The function `auto_thresh()` finds the threshold, `auto_thresh_mask()` gets the 
 Let's see each with Huang thresholding.
 
 ```{r thresh mask apply}
-auto_thresh(img_matrix, "huang")
-auto_thresh_mask(img_matrix, "huang") %>% display()
-auto_thresh_apply_mask(img_matrix, "huang") %>% display()
+auto_thresh(img, "huang")
+auto_thresh_mask(img, "huang") %>% {display(.[, , 1, 1])}
+auto_thresh_apply_mask(img, "huang") %>% {display(.[, , 1, 1])}
 ```
 
 In this last image, the `NA` pixels are white
@@ -58,13 +55,12 @@ In this last image, the `NA` pixels are white
 ## Stacks of Images
 We can do the same thing with an image stack.
 ```{r the image stack}
-img_3d <- system.file('extdata', '50.tif', package = 'autothresholdr') %>%
-  read_tif() %>% 
-  {.[, , 1, ]}
-dim(img_3d)
-display(img_3d[, , 1])
-mean_stack_thresh(img_3d, "tri")[, , 1] %>% display()
-med_stack_thresh(img_3d, "tri")[, , 1] %>% display()
+img <- read_tif(system.file("extdata", "50.tif", 
+                            package = "autothresholdr"))
+dim(img)
+display(img[, , 1, 1])
+mean_stack_thresh(img, "tri") %>% {display(.[, , 1, 1])}
+med_stack_thresh(img, "tri") %>% {display(.[, , 1, 1])}
 ```
 
 These are indeed (on close inspection) slightly different.

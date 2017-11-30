@@ -43,7 +43,7 @@ th <- function(thresh, ignore_black, ignore_white, ignore_na,
 #'
 #' @return An object of class [threshed_arr].
 #'
-#' @seealso [stack_threshed_arr], [apply_mask()].
+#' @seealso [stack_threshed_img], [apply_mask()].
 #'
 #' @export
 threshed_arr <- function(arr, thresh) {
@@ -59,40 +59,40 @@ threshed_arr <- function(arr, thresh) {
 }
 
 
-#' Stack-thresholded array class.
+#' Stack-thresholded image class.
 #'
-#' A thresholded array is an array which has had stack-thresholding applied to
-#' it. See [mean_stack_thresh()]. It has 3 necessary attributes: \itemize{ \item
-#' `thresh` is the threshold that was applied. This is either a number or an
-#' object of class [th]. Values in the original array which were less than this
-#' value are deemed to have failed the thresholding. \item `fail_value` is the
-#' value to which elements of the array which failed the thresholding were set.
-#' This could be something like `0` or `NA`.  \item `stack_thresh_method`
-#' details which stacked-thresholding method was employed; this is either
-#' `"mean"` or `"median"`. }
+#' A stack-thresholded array is an array which has had stack-thresholding
+#' applied to it. See [mean_stack_thresh()]. It has 3 necessary attributes:
+#' \itemize{ \item `thresh` is the threshold that was applied. This is either a
+#' number or an object of class [th]. Values in the original array which were
+#' less than this value are deemed to have failed the thresholding. \item
+#' `fail_value` is the value to which elements of the array which failed the
+#' thresholding were set. This could be something like `0` or `NA`.  \item
+#' `stack_thresh_method` details which stacked-thresholding method was employed;
+#' this is either `"mean"` or `"median"`. }
 #'
+#' @inheritParams mean_stack_thresh
 #' @inheritParams threshed_arr
 #' @param fail_value The value to which elements of the array which failed the
 #'   thresholding were set.
 #' @param stack_thresh_method This must be set to either `"mean"` or `"median"`
 #'   to tell which stacked-thresholding method was employed.
 #'
-#' @return An object of class `stack_threshed_arr`.
+#' @return An object of class `stack_threshed_img`.
 #'
 #' @seealso [threshed_arr], [mean_stack_thresh()], [med_stack_thresh()].
 #'
 #' @export
-stack_threshed_arr <- function(arr, thresh, fail_value, stack_thresh_method) {
+stack_threshed_img <- function(img, thresh, fail_value, stack_thresh_method) {
+  checkmate::assert_numeric(img)
+  checkmate::assert_array(img, d = 4)
   to_add <- c("thresh", "fail_value", "stack_thresh_method")
-  for (att in to_add) attr(arr, att) <- get(att)
-  class(arr) %<>% c("stack_threshed_arr", .)
-  if (is.matrix(arr)) {
-    if (! "matrix" %in% class(arr)) class(arr) %<>% c("matrix")
+  for (att in to_add) attr(img, att) <- get(att)
+  class(img) %<>% c("stack_threshed_img", .)
+  if (is.array(img)) {
+    if (! "array" %in% class(img)) class(img) %<>% c("array")
   }
-  if (is.array(arr)) {
-    if (! "array" %in% class(arr)) class(arr) %<>% c("array")
-  }
-  arr
+  img
 }
 
 #' Array mask class.

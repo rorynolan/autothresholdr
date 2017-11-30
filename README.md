@@ -49,69 +49,12 @@ The release version is recommended (and installed with `install.packages("autoth
 devtools::install_github("rorynolan/autothresholdr")
 ```
 
-Thresholding Images
-===================
+Vignette
+--------
 
-Let's load `autothresholdr` and some friends.
+To learn how to use the package, consult the [vignette](https://cran.r-project.org/web/packages/autothresholdr/vignettes/autothresholdr.html).
 
-``` r
-library(autothresholdr)
-library(magrittr)
-library(ijtiff)
-```
+Contribution
+------------
 
-We'll be using the image that comes with the package:
-
-``` r
-img_matrix <- system.file("extdata", "fiji_eg.tif", 
-                          package = "autothresholdr") %>%
-  read_tif() %>% 
-  {.[, , 1, 1]}
-display(img_matrix)
-```
-
-![](README_files/figure-markdown_github/the%20image-1.png)
-
-It's a bit of a cell, the black part is where the cell is not. The threshold is supposed to tell us what is *dark* (not cell) and what is *bright* (cell). By playing around, we see that something like 20 might (for some purposes) be a good value.
-
-``` r
-display(img_matrix >= 20)
-```
-
-![](README_files/figure-markdown_github/guess%20twenty-1.png)
-
-But what if we have many images and we don't want to *play around*, we want a method of calculating the threshold automatically. <http://imagej.net/Auto_Threshold> gives many such methods and they are provided to you in R via this package. Go to that webpage for a nice comparison of the methods.
-
-The function `auto_thresh` finds the threshold, `auto_thresh_mask` gets the mask (an array with a `TRUE` for elements exceeding the threshold and `FALSE` elsewhere) and `auto_thresh_apply_mask` applies the mask to the original image by setting the elements that don't exceed the threshold to `NA`.
-
-Let's see each with Huang thresholding. i
-
-``` r
-auto_thresh(img_matrix, "h")
-```
-
-    #> [1] 23
-    #> attr(,"ignore_black")
-    #> [1] FALSE
-    #> attr(,"ignore_white")
-    #> [1] FALSE
-    #> attr(,"ignore_na")
-    #> [1] FALSE
-    #> attr(,"autothresh_method")
-    #> [1] "Huang"
-    #> attr(,"class")
-    #> [1] "th"      "integer"
-
-``` r
-auto_thresh_mask(img_matrix, "h") %>% display()
-```
-
-![](README_files/figure-markdown_github/thresh%20mask%20apply-1.png)
-
-``` r
-auto_thresh_apply_mask(img_matrix, "h") %>% display()
-```
-
-![](README_files/figure-markdown_github/thresh%20mask%20apply-2.png)
-
-In this last image, the `NA` pixels are white.
+Contributions to this package are welcome. The preferred method of contribution is through a github pull request. Feel free to contact me by creating an issue. Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
