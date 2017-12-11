@@ -16,7 +16,7 @@ install:
 build_script:
   - travis-tool.sh install_deps
   - travis-tool.sh install_r locfit tiff jpeg png fftwtools abind
-  - travis-tool.sh install_github rorynolan/ijtiff
+  - travis-tool.sh install_github rorynolan/ijtiff@for_appveyor
 
 test_script:
   - travis-tool.sh run_tests
