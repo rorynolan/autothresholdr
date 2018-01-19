@@ -3,8 +3,6 @@ using namespace Rcpp;
 
 // [[Rcpp::interfaces(r, cpp)]]
 
-//' @rdname pillar-stats
-//' @export
 // [[Rcpp::export]]
 NumericMatrix sum_pillars(NumericVector arr3d) {
   IntegerVector dim = arr3d.attr("dim");
@@ -23,8 +21,6 @@ NumericMatrix sum_pillars(NumericVector arr3d) {
   return sums;
 }
 
-//' @rdname pillar-stats
-//' @export
 // [[Rcpp::export]]
 NumericMatrix mean_pillars(NumericVector arr3d) {
   IntegerVector dim = arr3d.attr("dim");
@@ -43,8 +39,6 @@ NumericMatrix mean_pillars(NumericVector arr3d) {
   return means;
 }
 
-//' @rdname pillar-stats
-//' @export
 // [[Rcpp::export]]
 NumericMatrix var_pillars(NumericVector arr3d) {
   IntegerVector dim = arr3d.attr("dim");
@@ -63,8 +57,6 @@ NumericMatrix var_pillars(NumericVector arr3d) {
   return vars;
 }
 
-//' @rdname pillar-stats
-//' @export
 // [[Rcpp::export]]
 NumericMatrix median_pillars(NumericVector arr3d) {
   IntegerVector dim = arr3d.attr("dim");

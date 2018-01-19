@@ -105,7 +105,7 @@ mean_stack_thresh <- function(img, method, fail = NA,
     }
     fail <- translate_fail(img, fail)
     if (is.numeric(method[[i]])) {
-      thresh[[i]] <- method
+      thresh[[i]] <- method[[i]]
     } else {
       sum_stack <- sum_pillars(img[, , i, ])
       scaling_factor <- 1  # we do this in case the sum stack has big elements
@@ -129,7 +129,7 @@ mean_stack_thresh <- function(img, method, fail = NA,
       class(thresh[[i]]) %<>% setdiff("integer")
     }
     mean_stack <- mean_pillars(img[, , i, ])
-    mean_stack_mask <- mean_stack >= thresh
+    mean_stack_mask <- mean_stack >= thresh[[i]]
     set_indices <- rep(!as.vector(mean_stack_mask), d[4])
     out[, , i, ][set_indices] <- fail
   }
@@ -235,11 +235,12 @@ med_stack_thresh <- function(img, method, fail = NA,
            "(all the values are the same). Aborting.")
     }
     fail <- translate_fail(img, fail)
-    thresh <- auto_thresh(img[, , i, ], method[[i]],
-                          ignore_black = ignore_black,
-                          ignore_white = ignore_white, ignore_na = ignore_na)
+    thresh[[i]] <- auto_thresh(img[, , i, ], method[[i]],
+                               ignore_black = ignore_black,
+                               ignore_white = ignore_white,
+                               ignore_na = ignore_na)
     med_stack <- median_pillars(img[, , i, ])
-    med_stack_mask <- med_stack >= thresh
+    med_stack_mask <- med_stack >= thresh[[i]]
     set_indices <- rep(!as.vector(med_stack_mask), d[4])
     out[, , i, ][set_indices] <- fail
   }

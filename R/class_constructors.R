@@ -47,6 +47,7 @@ th <- function(thresh, ignore_black, ignore_white, ignore_na,
 #'
 #' @export
 threshed_arr <- function(arr, thresh) {
+  checkmate::assert_numeric(unlist(thresh))
   attr(arr, "thresh") <- thresh
   class(arr) %<>% c("threshed_arr", .)
   if (is.matrix(arr)) {
@@ -84,6 +85,7 @@ threshed_arr <- function(arr, thresh) {
 #'
 #' @export
 stack_threshed_img <- function(img, thresh, fail_value, stack_thresh_method) {
+  checkmate::assert_numeric(unlist(thresh))
   checkmate::assert_numeric(img)
   checkmate::assert_array(img, d = 4)
   to_add <- c("thresh", "fail_value", "stack_thresh_method")
@@ -109,6 +111,7 @@ stack_threshed_img <- function(img, thresh, fail_value, stack_thresh_method) {
 #'
 #' @export
 arr_mask <- function(arr, thresh) {
+  checkmate::assert_numeric(unlist(thresh))
   checkmate::check_logical(arr)
   attr(arr, "thresh") <- thresh
   class(arr) %<>% c("arr_mask", .)

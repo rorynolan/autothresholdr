@@ -69,26 +69,18 @@ Yen <- function(data) {
     .Call(`_autothresholdr_Yen`, data)
 }
 
-#' @rdname pillar-stats
-#' @export
 sum_pillars <- function(arr3d) {
     .Call(`_autothresholdr_sum_pillars`, arr3d)
 }
 
-#' @rdname pillar-stats
-#' @export
 mean_pillars <- function(arr3d) {
     .Call(`_autothresholdr_mean_pillars`, arr3d)
 }
 
-#' @rdname pillar-stats
-#' @export
 var_pillars <- function(arr3d) {
     .Call(`_autothresholdr_var_pillars`, arr3d)
 }
 
-#' @rdname pillar-stats
-#' @export
 median_pillars <- function(arr3d) {
     .Call(`_autothresholdr_median_pillars`, arr3d)
 }

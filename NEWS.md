@@ -10,8 +10,9 @@
 #### MINOR IMPROVEMENTS
 * The package no longer depends on `EBImage` package from Bioconductor. `EBImage` is a great package but CRAN packages are easier to install if they depend on CRAN packages only. Now `ijtiff` is used instead.
 
-#### GONE
+#### DEPRECATED
 * `can_be_integer()` is gone. Use `checkmate::check_integerish()` instead.
+* Pillar statistics are no longer exported. These can be found in the `detrendr` package.
     
 
 ## 1.0.0
