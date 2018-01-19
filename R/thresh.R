@@ -131,6 +131,8 @@ auto_thresh <- function(int_arr, method,
                         ignore_na = FALSE) {
   checkmate::assert(checkmate::check_number(method),
                     checkmate::check_string(method))
+  checkmate::assert_integerish(int_arr)
+  if (all(is.na(int_arr))) stop("int_arr is all NAs.")
   if (anyNA(int_arr)) {
     if (!ignore_na) {
       stop("The input int_arr has NA values. To ignore them set ",

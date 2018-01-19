@@ -30,6 +30,7 @@ test_that("auto_thresh works", {
   expect_error(auto_thresh(c(1, NA), method = "tri"), "input int_arr has NA ")
   x <- th(13L, FALSE, FALSE, TRUE, "Otsu")
   expect_equal(auto_thresh(img %T>% {.[1] <- NA}, "Otsu", ignore_na = TRUE), x)
+  expect_error(auto_thresh(NA, "tri"), "all NAs")
 })
 
 test_that("auto_thresh works with matrices", {
