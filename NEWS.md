@@ -12,7 +12,7 @@
 
 #### DEPRECATED
 * `can_be_integer()` is gone. Use `checkmate::check_integerish()` instead.
-* Pillar statistics are no longer exported. These can be found in the `detrendr` package.
+* Pillar statistics are no longer exported. Should you be looking for them, they are exported in the `detrendr` package.
     
 
 ## 1.0.0

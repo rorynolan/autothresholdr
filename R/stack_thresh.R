@@ -9,7 +9,7 @@
 #' channel `ch` is `img[y, x, ch, ]`).
 #'
 #' It's called `mean_stack_thresh()` and not `sum_stack_thresh()` because its
-#' easier for people to visualise the mean of an image series than to visualize
+#' easier for people to visualize the mean of an image series than to visualize
 #' the sum, but for the sake of this procedure, both are equivalent, except for
 #' the fact that the thresholding routine invoked inside this function prefers
 #' integers, which we get by using a sum but not by using a mean.
