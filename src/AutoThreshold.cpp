@@ -493,7 +493,7 @@ using namespace Rcpp;
 			tot+= data[i];
 			sum+=( (long) i * (long) data[i]);
 		}
-		threshold =(int) floor(sum/tot);
+		threshold = sum / tot;
 		return threshold;
 	}
 
