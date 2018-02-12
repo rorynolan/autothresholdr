@@ -2,7 +2,7 @@ context("Auto thresh methods")
 
 library(magrittr)
 img <- system.file("extdata", "eg.tif", package = "autothresholdr") %>%
-  tiff::readTIFF(as.is = TRUE)
+  ijtiff::read_tif()
 
 test_that("IJDefault works", {
   expect_equal(autothresholdr:::IJDefault(c(0, 2, 0)), 1,
