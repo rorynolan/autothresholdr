@@ -1,3 +1,15 @@
+### 1.1.2
+
+#### BUG FIXES
+* Ensure using latest version of `ijtiff`. Old version is buggy.
+
+
+### 1.1.1
+
+#### BUG FIXES
+* Fix some poor C++ typing.
+
+
 ### 1.1.0
 
 #### NEW FEATURES
