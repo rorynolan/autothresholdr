@@ -3,58 +3,69 @@ autothresholdr
 
 An R package for thresholding images.
 
-[![Travis-CI Build Status](https://travis-ci.org/rorynolan/autothresholdr.svg?branch=master)](https://travis-ci.org/rorynolan/autothresholdr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rorynolan/autothresholdr?branch=master&svg=true)](https://ci.appveyor.com/project/rorynolan/autothresholdr) [![codecov](https://codecov.io/gh/rorynolan/autothresholdr/branch/master/graph/badge.svg)](https://codecov.io/gh/rorynolan/autothresholdr) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/autothresholdr)](https://cran.r-project.org/package=autothresholdr) ![RStudio CRAN total downloads](http://cranlogs.r-pkg.org/badges/grand-total/autothresholdr) [![RStudio CRAN monthly downloads](http://cranlogs.r-pkg.org/badges/autothresholdr)](http://cran.rstudio.com/web/packages/autothresholdr/index.html) [![Rdocumentation](http://www.rdocumentation.org/badges/version/autothresholdr)](http://www.rdocumentation.org/packages/autothresholdr) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Travis-CI Build
+Status](https://travis-ci.org/rorynolan/autothresholdr.svg?branch=master)](https://travis-ci.org/rorynolan/autothresholdr)
+[![AppVeyor Build
+Status](https://ci.appveyor.com/api/projects/status/github/rorynolan/autothresholdr?branch=master&svg=true)](https://ci.appveyor.com/project/rorynolan/autothresholdr)
+[![codecov](https://codecov.io/gh/rorynolan/autothresholdr/branch/master/graph/badge.svg)](https://codecov.io/gh/rorynolan/autothresholdr)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/autothresholdr)](https://cran.r-project.org/package=autothresholdr)
+![RStudio CRAN total
+downloads](http://cranlogs.r-pkg.org/badges/grand-total/autothresholdr)
+[![RStudio CRAN monthly
+downloads](http://cranlogs.r-pkg.org/badges/autothresholdr)](http://cran.rstudio.com/web/packages/autothresholdr/index.html)
+[![Rdocumentation](http://www.rdocumentation.org/badges/version/autothresholdr)](http://www.rdocumentation.org/packages/autothresholdr)
+[![Project Status: Active – The project has reached a stable, usable
+state and is being actively
+developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![DOI](https://zenodo.org/badge/72632397.svg)](https://zenodo.org/badge/latestdoi/72632397)
 
-Installation
-------------
+## Installation
 
-### Linux
+### `libtiff`
 
-1.  On **Ubuntu** (similarly for other debian **linux**), you need to do:
+`autothresholdr` requires you to have the `libtiff` C library installed.
+To install `libtiff`:
 
-        sudo apt-get update
-        sudo apt-get install libssl-dev libtiff5-dev libfftw3-dev 
-        sudo apt-get install libcurl4-openssl-dev libxml2-dev 
+  - On **Debian Linux**, try `sudo apt-get install libtiff5-dev`, or if
+    that fails, try  
+    `sudo apt-get install libtiff4-dev`.
+  - On **Fedora Linux**, try `sudo yum install libtiff5-dev`, or if that
+    doesn’t work, try  
+    `sudo yum install libtiff4-dev`.
+  - On **Mac**, you need [Homebrew](https://brew.sh/). Then in the
+    terminal, run `brew install libtiff`.
+  - On **Windows**, go to
+    <https://cran.r-project.org/bin/windows/Rtools/> and install the
+    latest version of Rtools. If you have 32-bit windows, you also need
+    to install `libtiff` from
+    <http://gnuwin32.sourceforge.net/packages/tiff.htm>.
 
-2.  In R, run
+### Installing the release version
+
+You can install `autothresholdr` from CRAN (recommended) with:
 
 ``` r
 install.packages("autothresholdr")
 ```
 
-### Windows
+### Installing the development version
 
-1.  Go to <https://cran.r-project.org/bin/windows/Rtools/> and install the latest version of Rtools.
-
-2.  In R, run
+You can install the development version from GitHub with:
 
 ``` r
-install.packages("autothresholdr")
-```
-
-### Mac
-
-In R, run
-
-``` r
-install.packages("autothresholdr")
-```
-
-Installing the development version
-----------------------------------
-
-The release version is recommended (and installed with `install.packages("autothresholdr")` as above), but to install the development version, in R enter
-
-``` r
+if (!require(devtools)) install.packages("devtools")
 devtools::install_github("rorynolan/autothresholdr")
 ```
 
-Vignette
---------
+## Vignette
 
-To learn how to use the package, consult the [vignette](https://cran.r-project.org/web/packages/autothresholdr/vignettes/autothresholdr.html).
+To learn how to use the package, consult the
+[vignette](https://cran.r-project.org/web/packages/autothresholdr/vignettes/autothresholdr.html).
 
-Contribution
-------------
+## Contribution
 
-Contributions to this package are welcome. The preferred method of contribution is through a github pull request. Feel free to contact me by creating an issue. Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+Contributions to this package are welcome. The preferred method of
+contribution is through a github pull request. Feel free to contact me
+by creating an issue. Please note that this project is released with a
+[Contributor Code of Conduct](CONDUCT.md). By participating in this
+project you agree to abide by its terms.
