@@ -1,3 +1,9 @@
+### 1.2.0
+
+#### MINOR IMPROVEMENTS
+* The package is now lighter by depending on `filesstrings` instead of `RSAGA`.
+
+
 ### 1.1.2
 
 #### BUG FIXES

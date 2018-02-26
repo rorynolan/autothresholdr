@@ -1,7 +1,7 @@
 Package: autothresholdr
 Type: Package
 Title: An R Port of the 'ImageJ' Plugin 'Auto Threshold'
-Version: 1.1.2
+Version: 1.2.0
 Authors@R: c(
     person("Rory", "Nolan", email = "rorynoolan@gmail.com", 
            role = c("aut", "cre", "trl")),
@@ -18,11 +18,11 @@ Description: Provides the 'ImageJ' 'Auto Threshold' plugin functionality to R us
 License: GPL-3
 LazyData: TRUE
 Imports:
-    RSAGA,
     magrittr,
     Rcpp,
     checkmate,
-    ijtiff (>= 0.3.0)
+    ijtiff (>= 0.3.0),
+    filesstrings (>= 2.1.0)
 RoxygenNote: 6.0.1
 URL: https://www.github.com/rorynolan/autothresholdr
 BugReports: https://www.github.com/rorynolan/autothresholdr/issues

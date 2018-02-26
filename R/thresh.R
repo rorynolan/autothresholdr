@@ -157,9 +157,8 @@ auto_thresh <- function(int_arr, method,
                          "IsoData", "Li", "MaxEntropy", "Mean", "MinErrorI",
                          "Minimum", "Moments", "Otsu", "Percentile",
                          "RenyiEntropy", "Shanbhag", "Triangle", "Yen")
-  method <- RSAGA::match.arg.ext(method, available_methods,
-                                 ignore.case = TRUE, numeric = TRUE) %>%
-                                 {available_methods[.]}
+  method <- filesstrings::match_arg(method, available_methods,
+                                    ignore_case = TRUE)
   if (ignore_black) int_arr[int_arr == 0] <- NA
   if (ignore_white) {
     if (isTRUE(ignore_white)) {

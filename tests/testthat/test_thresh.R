@@ -1,7 +1,6 @@
 context("Thresholding")
 
 test_that("auto_thresh works", {
-  suppressPackageStartupMessages(library(magrittr, quietly = TRUE))
   img <- system.file("extdata", "eg.tif", package = "autothresholdr") %>%
     ijtiff::read_tif()
   expect_equal(auto_thresh(img, "IJD"), auto_thresh(img, "default"))

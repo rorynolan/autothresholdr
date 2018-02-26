@@ -6,8 +6,8 @@ translate_fail <- function(arr, fail) {
   if (is.numeric(fail)) {
     stopifnot(fail >= 0)
   } else if (is.character(fail)) {
-    fail <- RSAGA::match.arg.ext(fail, c("saturate", "zero"),
-                                 ignore.case = TRUE)
+    fail <- filesstrings::match_arg(fail, c("saturate", "zero"),
+                                   ignore_case = TRUE)
   }
   if (fail == "zero") {
     fail <- 0
