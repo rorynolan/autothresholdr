@@ -1,19 +1,15 @@
 
 
 ## Test environments
-* local OS X install, R 3.4.3
-* ubuntu 14.04 (on travis-ci), R 3.4.3
-* Windows Server 2012 (on appveyor), R 3.4.3
+* local OS X install, R 3.4.4
+* ubuntu 14.04 (on travis-ci), R 3.4.4
+* Windows Server 2012 (on appveyor), R 3.4.4
 * win-builder (devel and release)
 
 
 ## R CMD check results
-0 errors | 0 warnings | 1 note
+0 ERRORs | 0 WARNINGs | 0 NOTEs
 
 
 ## Reverse Dependencies
-* There are no reverse dependencies.
-
-
-## Fix
-* A recent update to the `ijtiff` package broke `autothresholdr`. This is the fix.
+* There are 2 reverse dependencies: `detrendr` and `SPUTNIK`. This update breaks neither :-)
