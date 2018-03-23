@@ -23,6 +23,7 @@ Imports:
     checkmate,
     ijtiff (>= 1.0.0),
     filesstrings (>= 2.1.0)
+SystemRequirements: C++11
 RoxygenNote: 6.0.1
 URL: https://www.github.com/rorynolan/autothresholdr
 BugReports: https://www.github.com/rorynolan/autothresholdr/issues
