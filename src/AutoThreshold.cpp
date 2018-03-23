@@ -1,202 +1,203 @@
 // Autothreshold segmentation
 // ImageJ plugin by G. Landini at bham. ac. uk
 
+#include <algorithm>
+#include <cstdint>
+#include <cmath>
+#include <stdexcept>
+
 #include <Rcpp.h>
 using namespace Rcpp;
 
-  // [[Rcpp::export]]
-	int IJDefault(IntegerVector data ) {
-		// Original IJ implementation for compatibility.
-		int level;
-		int maxValue = data.size() - 1;
-		double result, sum1, sum2, sum3, sum4;
-
-		int mini = 0;
-		while ((data[mini]==0) && (mini<maxValue))
-			mini++;
-		int maxi = maxValue;
-		while ((data[maxi]==0) && (maxi>0))
-			maxi--;
-		if (mini>=maxi) {
-			level = data.size()/2;
-			return level;
-		}
-
-		int movingIndex = mini;
-		do {
-			sum1=sum2=sum3=sum4=0.0;
-			for (int i=mini; i<=movingIndex; i++) {
-				sum1 += i*data[i];
-				sum2 += data[i];
-			}
-			for (int i=(movingIndex+1); i<=maxi; i++) {
-				sum3 += i*data[i];
-				sum4 += data[i];
-			}
-			result = (sum1/sum2 + sum3/sum4)/2.0;
-			movingIndex++;
-		} while ((movingIndex+1)<=result && movingIndex<maxi-1);
-
-		level = (int) round(result);
+// [[Rcpp::export]]
+int IJDefault(IntegerVector data ) {
+	// Original IJ implementation for compatibility.
+	int level;
+	int maxValue = data.size() - 1;
+	double result, sum1, sum2, sum3, sum4;
+	int mini = 0;
+	while ((data[mini]==0) && (mini<maxValue))
+		mini++;
+	int maxi = maxValue;
+	while ((data[maxi]==0) && (maxi>0))
+		maxi--;
+	if (mini>=maxi) {
+		level = data.size()/2;
 		return level;
 	}
-
-	// [[Rcpp::export]]
-	int Huang(IntegerVector data ) {
- 		// Implements Huang's fuzzy thresholding method
- 		// Uses Shannon's entropy function (one can also use Yager's entropy function)
- 		// Huang L.-K. and Wang M.-J.J. (1995) "Image Thresholding by Minimizing
- 		// the Measures of Fuzziness" Pattern Recognition, 28(1): 41-51
-		// M. Emre Celebi  06.15.2007
-		// Ported to ImageJ plugin by G. Landini from E Celebi's fourier_0.8 routines
-		int threshold=-1;
-		int ih, it;
-		int first_bin;
-		int last_bin;
-		int sum_pix;
-		int num_pix;
-		double term;
-		double ent;  // entropy
-		double min_ent; // min entropy
-		double mu_x;
-
-		/* Determine the first non-zero bin */
-		first_bin=0;
-		for (ih = 0; ih < data.size(); ih++ ) {
-			if ( data[ih] != 0 ) {
-				first_bin = ih;
-				break;
-			}
+	int movingIndex = mini;
+	do {
+		sum1=sum2=sum3=sum4=0.0;
+		for (int i=mini; i<=movingIndex; i++) {
+			sum1 += i*data[i];
+			sum2 += data[i];
 		}
-
-		/* Determine the last non-zero bin */
-		last_bin=data.size() - 1;
-		for (ih = data.size() - 1; ih >= first_bin; ih-- ) {
-			if ( data[ih] != 0 ) {
-				last_bin = ih;
-				break;
- 			}
- 		}
-		term = 1.0 / ( double ) ( last_bin - first_bin );
-		NumericVector mu_0(data.size());
-		sum_pix = num_pix = 0;
-		for ( ih = first_bin; ih < data.size(); ih++ ){
-			sum_pix += ih * data[ih];
-			num_pix += data[ih];
-			// NUM_PIX cannot be zero !
-			mu_0[ih] = sum_pix / ( double ) num_pix;
+		for (int i=(movingIndex+1); i<=maxi; i++) {
+			sum3 += i*data[i];
+			sum4 += data[i];
 		}
+		result = (sum1/sum2 + sum3/sum4)/2.0;
+		movingIndex++;
+	} while ((movingIndex+1)<=result && movingIndex<maxi-1);
+	level = (int) round(result);
+	return level;
+}
 
-		NumericVector mu_1(data.size());
-		sum_pix = num_pix = 0;
-		for ( ih = last_bin; ih > 0; ih-- ){
-			sum_pix += ih * data[ih];
-			num_pix += data[ih];
-			/* NUM_PIX cannot be zero ! */
-			mu_1[ih - 1] = sum_pix / ( double ) num_pix;
+// [[Rcpp::export]]
+int Huang(IntegerVector data) {
+  // Implements Huang's fuzzy thresholding method
+ 	// Uses Shannon's entropy function (one can also use Yager's entropy function)
+ 	// Huang L.-K. and Wang M.-J.J. (1995) "Image Thresholding by Minimizing
+ 	// the Measures of Fuzziness" Pattern Recognition, 28(1): 41-51
+	// M. Emre Celebi  06.15.2007
+	// Ported to ImageJ plugin by G. Landini from E Celebi's fourier_0.8 routines
+	int threshold=-1;
+	int ih, it;
+	int first_bin;
+	int last_bin;
+	int sum_pix;
+	int num_pix;
+	double term;
+	double ent;  // entropy
+	double min_ent; // min entropy
+	double mu_x;
+	/* Determine the first non-zero bin */
+	first_bin=0;
+	for (ih = 0; ih < data.size(); ih++ ) {
+		if ( data[ih] != 0 ) {
+			first_bin = ih;
+			break;
 		}
-
-		/* Determine the threshold that minimizes the fuzzy entropy */
-		threshold = -1;
-		min_ent = std::numeric_limits<double>::max();
-		for ( it = 0; it < data.size(); it++ ){
-			ent = 0.0;
-			for ( ih = 0; ih <= it; ih++ ) {
-				/* Equation (4) in Ref. 1 */
-				mu_x = 1.0 / ( 1.0 + term * fabs( ih - mu_0[it]) );
-				if ( !((mu_x  < 1e-06 ) || ( mu_x > 0.999999))) {
-					// Equation (6) & (8) in Ref. 1
-					ent += data[ih] * ( -mu_x * log ( mu_x ) - ( 1.0 - mu_x ) * log ( 1.0 - mu_x ) );
-				}
-			}
-
-			for ( ih = it + 1; ih < data.size(); ih++ ) {
-				/* Equation (4) in Ref. 1 */
-				mu_x = 1.0 / ( 1.0 + term * fabs ( ih - mu_1[it] ) );
-				if ( !((mu_x  < 1e-06 ) || ( mu_x > 0.999999))) {
-					/* Equation (6) & (8) in Ref. 1 */
-					ent += data[ih] * ( -mu_x * log ( mu_x ) - ( 1.0 - mu_x ) * log ( 1.0 - mu_x ) );
-				}
-			}
-			/* No need to divide by NUM_ROWS * NUM_COLS * LOG(2) ! */
-			if ( ent < min_ent ) {
-				min_ent = ent;
-				threshold = it;
-			}
+	}
+	/* Determine the last non-zero bin */
+	last_bin=data.size() - 1;
+	for (ih = data.size() - 1; ih >= first_bin; ih-- ) {
+		if ( data[ih] != 0 ) {
+			last_bin = ih;
+			break;
 		}
-		return threshold;
+	}
+	term = 1.0 / ( double ) ( last_bin - first_bin );
+	NumericVector mu_0(data.size());
+	sum_pix = num_pix = 0;
+	for ( ih = first_bin; ih < data.size(); ih++ ){
+		sum_pix += ih * data[ih];
+		num_pix += data[ih];
+		// NUM_PIX cannot be zero !
+		mu_0[ih] = sum_pix / ( double ) num_pix;
 	}
 
-	// [[Rcpp::export]]
-	int Huang2(IntegerVector data ) {
-		// Implements Huang's fuzzy thresholding method
-		// Uses Shannon's entropy function (one can also use Yager's entropy function)
-		// Huang L.-K. and Wang M.-J.J. (1995) "Image Thresholding by Minimizing
-		// the Measures of Fuzziness" Pattern Recognition, 28(1): 41-51
-		// Reimplemented (to handle 16-bit efficiently) by Johannes Schindelin Jan 31, 2011
-
-		// find first and last non-empty bin
-		int first, last;
-		for (first = 0; first < data.size() && data[first] == 0; first++)
-			; // do nothing
-		for (last = data.size() - 1; last > first && data[last] == 0; last--)
-			; // do nothing
-		if (first == last)
-			return 0;
-
-		// calculate the cumulative density and the weighted cumulative density
-		NumericVector S(last + 1), W(last + 1);
-		S[0] = data[0];
-		for (int i = max(IntegerVector::create(1, first)); i <= last; i++) {
-			S[i] = S[i - 1] + data[i];
-			W[i] = W[i - 1] + i * data[i];
-		}
-
-		// precalculate the summands of the entropy given the absolute difference x - mu (integral)
-		double C = last - first;
-		NumericVector Smu(last + 1 - first);
-		for (int i = 1; i < Smu.size(); i++) {
-			double mu = 1 / (1 + i / C);
-			Smu[i] = -mu * log(mu) - (1 - mu) * log(1 - mu);
-		}
-
-		// calculate the threshold
-		int bestThreshold = 0;
-		double bestEntropy = std::numeric_limits<double>::max();
-		for (int threshold = first; threshold <= last; threshold++) {
-			double entropy = 0;
-			int mu = (int) round(W[threshold] / S[threshold]);
-			for (int i = first; i <= threshold; i++)
-				entropy += Smu[abs(i - mu)] * data[i];
-			mu = (int) round((W[last] - W[threshold]) / (S[last] - S[threshold]));
-			for (int i = threshold + 1; i <= last; i++)
-				entropy += Smu[abs(i - mu)] * data[i];
-
-			if (bestEntropy > entropy) {
-				bestEntropy = entropy;
-				bestThreshold = threshold;
+	NumericVector mu_1(data.size());
+	sum_pix = num_pix = 0;
+	for ( ih = last_bin; ih > 0; ih-- ){
+		sum_pix += ih * data[ih];
+		num_pix += data[ih];
+		/* NUM_PIX cannot be zero ! */
+		mu_1[ih - 1] = sum_pix / ( double ) num_pix;
+	}
+	/* Determine the threshold that minimizes the fuzzy entropy */
+	threshold = -1;
+	min_ent = std::numeric_limits<double>::max();
+	for ( it = 0; it < data.size(); it++ ){
+		ent = 0.0;
+		for ( ih = 0; ih <= it; ih++ ) {
+			/* Equation (4) in Ref. 1 */
+			mu_x = 1.0 / ( 1.0 + term * fabs( ih - mu_0[it]) );
+			if ( !((mu_x  < 1e-06 ) || ( mu_x > 0.999999))) {
+				// Equation (6) & (8) in Ref. 1
+				ent += data[ih] * ( -mu_x * log ( mu_x ) - ( 1.0 - mu_x ) * log ( 1.0 - mu_x ) );
 			}
 		}
-
-		return bestThreshold;
-	}
-
-	bool bimodalTest(NumericVector y) {
-		int len=y.size();
-		bool b = false;
-		int modes = 0;
-
-		for (int k=1;k<len-1;k++){
-			if (y[k-1] < y[k] && y[k+1] < y[k]) {
-				modes++;
-				if (modes>2)
-					return false;
+		for ( ih = it + 1; ih < data.size(); ih++ ) {
+			/* Equation (4) in Ref. 1 */
+			mu_x = 1.0 / ( 1.0 + term * fabs ( ih - mu_1[it] ) );
+			if ( !((mu_x  < 1e-06 ) || ( mu_x > 0.999999))) {
+				/* Equation (6) & (8) in Ref. 1 */
+				ent += data[ih] * ( -mu_x * log ( mu_x ) - ( 1.0 - mu_x ) * log ( 1.0 - mu_x ) );
 			}
 		}
-		if (modes == 2)
-			b = true;
-		return b;
+		/* No need to divide by NUM_ROWS * NUM_COLS * LOG(2) ! */
+		if ( ent < min_ent ) {
+			min_ent = ent;
+			threshold = it;
+		}
 	}
+	return threshold;
+}
+
+// [[Rcpp::export]]
+int Huang2(IntegerVector data ) {
+	/* Implements Huang's fuzzy thresholding method
+	   Uses Shannon's entropy function (one can also use Yager's entropy function)
+	   Huang L.-K. and Wang M.-J.J. (1995) "Image Thresholding by Minimizing
+	   the Measures of Fuzziness" Pattern Recognition, 28(1): 41-51
+	   Reimplemented (to handle 16-bit efficiently) by Johannes Schindelin 2011 */
+	// find first and last non-empty bin
+	int first, last;
+	for (first = 0; first < data.size() && data[first] == 0; first++)
+		; // do nothing
+	for (last = data.size() - 1; last > first && data[last] == 0; last--)
+		; // do nothing
+	if (first == last)
+		return 0;
+	// calculate the cumulative density and the weighted cumulative density
+	std::vector<uintmax_t> S(last + 1);
+	NumericVector W(last + 1);
+	S[0] = data[0];
+	for (int i = std::max(1, first); i <= last; i++) {
+		S[i] = S[i - 1] + data[i];
+		W[i] = W[i - 1] + i * data[i];
+	}
+	// precalculate the summands of the entropy given the absolute difference
+	// x - mu (integral)
+	double C = last - first;
+	NumericVector Smu(last + 1 - first);
+	for (int i = 1; i < Smu.size(); i++) {
+		double mu = 1 / (1 + i / C);
+		Smu[i] = -mu * log(mu) - (1 - mu) * log(1 - mu);
+	}
+	// calculate the threshold
+	int bestThreshold = 0;
+	double bestEntropy = std::numeric_limits<double>::max();
+	for (int threshold = first; threshold != last; ++threshold) {
+		double entropy = 0;
+		int mu = round(W[threshold] / S[threshold]);
+		for (int i = first; i <= threshold; i++)
+			entropy += Smu[abs(i - mu)] * data[i];
+		double mu_dbl = std::round((W[last] - W[threshold]) /
+                                (S[last] - S[threshold]));
+		if (std::isnan(mu_dbl)) {
+		  throw std::invalid_argument("`mu` shouldn't ever be nan but it is here. "
+              "This is a bug. Tell the software maintainer at "
+              "https://github.com/rorynolan/autothresholdr/issues"
+              ".");
+		} else {
+		  mu = mu_dbl;
+		}
+		for (int i = threshold + 1; i <= last; i++)
+			entropy += Smu[abs(i - mu)] * data[i];
+		if (bestEntropy > entropy) {
+			bestEntropy = entropy;
+			bestThreshold = threshold;
+		}
+	}
+	return bestThreshold;
+}
+
+bool bimodalTest(NumericVector y) {
+	int len=y.size();
+	bool b = false;
+	int modes = 0;
+	for (int k=1;k<len-1;k++){
+		if (y[k-1] < y[k] && y[k+1] < y[k]) {
+			modes++;
+			if (modes>2)
+				return false;
+		}
+	}
+	if (modes == 2) b = true;
+	return b;
+}
 
 	// [[Rcpp::export]]
 	int Intermodes(IntegerVector data ) {

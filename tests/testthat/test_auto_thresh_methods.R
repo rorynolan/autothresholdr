@@ -1,6 +1,5 @@
 context("Auto thresh methods")
 
-library(magrittr)
 img <- system.file("extdata", "eg.tif", package = "autothresholdr") %>%
   ijtiff::read_tif()
 
@@ -12,7 +11,7 @@ test_that("IJDefault works", {
 test_that("Huang2 works", {
   expect_equal(auto_thresh(img, "Huang"), auto_thresh(img, "Huang2"),
                check.attributes = FALSE)
-  expect_equal(autothresholdr:::Huang2(3), 0, check.attributes = FALSE)
+  expect_equal(Huang2(3), 0, check.attributes = FALSE)
 })
 
 test_that("Intermodes works", {

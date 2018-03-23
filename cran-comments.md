@@ -8,7 +8,8 @@
 
 
 ## R CMD check results
-0 ERRORs | 0 WARNINGs | 0 NOTEs
+* 0 ERRORs | 0 WARNINGs | 0 NOTEs
+* The clang-UBSAN issue on CRAN is now fixed.
 
 
 ## Reverse Dependencies
