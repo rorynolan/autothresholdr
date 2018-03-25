@@ -8,4 +8,4 @@ apt_packages:
   - libtiff4-dev
 
 after_success:
-  - Rscript -e 'covr::codecov(function_exclusions = "^\\.onLoad$")'
+  - Rscript -e 'covr::codecov()'
