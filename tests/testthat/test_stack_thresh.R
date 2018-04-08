@@ -22,7 +22,7 @@ test_that("mean_stack_thresh works", {
   img_thresh_mask <- med_stack_thresh(img, "Triangle")
   expect_equal(round(mean(img_thresh_mask, na.rm = TRUE), 3), 23.583)
   expect_error(med_stack_thresh(img + 2 ^ 32, "Triangle"),
-               "All elements must be <=")
+               "<=")
   img_thresh_mask <- mean_stack_thresh(img + 2 ^ 30, "Otsu")
   expect_equal(round(mean(img_thresh_mask, na.rm = TRUE)), 24 + 2 ^ 30)
   const_arr <- array(2, dim = rep(2, 3))
