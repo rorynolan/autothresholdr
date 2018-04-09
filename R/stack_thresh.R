@@ -88,7 +88,13 @@ mean_stack_thresh <- function(img, method, fail = NA,
                               ignore_black = FALSE, ignore_white = FALSE,
                               ignore_na = FALSE) {
   checkmate::assert_array(img, min.d = 3, max.d = 4)
-  checkmate::assert_numeric(img, upper = 2 ^ 32 - 1)
+  checkmate::assert_numeric(img, lower = 0)
+  if (max(img) > .Machine$integer.max) {
+    stop("All elements of `img` must be in the integer range. ", "\n",
+         "    * Your maximum element is greater than ",
+         format(.Machine$integer.max, scientific = FALSE), ", which is the ",
+         "maximum allowed value for an `int`.")
+  }
   if (!isTRUE(all.equal(floor(img), img, check.attributes = FALSE))) {
     stop("img must be an array of integers")
   }
@@ -219,7 +225,13 @@ med_stack_thresh <- function(img, method, fail = NA,
                              ignore_black = FALSE, ignore_white = FALSE,
                              ignore_na = FALSE) {
   checkmate::assert_array(img, min.d = 3, max.d = 4)
-  checkmate::assert_numeric(img, upper = 2 ^ 32 - 1)
+  checkmate::assert_numeric(img, lower = 0)
+  if (max(img) > .Machine$integer.max) {
+    stop("All elements of `img` must be in the integer range. ", "\n",
+         "    * Your maximum element is greater than ",
+         format(.Machine$integer.max, scientific = FALSE), ", which is the ",
+         "maximum allowed value for an `int`.")
+  }
   if (!isTRUE(all.equal(floor(img), img, check.attributes = FALSE))) {
     stop("img must be an array of integers")
   }

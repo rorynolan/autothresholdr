@@ -1,3 +1,9 @@
+### 1.2.1
+
+#### BUG FIXES
+* Update to `checkmate` broke the package so this is the fix.
+
+
 ### 1.2.0
 
 #### MINOR IMPROVEMENTS
