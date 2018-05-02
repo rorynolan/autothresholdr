@@ -1,11 +1,12 @@
 ---
-title: "autothresholdr"
 output: github_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, comment = "#>")
 ```
+
+# `autothresholdr`  <img src="junk/sticker.png" height="200" align="right">
 
 An R package for thresholding images. 
 

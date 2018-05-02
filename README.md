@@ -1,5 +1,5 @@
-autothresholdr
-================
+
+# `autothresholdr` <img src="junk/sticker.png" height="200" align="right">
 
 An R package for thresholding images.
 
