@@ -4,13 +4,14 @@ Title: An R Port of the 'ImageJ' Plugin 'Auto Threshold'
 Version: 1.2.1
 Authors@R: c(
     person("Rory", "Nolan", email = "rorynoolan@gmail.com", 
-           role = c("aut", "cre", "trl")),
+           role = c("aut", "cre", "trl"), 
+           comment = c(ORCID = "0000-0002-5239-4043")),
     person("Luis", "Alvarez", email = "lalvarez@well.ox.ac.uk",
-           role = "ctb"),
+           role = "ctb", comment = c(ORCID = "0000-0003-1316-1906")),
     person("Sergi", "Padilla-Parra", email = "spadilla@well.ox.ac.uk", 
-           role = c("ctb", "ths")),
+           role = c("ctb", "ths"), comment = c(ORCID = "0000-0002-8010-9481")),
     person("Gabriel", "Landini", email = "G.Landini@bham.ac.uk", 
-           role = c("ctb", "cph"))
+           role = c("ctb", "cph"), comment = c(ORCID = "0000-0002-9689-0989"))
     )
 Maintainer: Rory Nolan <rorynoolan@gmail.com>
 Description: Provides the 'ImageJ' 'Auto Threshold' plugin functionality to R users. 
@@ -20,9 +21,9 @@ LazyData: TRUE
 Imports:
     magrittr,
     Rcpp,
-    checkmate,
-    ijtiff (>= 1.0.0),
-    filesstrings (>= 2.1.0)
+    checkmate (>= 1.8.6),
+    ijtiff (>= 1.1.0),
+    filesstrings (>= 2.2.0)
 SystemRequirements: C++11
 RoxygenNote: 6.0.1
 URL: https://www.github.com/rorynolan/autothresholdr
