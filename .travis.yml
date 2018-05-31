@@ -7,5 +7,10 @@ cache: packages
 apt_packages:
   - libtiff4-dev
 
+r_github_packages:
+  - rorynolan/filesstrings
+  - rorynolan/ijtiff
+  - mllg/checkmate
+
 after_success:
   - Rscript -e 'covr::codecov()'

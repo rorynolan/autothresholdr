@@ -1,3 +1,9 @@
+### 1.2.2
+
+#### BUG FIXES
+* For new versions of `filesstrings` and `ijtiff`.
+
+
 ### 1.2.1
 
 #### BUG FIXES
