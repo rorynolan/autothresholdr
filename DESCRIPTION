@@ -21,7 +21,7 @@ LazyData: TRUE
 Imports:
     magrittr,
     Rcpp,
-    checkmate (>= 1.8.6),
+    checkmate (>= 1.8.5),
     ijtiff (>= 1.1.0),
     filesstrings (>= 2.5.0),
     lattice

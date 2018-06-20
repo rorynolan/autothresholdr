@@ -10,7 +10,6 @@ apt_packages:
 r_github_packages:
   - rorynolan/filesstrings
   - rorynolan/ijtiff
-  - mllg/checkmate
 
 after_success:
   - Rscript -e 'covr::codecov()'
