@@ -23,8 +23,7 @@ Imports:
     Rcpp,
     checkmate (>= 1.8.5),
     ijtiff (>= 1.1.0),
-    filesstrings (>= 2.5.0),
-    lattice
+    filesstrings (>= 2.5.0)
 SystemRequirements: C++11
 RoxygenNote: 6.0.1
 URL: https://www.github.com/rorynolan/autothresholdr
