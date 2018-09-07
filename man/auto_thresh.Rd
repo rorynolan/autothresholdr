@@ -8,14 +8,14 @@
 \alias{apply_mask}
 \title{Automatically threshold an image}
 \usage{
-auto_thresh(int_arr, method, ignore_black = FALSE, ignore_white = FALSE,
-  ignore_na = FALSE)
+auto_thresh(int_arr, method, ignore_black = FALSE,
+  ignore_white = FALSE, ignore_na = FALSE)
 
 auto_thresh_mask(int_arr, method, ignore_black = FALSE,
   ignore_white = FALSE, ignore_na = FALSE)
 
-auto_thresh_apply_mask(int_arr, method, fail = NA, ignore_black = FALSE,
-  ignore_white = FALSE, ignore_na = FALSE)
+auto_thresh_apply_mask(int_arr, method, fail = NA,
+  ignore_black = FALSE, ignore_white = FALSE, ignore_na = FALSE)
 
 mask(int_arr, method, ignore_black = FALSE, ignore_white = FALSE,
   ignore_na = FALSE)

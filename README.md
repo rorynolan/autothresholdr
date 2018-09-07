@@ -1,5 +1,5 @@
 
-# `autothresholdr` <img src="junk/sticker.png" height="200" align="right">
+# autothresholdr <img src="man/figures/logo.png" align="right" height=140/>
 
 An R package for thresholding images.
 
@@ -8,17 +8,19 @@ Status](https://travis-ci.org/rorynolan/autothresholdr.svg?branch=master)](https
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/rorynolan/autothresholdr?branch=master&svg=true)](https://ci.appveyor.com/project/rorynolan/autothresholdr)
 [![codecov](https://codecov.io/gh/rorynolan/autothresholdr/branch/master/graph/badge.svg)](https://codecov.io/gh/rorynolan/autothresholdr)
+
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/autothresholdr)](https://cran.r-project.org/package=autothresholdr)
 ![RStudio CRAN total
 downloads](http://cranlogs.r-pkg.org/badges/grand-total/autothresholdr)
 [![RStudio CRAN monthly
 downloads](http://cranlogs.r-pkg.org/badges/autothresholdr)](http://cran.rstudio.com/web/packages/autothresholdr/index.html)
 [![Rdocumentation](http://www.rdocumentation.org/badges/version/autothresholdr)](http://www.rdocumentation.org/packages/autothresholdr)
+[![DOI](https://zenodo.org/badge/72632397.svg)](https://zenodo.org/badge/latestdoi/72632397)
+
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
-[![DOI](https://zenodo.org/badge/72632397.svg)](https://zenodo.org/badge/latestdoi/72632397)
 
 ## Installation
 
