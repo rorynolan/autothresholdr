@@ -9,7 +9,7 @@ apt_packages:
 
 r_github_packages:
   - rorynolan/filesstrings
-  - rorynolan/ijtiff
+  - ropensci/ijtiff
 
 after_success:
   - Rscript -e 'covr::codecov()'
