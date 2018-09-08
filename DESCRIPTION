@@ -36,7 +36,10 @@ Suggests:
     covr,
     knitr,
     rmarkdown,
-    utils
+    utils,
+    ggplot2,
+    dplyr,
+    purrr
 VignetteBuilder: knitr
 LinkingTo: Rcpp
 Roxygen: list(markdown = TRUE)

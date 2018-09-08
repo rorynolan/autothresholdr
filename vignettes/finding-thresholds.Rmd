@@ -40,7 +40,8 @@ x <- c(sample.int(9, 2e5, replace = TRUE), sample(51:99, 8e5, replace = TRUE))
 Now let's take a look at the distribution of `x`:
 
 ```{r plot-high-low, message=FALSE}
-library(tidyverse)
+library(ggplot2)
+library(dplyr)
 tibble(x = x) %>% 
   ggplot() + aes(x) + stat_density(bw = 3)
 ```
@@ -57,7 +58,7 @@ library(autothresholdr)
 thresh_methods <- c("IJDefault", "Huang", "Huang2", "Intermodes", "IsoData", 
                     "Li", "Mean", "MinErrorI", "Minimum", "Moments", "Otsu",
                     "Percentile", "RenyiEntropy", "Shanbhag", "Triangle")
-thresholds <- map_chr(thresh_methods, ~auto_thresh(x, .)) %>% 
+thresholds <- purrr::map_chr(thresh_methods, ~auto_thresh(x, .)) %>% 
   tibble(method = thresh_methods, threshold = .)
 print(thresholds)
 ```
