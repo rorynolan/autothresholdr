@@ -24,46 +24,24 @@ developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repo
 
 ## Installation
 
-### `libtiff`
-
-`autothresholdr` requires you to have the `libtiff` C library installed.
-To install `libtiff`:
-
-  - On **Debian Linux**, try `sudo apt-get install libtiff5-dev`, or if
-    that fails, try  
-    `sudo apt-get install libtiff4-dev`.
-  - On **Fedora Linux**, try `sudo yum install libtiff5-dev`, or if that
-    doesn’t work, try  
-    `sudo yum install libtiff4-dev`.
-  - On **Mac**, you need [Homebrew](https://brew.sh/). Then in the
-    terminal, run `brew install libtiff`.
-  - On **Windows**, go to
-    <https://cran.r-project.org/bin/windows/Rtools/> and install the
-    latest version of Rtools. If you have 32-bit windows, you also need
-    to install `libtiff` from
-    <http://gnuwin32.sourceforge.net/packages/tiff.htm>.
-
-### Installing the release version
-
-You can install `autothresholdr` from CRAN (recommended) with:
+You can install the release version of `autothresholdr` from
+[CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 install.packages("autothresholdr")
 ```
 
-### Installing the development version
-
-You can install the development version from GitHub with:
+You can install the development version of `autothresholdr` from
+[GitHub](https://github.com/rorynolan/autothresholdr/) with:
 
 ``` r
-if (!require(devtools)) install.packages("devtools")
 devtools::install_github("rorynolan/autothresholdr")
 ```
 
-## Vignette
+## How to use `autothresholdr`
 
-To learn how to use the package, consult the
-[vignette](https://cran.r-project.org/web/packages/autothresholdr/vignettes/autothresholdr.html).
+To learn how to use the `autothresholdr`, consult the package website at
+<https://rorynolan.github.io/autothresholdr/>.
 
 ## Contribution
 

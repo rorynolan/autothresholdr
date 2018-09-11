@@ -27,34 +27,24 @@ An R package for thresholding images.
 
 ## Installation
 
-### `libtiff`
+You can install the release version of `autothresholdr` from [CRAN](https://CRAN.R-project.org) with:
 
-`autothresholdr` requires you to have the `libtiff` C library installed. To install `libtiff`:
-
-* On __Debian Linux__, try `sudo apt-get install libtiff5-dev`, or if that fails, try  
-`sudo apt-get install libtiff4-dev`.
-* On __Fedora Linux__, try `sudo yum install libtiff5-dev`, or if that doesn't work, try  
-`sudo yum install libtiff4-dev`.
-* On __Mac__, you need [Homebrew](https://brew.sh/). Then in the terminal, run `brew install libtiff`.
-* On __Windows__, go to https://cran.r-project.org/bin/windows/Rtools/ and install the latest version of Rtools. If you have 32-bit windows, you also need to install `libtiff` from http://gnuwin32.sourceforge.net/packages/tiff.htm.
-
-### Installing the release version
-
-You can install `autothresholdr` from CRAN (recommended) with:
-```{r CRAN installation, eval=FALSE}
+```{r, eval=FALSE}
 install.packages("autothresholdr")
 ```
 
-### Installing the development version
+You can install the development version of `autothresholdr` from [GitHub](https://github.com/rorynolan/autothresholdr/) with:
 
-You can install the development version from GitHub with:
-```{r GitHub installation, eval=FALSE}
-if (!require(devtools)) install.packages("devtools")
+```{r, eval=FALSE}
 devtools::install_github("rorynolan/autothresholdr")
 ```
 
-## Vignette
-To learn how to use the package, consult the [vignette](https://cran.r-project.org/web/packages/autothresholdr/vignettes/autothresholdr.html). 
+
+## How to use `autothresholdr`
+
+To learn how to use the `autothresholdr`, consult the package website at https://rorynolan.github.io/autothresholdr/. 
+
 
 ## Contribution
+
 Contributions to this package are welcome. The preferred method of contribution is through a github pull request. Feel free to contact me by creating an issue. Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.

@@ -81,7 +81,7 @@
     <div class="page-header toc-ignore">
       <h1>Finding Thresholds</h1>
             
-            <h4 class="date">2018-09-07</h4>
+            <h4 class="date">2018-09-11</h4>
       
       
       <div class="hidden name"><code>finding-thresholds.Rmd</code></div>
@@ -97,9 +97,10 @@
 <p>Let’s create a vector of values, most of which are greater than 50, the rest of which are less than 10:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">sample.int</span>(<span class="dv">9</span>, <span class="fl">2e5</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>), <span class="kw">sample</span>(<span class="dv">51</span><span class="op">:</span><span class="dv">99</span>, <span class="fl">8e5</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <p>Now let’s take a look at the distribution of <code>x</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">tibble</span>(<span class="dt">x =</span> x) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">aes</span>(x) <span class="op">+</span><span class="st"> </span><span class="kw">stat_density</span>(<span class="dt">bw =</span> <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">x =</span> x) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(x) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_density">stat_density</a></span>(<span class="dt">bw =</span> <span class="dv">3</span>)</a></code></pre></div>
 <p><img src="finding-thresholds_files/figure-html/plot-high-low-1.png" width="672"></p>
 <p>If you’re trying to threshold this sort of data, you’re probably looking for a method which will find a threshold that separates the larger values from the smaller ones. The available automatic thresholding methods are “IJDefault”, “Huang”, “Huang2”, “Intermodes”, “IsoData”, “Li”, “MaxEntropy”, “Mean”, “MinErrorI”, “Minimum”, “Moments”, “Otsu”, “Percentile”, “RenyiEntropy”, “Shanbhag”, “Triangle” and “Yen”. These are well demonstrated at <a href="http://imagej.net/Auto_Threshold" class="uri">http://imagej.net/Auto_Threshold</a>.</p>
 </div>
@@ -113,8 +114,8 @@
 <a class="sourceLine" id="cb3-4" data-line-number="4">  <span class="st">"Li"</span>, <span class="st">"Mean"</span>, <span class="st">"MinErrorI"</span>, <span class="st">"Minimum"</span>, <span class="st">"Moments"</span>, <span class="st">"Otsu"</span>,</a>
 <a class="sourceLine" id="cb3-5" data-line-number="5">  <span class="st">"Percentile"</span>, <span class="st">"RenyiEntropy"</span>, <span class="st">"Shanbhag"</span>, <span class="st">"Triangle"</span></a>
 <a class="sourceLine" id="cb3-6" data-line-number="6">)</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">thresholds &lt;-<span class="st"> </span><span class="kw">map_chr</span>(thresh_methods, <span class="op">~</span><span class="kw"><a href="../reference/auto_thresh.html">auto_thresh</a></span>(x, .)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="st">  </span><span class="kw">tibble</span>(<span class="dt">method =</span> thresh_methods, <span class="dt">threshold =</span> .)</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">thresholds &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map_chr</a></span>(thresh_methods, <span class="op">~</span><span class="kw"><a href="../reference/auto_thresh.html">auto_thresh</a></span>(x, .)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">method =</span> thresh_methods, <span class="dt">threshold =</span> .)</a>
 <a class="sourceLine" id="cb3-9" data-line-number="9"><span class="kw">print</span>(thresholds)</a>
 <a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; # A tibble: 15 x 2</span></a>
 <a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;    method       threshold</span></a>
@@ -135,7 +136,7 @@
 <a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co">#&gt; 14 Shanbhag     69       </span></a>
 <a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">#&gt; 15 Triangle     10</span></a></code></pre></div>
 <p>Now, which of these selected a threshold between 10 and 49?</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">filter</span>(thresholds, threshold <span class="op">&gt;=</span><span class="st"> </span><span class="dv">10</span>, threshold <span class="op">&lt;=</span><span class="st"> </span><span class="dv">49</span>)</a>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(thresholds, threshold <span class="op">&gt;=</span><span class="st"> </span><span class="dv">10</span>, threshold <span class="op">&lt;=</span><span class="st"> </span><span class="dv">49</span>)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; # A tibble: 6 x 2</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt;   method     threshold</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;    </span></a>

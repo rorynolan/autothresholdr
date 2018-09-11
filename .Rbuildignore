@@ -1,3 +1,5 @@
+^index\.Rmd$
+^index\.md$
 ^docs$
 ^_pkgdown\.yml$
 ^.*\.Rproj$

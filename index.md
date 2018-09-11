@@ -14,7 +14,7 @@ The github repo of `autothresholdr` is at
 ## Installation
 
 You can install the release version of `autothresholdr` from
-[CRAN](https://CRAN.R-project.org) with:
+[CRAN](https://CRAN.R-project.org/package=autothresholdr) with:
 
 ``` r
 install.packages("autothresholdr")
