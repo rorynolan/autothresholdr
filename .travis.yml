@@ -8,6 +8,7 @@ apt_packages:
   - libtiff4-dev
 
 r_github_packages:
+  - rorynolan/strex
   - rorynolan/filesstrings
   - ropensci/ijtiff
 
