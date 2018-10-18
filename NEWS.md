@@ -4,6 +4,9 @@
 * Better vignettes.
 * A `pkgdown` website.
 
+#### BUG FIXES
+* Insist on latest version of `ijtiff` (which has important bug fixes).
+
 
 ## `autothresholdr` 1.2.1
 

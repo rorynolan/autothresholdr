@@ -25,8 +25,8 @@ Imports:
     magrittr,
     Rcpp,
     checkmate (>= 1.8.5),
-    ijtiff (>= 1.4.0),
-    filesstrings (>= 2.7.0)
+    ijtiff (>= 1.5.0),
+    filesstrings (>= 3.0.0)
 SystemRequirements: C++11
 RoxygenNote: 6.1.0
 URL: https://www.github.com/rorynolan/autothresholdr
