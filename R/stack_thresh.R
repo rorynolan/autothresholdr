@@ -89,16 +89,43 @@ mean_stack_thresh <- function(img, method, fail = NA,
                               ignore_na = FALSE) {
   checkmate::assert_array(img, min.d = 3, max.d = 4)
   checkmate::assert_numeric(img, lower = 0)
-  if (max(img) > .Machine$integer.max) {
-    stop("All elements of `img` must be in the integer range. ", "\n",
-         "    * Your maximum element is greater than ",
-         format(.Machine$integer.max, scientific = FALSE), ", which is the ",
-         "maximum allowed value for an `int`.")
+  if (all(is.na(img))) {
+    custom_stop(
+      "`img` cannot be all `NA`s.",
+      "Every element of your `img` is `NA`."
+    )
+  }
+  if (max(img, na.rm = TRUE) > .Machine$integer.max) {
+    custom_stop(
+      "All elements of `img` must be in the integer range.",
+      "
+                Your maximum element is
+                {format(max(img, na.rm = TRUE), scientific = FALSE)},
+                which is greater than the maximum allowed value for an `int`,
+                {format(.Machine$integer.max, scientific = FALSE)}.
+                "
+    )
   }
   if (!isTRUE(all.equal(floor(img), img, check.attributes = FALSE))) {
-    stop("img must be an array of integers")
+    img[is.na(img)] <- 0
+    bad_index <- match(
+      FALSE,
+      as.vector(img) %>% {
+      . != floor(.)
+    })
+    custom_stop(
+      "`img` must be an array of integers.",
+      "
+      Element {format(bad_index, scientific = FALSE)} of `img` is
+      {format(img[bad_index], scientific = FALSE)}, which is not an integer.
+      "
+    )
   }
-  if (length(dim(img)) == 3) dim(img) %<>% {c(.[1:2], 1, .[3])}
+  if (length(dim(img)) == 3) {
+    dim(img) %<>% {
+      c(.[1:2], 1, .[3])
+    }
+  }
   d <- dim(img)
   n_ch <- dim(img)[3]
   out <- array(as.vector(img), dim = d)
@@ -106,32 +133,36 @@ mean_stack_thresh <- function(img, method, fail = NA,
   thresh <- as.list(seq_len(n_ch))
   for (i in seq_len(n_ch)) {
     if (length(unique(as.vector(img[, , i, ]))) == 1) {
-      stop("The array given for thresholding is constant ",
-           "(all the values are the same). Aborting.")
+      custom_stop(
+        "Constant arrays cannot bbe thresholded.",
+        "The array given for thresholding is constant. ",
+        "All values are equal to {format(img[[1]], scientific = FALSE)}."
+      )
     }
     fail <- translate_fail(img, fail)
     if (is.numeric(method[[i]])) {
       thresh[[i]] <- method[[i]]
     } else {
       sum_stack <- sum_pillars(img[, , i, ])
-      scaling_factor <- 1  # we do this in case the sum stack has big elements
-      max32int <- 2 ^ 31 - 1
+      scaling_factor <- 1 # we do this in case the sum stack has big elements
+      max32int <- 2^31 - 1
       mx <- max(sum_stack)
       if (mx > max32int) {
         scaling_factor <- max32int / mx
         sum_stack <- round(sum_stack * scaling_factor)
       }
       thresh[[i]] <- auto_thresh(sum_stack, method[[i]],
-                                 ignore_black = ignore_black,
-                                 ignore_white = ignore_white,
-                                 ignore_na = ignore_na) %T>% {
-                                 thresh_atts <- attributes(.)
-                                 . <- . / (scaling_factor * d[4])
-                                 attributes(.) <- thresh_atts
-                                 }
+        ignore_black = ignore_black,
+        ignore_white = ignore_white,
+        ignore_na = ignore_na
+      ) %T>% {
+        thresh_atts <- attributes(.)
+        . <- . / (scaling_factor * d[4])
+        attributes(.) <- thresh_atts
+      }
     }
     if ((inherits(thresh[[i]], "integer")) &&
-        (!isTRUE(checkmate::check_integerish(as.vector(thresh[[i]]))))) {
+      (!isTRUE(checkmate::check_integerish(as.vector(thresh[[i]]))))) {
       class(thresh[[i]]) %<>% setdiff("integer")
     }
     mean_stack <- mean_pillars(img[, , i, ])
@@ -140,8 +171,10 @@ mean_stack_thresh <- function(img, method, fail = NA,
     out[, , i, ][set_indices] <- fail
   }
   if (length(thresh) == 1) thresh <- thresh[[1]]
-  stack_threshed_img(img = out, thresh = thresh, fail_value = fail,
-                     stack_thresh_method = "mean")
+  stack_threshed_img(
+    img = out, thresh = thresh, fail_value = fail,
+    stack_thresh_method = "mean"
+  )
 }
 
 #' Threshold every image frame in a stack based on their median.
@@ -226,16 +259,43 @@ med_stack_thresh <- function(img, method, fail = NA,
                              ignore_na = FALSE) {
   checkmate::assert_array(img, min.d = 3, max.d = 4)
   checkmate::assert_numeric(img, lower = 0)
-  if (max(img) > .Machine$integer.max) {
-    stop("All elements of `img` must be in the integer range. ", "\n",
-         "    * Your maximum element is greater than ",
-         format(.Machine$integer.max, scientific = FALSE), ", which is the ",
-         "maximum allowed value for an `int`.")
+  if (all(is.na(img))) {
+    custom_stop(
+      "`img` cannot be all `NA`s.",
+      "Every element of your `img` is `NA`."
+    )
+  }
+  if (max(img, na.rm = TRUE) > .Machine$integer.max) {
+    custom_stop(
+      "All elements of `img` must be in the integer range.",
+      "
+      Your maximum element is
+      {format(max(img, na.rm = TRUE), scientific = FALSE)},
+      which is greater than the maximum allowed value for an `int`,
+      {format(.Machine$integer.max, scientific = FALSE)}.
+      "
+    )
   }
   if (!isTRUE(all.equal(floor(img), img, check.attributes = FALSE))) {
-    stop("img must be an array of integers")
+    img[is.na(img)] <- 0
+    bad_index <- match(
+      FALSE,
+      as.vector(img) %>% {
+        . != floor(.)
+      })
+    custom_stop(
+      "`img` must be an array of integers.",
+      "
+      Element {format(bad_index, scientific = FALSE)} of `img` is
+      {format(img[bad_index], scientific = FALSE)}, which is not an integer.
+      "
+    )
   }
-  if (length(dim(img)) == 3) dim(img) %<>% {c(.[1:2], 1, .[3])}
+  if (length(dim(img)) == 3) {
+    dim(img) %<>% {
+      c(.[1:2], 1, .[3])
+    }
+  }
   d <- dim(img)
   n_ch <- dim(img)[3]
   out <- array(as.vector(img), dim = d)
@@ -243,19 +303,25 @@ med_stack_thresh <- function(img, method, fail = NA,
   thresh <- as.list(seq_len(n_ch))
   for (i in seq_len(n_ch)) {
     if (length(unique(as.vector(img[, , i, ]))) == 1) {
-      stop("The array given for thresholding is constant ",
-           "(all the values are the same). Aborting.")
+      custom_stop(
+        "Constant arrays cannot bbe thresholded.",
+        "The array given for thresholding is constant. ",
+        "All values are equal to {format(img[[1]], scientific = FALSE)}."
+      )
     }
     fail <- translate_fail(img, fail)
     thresh[[i]] <- auto_thresh(img[, , i, ], method[[i]],
-                               ignore_black = ignore_black,
-                               ignore_white = ignore_white,
-                               ignore_na = ignore_na)
+      ignore_black = ignore_black,
+      ignore_white = ignore_white,
+      ignore_na = ignore_na
+    )
     med_stack <- median_pillars(img[, , i, ])
     med_stack_mask <- med_stack >= thresh[[i]]
     set_indices <- rep(!as.vector(med_stack_mask), d[4])
     out[, , i, ][set_indices] <- fail
   }
-  stack_threshed_img(img = out, thresh = thresh, fail_value = fail,
-                     stack_thresh_method = "median")
+  stack_threshed_img(
+    img = out, thresh = thresh, fail_value = fail,
+    stack_thresh_method = "median"
+  )
 }

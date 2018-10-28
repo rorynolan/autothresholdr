@@ -4,8 +4,11 @@
 * Better vignettes.
 * A `pkgdown` website.
 
+#### MINOR IMPROVEMENTS
+* Better error messages.
+
 #### BUG FIXES
-* Insist on latest version of `ijtiff` (which has important bug fixes).
+* Insist on latest versions of `ijtiff` and `filesstrings` (which have important bug fixes).
 
 
 ## `autothresholdr` 1.2.1

@@ -26,7 +26,12 @@ Imports:
     Rcpp,
     checkmate (>= 1.8.5),
     ijtiff (>= 1.5.0),
-    filesstrings (>= 3.0.0)
+    filesstrings (>= 3.0.0),
+    glue,
+    purrr,
+    stats,
+    stringr,
+    rlang
 SystemRequirements: C++11
 RoxygenNote: 6.1.0
 URL: https://www.github.com/rorynolan/autothresholdr
@@ -39,7 +44,9 @@ Suggests:
     utils,
     ggplot2,
     dplyr,
-    purrr
+    styler,
+    clipr,
+    ore (>= 1.4.0)
 VignetteBuilder: knitr
 LinkingTo: Rcpp
 Roxygen: list(markdown = TRUE)

@@ -28,7 +28,7 @@
 #' \item For a given array, if all values are less than `2^8`, saturated value
 #' is `2^8 - 1`, otherwise, saturated value is `2^16 - 1`. }
 #'
-#' @param int_arr An array (or vector) of \emph{integers}.
+#' @param int_arr An array (or vector) of non-negative \emph{integers}.
 #' @param method The name of the thresholding method you wish to use. The
 #'   available methods are `"IJDefault"`, `"Huang"`, `"Huang2"`, `"Intermodes"`,
 #'   `"IsoData"`, `"Li"`, `"MaxEntropy"`, `"Mean"`, `"MinErrorI"`, `"Minimum"`,
@@ -131,12 +131,26 @@ auto_thresh <- function(int_arr, method,
                         ignore_na = FALSE) {
   checkmate::assert(checkmate::check_number(method),
                     checkmate::check_string(method))
-  checkmate::assert_integerish(int_arr)
-  if (all(is.na(int_arr))) stop("int_arr is all NAs.")
+  checkmate::assert_integerish(int_arr, min.len = 1)
+  checkmate::assert_flag(ignore_black)
+  checkmate::assert(checkmate::check_flag(ignore_white),
+                    checkmate::check_number(ignore_white, lower = 0))
+  checkmate::assert_flag(ignore_na)
+  if (all(is.na(int_arr))) {
+    custom_stop("`int_arr` must not be all `NA`s.",
+                "Every element of your `int_arr` is `NA`.")
+  }
   if (anyNA(int_arr)) {
     if (!ignore_na) {
-      stop("The input int_arr has NA values. To ignore them set ",
-           "ignore_na = TRUE.")
+      custom_stop(
+        "
+        The input `int_arr` has NA values, but you have `ignore_na = FALSE`, so
+        the function `auto_thresh()` has errored.
+        ",
+        "
+        To tell `auto_thresh()` to ignore `NA` values, set the argument
+        `ignore_na = TRUE`.
+        ")
     } else {
       int_arr <- int_arr[!is.na(int_arr)]
     }
@@ -170,14 +184,19 @@ auto_thresh <- function(int_arr, method,
   }
   rim <- range(int_arr, na.rm = TRUE)
   im_hist <- factor(int_arr, levels = rim[1]:rim[2]) %>%
-    table %>% as.vector
+    table() %>%
+    as.vector()
   if (length(im_hist) < 2) {
-    stop("The image you're trying to threshold has only one unique value, ",
-         "to perform thresholding, it needs at least two unique values.")
+    unq_val <- stats::na.omit(int_arr)[1]
+    custom_stop("Cannot threshold an array with only one unique value. ",
+                "
+                Your `int_arr` has only one unique value which is
+                {format(unq_val, scientific = FALSE)}.
+                ")
   }
   thresh <- eval_text(method)(im_hist)
   if (thresh < 0) {
-    stop(method, " method failed to find threshold.")
+    custom_stop("'{method}' method failed to find threshold.")
   }
   th(thresh = thresh, ignore_black = ignore_black, ignore_white = ignore_white,
      ignore_na = ignore_na, autothresh_method = method)

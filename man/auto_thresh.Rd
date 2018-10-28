@@ -24,7 +24,7 @@ apply_mask(int_arr, method, fail = NA, ignore_black = FALSE,
   ignore_white = FALSE, ignore_na = FALSE)
 }
 \arguments{
-\item{int_arr}{An array (or vector) of \emph{integers}.}
+\item{int_arr}{An array (or vector) of non-negative \emph{integers}.}
 
 \item{method}{The name of the thresholding method you wish to use. The
 available methods are \code{"IJDefault"}, \code{"Huang"}, \code{"Huang2"}, \code{"Intermodes"},
