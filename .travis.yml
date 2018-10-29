@@ -6,6 +6,7 @@ cache: packages
 
 apt_packages:
   - libtiff4-dev
+  - xclip
 
 r_github_packages:
   - rorynolan/strex
