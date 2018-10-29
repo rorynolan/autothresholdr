@@ -6,7 +6,15 @@ cache: packages
 
 apt_packages:
   - libtiff4-dev
-  - xsel
+  - xclip
+
+env:
+  - TRAVIS_CLIP=xclip DISPLAY=:99.0
+
+before_script:
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3
+  - if [ "$TRAVIS_CLIP" == "xclip" ]; then uptime | xclip -i -sel p -f | xclip -i -sel c; xclip -o -sel clipboard; fi
 
 r_github_packages:
   - rorynolan/strex
