@@ -81,7 +81,7 @@
     <div class="page-header toc-ignore">
       <h1>Finding Thresholds</h1>
             
-            <h4 class="date">2018-09-11</h4>
+            <h4 class="date">2018-10-31</h4>
       
       
       <div class="hidden name"><code>finding-thresholds.Rmd</code></div>
@@ -95,12 +95,12 @@
 <h2 class="hasAnchor">
 <a href="#mostly-high-some-low" class="anchor"></a>Mostly high, some low</h2>
 <p>Let’s create a vector of values, most of which are greater than 50, the rest of which are less than 10:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">sample.int</span>(<span class="dv">9</span>, <span class="fl">2e5</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>), <span class="kw">sample</span>(<span class="dv">51</span><span class="op">:</span><span class="dv">99</span>, <span class="fl">8e5</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">sample.int</span>(<span class="dv">9</span>, <span class="fl">2e5</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>), <span class="kw">sample</span>(<span class="dv">51</span><span class="op">:</span><span class="dv">99</span>, <span class="fl">8e5</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>))</code></pre></div>
 <p>Now let’s take a look at the distribution of <code>x</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">x =</span> x) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(x) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_density">stat_density</a></span>(<span class="dt">bw =</span> <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(dplyr)
+<span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">x =</span> x) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(x) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/geom_density.html">stat_density</a></span>(<span class="dt">bw =</span> <span class="dv">3</span>)</code></pre></div>
 <p><img src="finding-thresholds_files/figure-html/plot-high-low-1.png" width="672"></p>
 <p>If you’re trying to threshold this sort of data, you’re probably looking for a method which will find a threshold that separates the larger values from the smaller ones. The available automatic thresholding methods are “IJDefault”, “Huang”, “Huang2”, “Intermodes”, “IsoData”, “Li”, “MaxEntropy”, “Mean”, “MinErrorI”, “Minimum”, “Moments”, “Otsu”, “Percentile”, “RenyiEntropy”, “Shanbhag”, “Triangle” and “Yen”. These are well demonstrated at <a href="http://imagej.net/Auto_Threshold" class="uri">http://imagej.net/Auto_Threshold</a>.</p>
 </div>
@@ -108,73 +108,73 @@
 <h2 class="hasAnchor">
 <a href="#trying-all-methods" class="anchor"></a>Trying all methods</h2>
 <p>“MaxEntropy” and “Yen” often fail to find a threshold, so I generally avoid them. Let’s try out all the rest.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(autothresholdr)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">thresh_methods &lt;-<span class="st"> </span><span class="kw">c</span>(</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">  <span class="st">"IJDefault"</span>, <span class="st">"Huang"</span>, <span class="st">"Huang2"</span>, <span class="st">"Intermodes"</span>, <span class="st">"IsoData"</span>,</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">  <span class="st">"Li"</span>, <span class="st">"Mean"</span>, <span class="st">"MinErrorI"</span>, <span class="st">"Minimum"</span>, <span class="st">"Moments"</span>, <span class="st">"Otsu"</span>,</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">  <span class="st">"Percentile"</span>, <span class="st">"RenyiEntropy"</span>, <span class="st">"Shanbhag"</span>, <span class="st">"Triangle"</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">)</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">thresholds &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map_chr</a></span>(thresh_methods, <span class="op">~</span><span class="kw"><a href="../reference/auto_thresh.html">auto_thresh</a></span>(x, .)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">method =</span> thresh_methods, <span class="dt">threshold =</span> .)</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="kw">print</span>(thresholds)</a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; # A tibble: 15 x 2</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;    method       threshold</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;    </span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt;  1 IJDefault    39       </span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt;  2 Huang        8        </span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt;  3 Huang2       8        </span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt;  4 Intermodes   40       </span></a>
-<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt;  5 IsoData      38       </span></a>
-<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt;  6 Li           24       </span></a>
-<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">#&gt;  7 Mean         59       </span></a>
-<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co">#&gt;  8 MinErrorI    59       </span></a>
-<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt;  9 Minimum      33       </span></a>
-<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="co">#&gt; 10 Moments      55       </span></a>
-<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="co">#&gt; 11 Otsu         8        </span></a>
-<a class="sourceLine" id="cb3-24" data-line-number="24"><span class="co">#&gt; 12 Percentile   67       </span></a>
-<a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co">#&gt; 13 RenyiEntropy 69       </span></a>
-<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co">#&gt; 14 Shanbhag     69       </span></a>
-<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">#&gt; 15 Triangle     10</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(autothresholdr)
+thresh_methods &lt;-<span class="st"> </span><span class="kw">c</span>(
+  <span class="st">"IJDefault"</span>, <span class="st">"Huang"</span>, <span class="st">"Huang2"</span>, <span class="st">"Intermodes"</span>, <span class="st">"IsoData"</span>,
+  <span class="st">"Li"</span>, <span class="st">"Mean"</span>, <span class="st">"MinErrorI"</span>, <span class="st">"Minimum"</span>, <span class="st">"Moments"</span>, <span class="st">"Otsu"</span>,
+  <span class="st">"Percentile"</span>, <span class="st">"RenyiEntropy"</span>, <span class="st">"Shanbhag"</span>, <span class="st">"Triangle"</span>
+)
+thresholds &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map_chr</a></span>(thresh_methods, <span class="op">~</span><span class="kw"><a href="../reference/auto_thresh.html">auto_thresh</a></span>(x, .)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">method =</span> thresh_methods, <span class="dt">threshold =</span> .)
+<span class="kw">print</span>(thresholds)
+<span class="co">#&gt; # A tibble: 15 x 2</span>
+<span class="co">#&gt;    method       threshold</span>
+<span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;    </span>
+<span class="co">#&gt;  1 IJDefault    39       </span>
+<span class="co">#&gt;  2 Huang        8        </span>
+<span class="co">#&gt;  3 Huang2       8        </span>
+<span class="co">#&gt;  4 Intermodes   40       </span>
+<span class="co">#&gt;  5 IsoData      38       </span>
+<span class="co">#&gt;  6 Li           24       </span>
+<span class="co">#&gt;  7 Mean         59       </span>
+<span class="co">#&gt;  8 MinErrorI    59       </span>
+<span class="co">#&gt;  9 Minimum      33       </span>
+<span class="co">#&gt; 10 Moments      55       </span>
+<span class="co">#&gt; 11 Otsu         8        </span>
+<span class="co">#&gt; 12 Percentile   67       </span>
+<span class="co">#&gt; 13 RenyiEntropy 69       </span>
+<span class="co">#&gt; 14 Shanbhag     69       </span>
+<span class="co">#&gt; 15 Triangle     10</span></code></pre></div>
 <p>Now, which of these selected a threshold between 10 and 49?</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(thresholds, threshold <span class="op">&gt;=</span><span class="st"> </span><span class="dv">10</span>, threshold <span class="op">&lt;=</span><span class="st"> </span><span class="dv">49</span>)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; # A tibble: 6 x 2</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt;   method     threshold</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;    </span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; 1 IJDefault  39       </span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; 2 Intermodes 40       </span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; 3 IsoData    38       </span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 4 Li         24       </span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; 5 Minimum    33       </span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 6 Triangle   10</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(thresholds, threshold <span class="op">&gt;=</span><span class="st"> </span><span class="dv">10</span>, threshold <span class="op">&lt;=</span><span class="st"> </span><span class="dv">49</span>)
+<span class="co">#&gt; # A tibble: 6 x 2</span>
+<span class="co">#&gt;   method     threshold</span>
+<span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;    </span>
+<span class="co">#&gt; 1 IJDefault  39       </span>
+<span class="co">#&gt; 2 Intermodes 40       </span>
+<span class="co">#&gt; 3 IsoData    38       </span>
+<span class="co">#&gt; 4 Li         24       </span>
+<span class="co">#&gt; 5 Minimum    33       </span>
+<span class="co">#&gt; 6 Triangle   10</span></code></pre></div>
 <p>The other methods aren’t necessarily <em>wrong</em>, they’re just more strict or more lax than these ones. For thresholding microscopy images to remove background, my favourite method is “Triangle” because it is fast and quite conservative in that anything even slightly above background is kept.</p>
 </div>
 <div id="using-one-method" class="section level2">
 <h2 class="hasAnchor">
 <a href="#using-one-method" class="anchor"></a>Using one method</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/auto_thresh.html">auto_thresh</a></span>(x, <span class="st">"tri"</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; [1] 10</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; attr(,"ignore_black")</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt; [1] FALSE</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; attr(,"ignore_white")</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt; [1] FALSE</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt; attr(,"ignore_na")</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; [1] FALSE</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; attr(,"autothresh_method")</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; [1] "Triangle"</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; attr(,"class")</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; [1] "th"      "integer"</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="kw"><a href="../reference/auto_thresh.html">auto_thresh</a></span>(x, <span class="st">"otsu"</span>)</a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; [1] 8</span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; attr(,"ignore_black")</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; [1] FALSE</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt; attr(,"ignore_white")</span></a>
-<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt; [1] FALSE</span></a>
-<a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt; attr(,"ignore_na")</span></a>
-<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt; [1] FALSE</span></a>
-<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt; attr(,"autothresh_method")</span></a>
-<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt; [1] "Otsu"</span></a>
-<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; attr(,"class")</span></a>
-<a class="sourceLine" id="cb5-24" data-line-number="24"><span class="co">#&gt; [1] "th"      "integer"</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/auto_thresh.html">auto_thresh</a></span>(x, <span class="st">"tri"</span>)
+<span class="co">#&gt; [1] 10</span>
+<span class="co">#&gt; attr(,"ignore_black")</span>
+<span class="co">#&gt; [1] FALSE</span>
+<span class="co">#&gt; attr(,"ignore_white")</span>
+<span class="co">#&gt; [1] FALSE</span>
+<span class="co">#&gt; attr(,"ignore_na")</span>
+<span class="co">#&gt; [1] FALSE</span>
+<span class="co">#&gt; attr(,"autothresh_method")</span>
+<span class="co">#&gt; [1] "Triangle"</span>
+<span class="co">#&gt; attr(,"class")</span>
+<span class="co">#&gt; [1] "th"      "integer"</span>
+<span class="kw"><a href="../reference/auto_thresh.html">auto_thresh</a></span>(x, <span class="st">"otsu"</span>)
+<span class="co">#&gt; [1] 8</span>
+<span class="co">#&gt; attr(,"ignore_black")</span>
+<span class="co">#&gt; [1] FALSE</span>
+<span class="co">#&gt; attr(,"ignore_white")</span>
+<span class="co">#&gt; [1] FALSE</span>
+<span class="co">#&gt; attr(,"ignore_na")</span>
+<span class="co">#&gt; [1] FALSE</span>
+<span class="co">#&gt; attr(,"autothresh_method")</span>
+<span class="co">#&gt; [1] "Otsu"</span>
+<span class="co">#&gt; attr(,"class")</span>
+<span class="co">#&gt; [1] "th"      "integer"</span></code></pre></div>
 </div>
   </div>
 
