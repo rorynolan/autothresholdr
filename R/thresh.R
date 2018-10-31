@@ -1,4 +1,4 @@
-#' Automatically threshold an image
+#' Automatically threshold an array of non-negative integers.
 #'
 #' These functions apply the ImageJ "Auto Threshold" plugin's image thresholding
 #' methods. The available methods are "IJDefault", "Huang", "Huang2",
@@ -129,6 +129,7 @@
 auto_thresh <- function(int_arr, method,
                         ignore_black = FALSE, ignore_white = FALSE,
                         ignore_na = FALSE) {
+  checkmate::assert_scalar(method)
   checkmate::assert(checkmate::check_number(method),
                     checkmate::check_string(method))
   checkmate::assert_integerish(int_arr, min.len = 1)

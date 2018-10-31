@@ -6,7 +6,7 @@
 \alias{auto_thresh_apply_mask}
 \alias{mask}
 \alias{apply_mask}
-\title{Automatically threshold an image}
+\title{Automatically threshold an array of non-negative integers.}
 \usage{
 auto_thresh(int_arr, method, ignore_black = FALSE,
   ignore_white = FALSE, ignore_na = FALSE)

@@ -7,6 +7,7 @@ cache: packages
 apt_packages:
   - libtiff4-dev
   - xclip
+  - libgit2-dev
 
 env:
   - TRAVIS_CLIP=xclip DISPLAY=:99.0
@@ -17,9 +18,7 @@ before_script:
   - if [ "$TRAVIS_CLIP" == "xclip" ]; then uptime | xclip -i -sel p -f | xclip -i -sel c; xclip -o -sel clipboard; fi
 
 r_github_packages:
-  - rorynolan/strex
-  - rorynolan/filesstrings
-  - ropensci/ijtiff
+  - mllg/checkmate
 
 after_success:
   - Rscript -e 'covr::codecov()'
