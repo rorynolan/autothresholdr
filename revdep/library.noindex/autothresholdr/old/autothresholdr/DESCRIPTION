@@ -1,0 +1,40 @@
+Package: autothresholdr
+Type: Package
+Title: An R Port of the 'ImageJ' Plugin 'Auto Threshold'
+Version: 1.2.1
+Authors@R: c(
+    person("Rory", "Nolan", email = "rorynoolan@gmail.com", 
+           role = c("aut", "cre", "trl"), 
+           comment = c(ORCID = "0000-0002-5239-4043")),
+    person("Luis", "Alvarez", email = "lalvarez@well.ox.ac.uk",
+           role = "ctb", comment = c(ORCID = "0000-0003-1316-1906")),
+    person("Sergi", "Padilla-Parra", email = "spadilla@well.ox.ac.uk", 
+           role = c("ctb", "ths"), comment = c(ORCID = "0000-0002-8010-9481")),
+    person("Gabriel", "Landini", email = "G.Landini@bham.ac.uk", 
+           role = c("ctb", "cph"), comment = c(ORCID = "0000-0002-9689-0989"))
+    )
+Maintainer: Rory Nolan <rorynoolan@gmail.com>
+Description: Provides the 'ImageJ' 'Auto Threshold' plugin functionality to R users. 
+    See <http://imagej.net/Auto_Threshold> and Landini et al. (2017) <DOI:10.1111/jmi.12474>.
+License: GPL-3
+LazyData: TRUE
+Imports: magrittr, Rcpp, checkmate (>= 1.8.5), ijtiff (>= 1.1.0),
+        filesstrings (>= 2.5.0), lattice
+SystemRequirements: C++11
+RoxygenNote: 6.0.1
+URL: https://www.github.com/rorynolan/autothresholdr
+BugReports: https://www.github.com/rorynolan/autothresholdr/issues
+Suggests: testthat, covr, knitr, rmarkdown
+VignetteBuilder: knitr
+LinkingTo: Rcpp
+NeedsCompilation: yes
+Packaged: 2018-07-09 12:45:53 UTC; rnolan
+Author: Rory Nolan [aut, cre, trl] (<https://orcid.org/0000-0002-5239-4043>),
+  Luis Alvarez [ctb] (<https://orcid.org/0000-0003-1316-1906>),
+  Sergi Padilla-Parra [ctb, ths]
+    (<https://orcid.org/0000-0002-8010-9481>),
+  Gabriel Landini [ctb, cph] (<https://orcid.org/0000-0002-9689-0989>)
+Repository: CRAN
+Date/Publication: 2018-07-09 13:20:09 UTC
+Built: R 3.5.0; x86_64-apple-darwin15.6.0; 2018-07-10 15:14:14 UTC; unix
+Archs: autothresholdr.so.dSYM

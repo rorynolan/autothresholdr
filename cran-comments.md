@@ -1,6 +1,7 @@
 
 
 ## Test environments
+
 * local OS X install, R 3.5.1
 * ubuntu 14.04 (on travis-ci), R 3.5.1
 * Windows Server 2012 (on appveyor), R 3.5.1
@@ -8,9 +9,10 @@
 
 
 ## R CMD check results
+
 * 0 ERRORs | 0 WARNINGs | 0 NOTEs
-* The clang-UBSAN issue on CRAN is now fixed.
 
 
 ## Reverse Dependencies
-* There are 3 reverse dependencies: `detrendr`, `nandb` and `SPUTNIK`. This update does not break any of these :-)
+
+* There are 2 reverse dependencies: `detrendr` and `nandb`. `nandb` is already broken, but this update to `autothresholdr` does not make it any worse. A fix to `nandb` for its problem will arrive in the next week.
