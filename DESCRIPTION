@@ -45,7 +45,6 @@ Suggests:
     ggplot2,
     dplyr,
     styler,
-    clipr,
     ore (>= 1.4.0),
     spelling
 VignetteBuilder: knitr

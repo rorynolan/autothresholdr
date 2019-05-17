@@ -181,18 +181,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "clipr",
-      "name": "clipr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=clipr"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "ore",
       "name": "ore",
       "version": ">= 1.4.0",
@@ -392,6 +380,9 @@
       }
     }
   ],
-  "relatedLink": ["https://CRAN.R-project.org/package=autothresholdr", "https://rorynolan.github.io/autothresholdr/"],
-  "fileSize": "383.633KB"
+  "relatedLink": [
+    "https://CRAN.R-project.org/package=autothresholdr",
+    "https://rorynolan.github.io/autothresholdr/"
+  ],
+  "fileSize": "382.828KB"
 }

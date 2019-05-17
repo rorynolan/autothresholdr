@@ -11,14 +11,6 @@ apt_packages:
   - xclip
   - libgit2-dev
 
-env:
-  - TRAVIS_CLIP=xclip DISPLAY=:99.0
-
-before_script:
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3
-  - if [ "$TRAVIS_CLIP" == "xclip" ]; then uptime | xclip -i -sel p -f | xclip -i -sel c; xclip -o -sel clipboard; fi
-
 after_success:
   - Rscript -e 'covr::codecov()'
 
