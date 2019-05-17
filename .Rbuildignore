@@ -16,3 +16,4 @@
 ^junk$
 ^CONDUCT\.md$
 ^codemeta\.json$
+^pkgdown$
