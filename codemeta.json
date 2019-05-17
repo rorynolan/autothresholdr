@@ -392,6 +392,6 @@
       }
     }
   ],
-  "relatedLink": "https://CRAN.R-project.org/package=autothresholdr",
-  "fileSize": "383.601KB"
+  "relatedLink": ["https://CRAN.R-project.org/package=autothresholdr", "https://rorynolan.github.io/autothresholdr/"],
+  "fileSize": "383.633KB"
 }

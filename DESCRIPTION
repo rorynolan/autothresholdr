@@ -34,7 +34,7 @@ Imports:
     rlang (>= 0.3.3)
 SystemRequirements: C++11
 RoxygenNote: 6.1.1
-URL: https://www.github.com/rorynolan/autothresholdr
+URL: https://rorynolan.github.io/autothresholdr/, https://www.github.com/rorynolan/autothresholdr
 BugReports: https://www.github.com/rorynolan/autothresholdr/issues
 Suggests: 
     testthat,

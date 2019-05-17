@@ -4,8 +4,10 @@ language: R
 sudo: true
 cache: packages
 
+dist: xenial
+
 apt_packages:
-  - libtiff4-dev
+  - libtiff5-dev
   - xclip
   - libgit2-dev
 
@@ -16,9 +18,6 @@ before_script:
   - sh -e /etc/init.d/xvfb start
   - sleep 3
   - if [ "$TRAVIS_CLIP" == "xclip" ]; then uptime | xclip -i -sel p -f | xclip -i -sel c; xclip -o -sel clipboard; fi
-
-r_github_packages:
-  - mllg/checkmate
 
 after_success:
   - Rscript -e 'covr::codecov()'
