@@ -2,28 +2,21 @@
 
 |field    |value                        |
 |:--------|:----------------------------|
-|version  |R version 3.5.1 (2018-07-02) |
-|os       |macOS  10.14                 |
+|version  |R version 3.6.0 (2019-04-26) |
+|os       |macOS Mojave 10.14.4         |
 |system   |x86_64, darwin15.6.0         |
 |ui       |RStudio                      |
 |language |(EN)                         |
 |collate  |en_GB.UTF-8                  |
 |ctype    |en_GB.UTF-8                  |
 |tz       |Europe/London                |
-|date     |2018-11-04                   |
+|date     |2019-05-17                   |
 
 # Dependencies
 
-|package        |old   |new |Δ  |
-|:--------------|:-----|:---|:--|
-|autothresholdr |1.2.1 |NA  |*  |
+|package        |old   |new   |Δ  |
+|:--------------|:-----|:-----|:--|
+|autothresholdr |1.3.0 |1.3.1 |*  |
 
 # Revdeps
-
-## All (2)
-
-|package                          |version |error |warning |note |
-|:--------------------------------|:-------|:-----|:-------|:----|
-|[detrendr](problems.md#detrendr) |0.5.1   |      |        |1    |
-|[nandb](problems.md#nandb)       |1.0.1   |1     |        |     |
 
