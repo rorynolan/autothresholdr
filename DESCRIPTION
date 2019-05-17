@@ -44,8 +44,6 @@ Suggests:
     utils,
     ggplot2,
     dplyr,
-    styler,
-    ore (>= 1.4.0),
     spelling
 VignetteBuilder: knitr
 LinkingTo: Rcpp

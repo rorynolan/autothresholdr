@@ -169,31 +169,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "styler",
-      "name": "styler",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=styler"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "ore",
-      "name": "ore",
-      "version": ">= 1.4.0",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=ore"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "spelling",
       "name": "spelling",
       "provider": {
@@ -384,5 +359,5 @@
     "https://CRAN.R-project.org/package=autothresholdr",
     "https://rorynolan.github.io/autothresholdr/"
   ],
-  "fileSize": "382.828KB"
+  "fileSize": "382.816KB"
 }

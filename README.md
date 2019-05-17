@@ -1,7 +1,8 @@
 
 # autothresholdr <img src="man/figures/logo.png" align="right" height=140/>
 
-An R package for thresholding images.
+Algorithms for automatically finding appropriate thresholds for
+numerical data, with special functions for thresholding images.
 
 [![Travis-CI Build
 Status](https://travis-ci.org/rorynolan/autothresholdr.svg?branch=master)](https://travis-ci.org/rorynolan/autothresholdr)
