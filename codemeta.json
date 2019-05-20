@@ -190,6 +190,7 @@
       "@type": "SoftwareApplication",
       "identifier": "magrittr",
       "name": "magrittr",
+      "version": ">= 1.5",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -202,6 +203,7 @@
       "@type": "SoftwareApplication",
       "identifier": "Rcpp",
       "name": "Rcpp",
+      "version": ">= 1.0.1",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -227,7 +229,7 @@
       "@type": "SoftwareApplication",
       "identifier": "ijtiff",
       "name": "ijtiff",
-      "version": ">= 1.5.0",
+      "version": ">= 1.5.1",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -359,5 +361,5 @@
     "https://CRAN.R-project.org/package=autothresholdr",
     "https://rorynolan.github.io/autothresholdr/"
   ],
-  "fileSize": "382.816KB"
+  "fileSize": "382.84KB"
 }
