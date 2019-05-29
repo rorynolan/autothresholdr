@@ -1,3 +1,9 @@
+## `autothresholdr` 1.3.2
+
+#### BUG FIXES
+* Remove superfluous `stringr` from `Imports`.
+
+
 ## `autothresholdr` 1.3.1
 
 #### BUG FIXES
