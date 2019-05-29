@@ -21,6 +21,7 @@ Description: Algorithms for automatically finding appropriate thresholds for
     <DOI:10.1111/jmi.12474>.
 License: GPL-3
 LazyData: TRUE
+Depends: R (>= 3.1)
 Imports:
     stats,
     magrittr (>= 1.5),
@@ -45,7 +46,7 @@ Suggests:
     dplyr,
     spelling
 VignetteBuilder: knitr
-LinkingTo: Rcpp
+LinkingTo: Rcpp (>= 1.0.1)
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 Language: en-US

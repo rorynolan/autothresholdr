@@ -183,6 +183,12 @@
   "softwareRequirements": [
     {
       "@type": "SoftwareApplication",
+      "identifier": "R",
+      "name": "R",
+      "version": ">= 3.1"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "stats",
       "name": "stats"
     },
@@ -349,5 +355,5 @@
     "https://CRAN.R-project.org/package=autothresholdr",
     "https://rorynolan.github.io/autothresholdr/"
   ],
-  "fileSize": "382.859KB"
+  "fileSize": "382.869KB"
 }
