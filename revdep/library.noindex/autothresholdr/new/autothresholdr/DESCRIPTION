@@ -1,7 +1,7 @@
 Package: autothresholdr
 Type: Package
 Title: An R Port of the 'ImageJ' Plugin 'Auto Threshold'
-Version: 1.3.1
+Version: 1.3.2
 Authors@R: c(
     person("Rory", "Nolan", email = "rorynoolan@gmail.com", 
            role = c("aut", "cre", "trl"), 
@@ -21,27 +21,29 @@ Description: Algorithms for automatically finding appropriate thresholds for
     <DOI:10.1111/jmi.12474>.
 License: GPL-3
 LazyData: TRUE
-Imports: stats, magrittr, Rcpp, checkmate (>= 1.9.1), ijtiff (>=
-        1.5.0), filesstrings (>= 3.1.1), glue (>= 1.3.0), purrr,
-        stringr, rlang (>= 0.3.3)
+Depends: R (>= 3.1)
+Imports: stats, magrittr (>= 1.5), Rcpp (>= 1.0.1), checkmate (>=
+        1.9.3), ijtiff (>= 1.5.1), filesstrings (>= 3.1.1), glue (>=
+        1.3.0), purrr, rlang (>= 0.3.3)
 SystemRequirements: C++11
 RoxygenNote: 6.1.1
-URL: https://www.github.com/rorynolan/autothresholdr
+URL: https://rorynolan.github.io/autothresholdr/,
+        https://www.github.com/rorynolan/autothresholdr
 BugReports: https://www.github.com/rorynolan/autothresholdr/issues
 Suggests: testthat, covr, knitr, rmarkdown, utils, ggplot2, dplyr,
-        styler, clipr, ore (>= 1.4.0), spelling
+        spelling
 VignetteBuilder: knitr
-LinkingTo: Rcpp
+LinkingTo: Rcpp (>= 1.0.1)
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 Language: en-US
 RemoteType: local
 RemoteUrl: /Users/rnolan/Dropbox/DPhil/Sergi/RPackages/autothresholdr
 NeedsCompilation: yes
-Packaged: 2019-05-17 08:54:58 UTC; rnolan
+Packaged: 2019-05-30 10:12:39 UTC; rnolan
 Author: Rory Nolan [aut, cre, trl] (<https://orcid.org/0000-0002-5239-4043>),
   Luis Alvarez [ctb] (<https://orcid.org/0000-0003-1316-1906>),
   Sergi Padilla-Parra [ctb, ths]
     (<https://orcid.org/0000-0002-8010-9481>),
   Gabriel Landini [ctb, cph] (<https://orcid.org/0000-0002-9689-0989>)
-Built: R 3.6.0; x86_64-apple-darwin15.6.0; 2019-05-17 08:54:58 UTC; unix
+Built: R 3.6.0; x86_64-apple-darwin15.6.0; 2019-05-30 10:12:39 UTC; unix

@@ -10,13 +10,13 @@
 |collate  |en_GB.UTF-8                  |
 |ctype    |en_GB.UTF-8                  |
 |tz       |Europe/London                |
-|date     |2019-05-17                   |
+|date     |2019-05-30                   |
 
 # Dependencies
 
 |package        |old   |new   |Δ  |
 |:--------------|:-----|:-----|:--|
-|autothresholdr |1.3.0 |1.3.1 |*  |
+|autothresholdr |1.3.1 |1.3.2 |*  |
 
 # Revdeps
 

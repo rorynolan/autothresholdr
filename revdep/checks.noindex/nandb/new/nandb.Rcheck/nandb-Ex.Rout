@@ -534,7 +534,7 @@ integer type with 1 channel and 50 frames . . .
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.634 0.51 9.765 0.135 0.129 
+Time elapsed:  8.834 0.609 10.131 0.133 0.129 
 > grDevices::dev.off()
 null device 
           1 

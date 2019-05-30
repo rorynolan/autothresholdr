@@ -1,3 +1,10 @@
+## `autothresholdr` 1.3.1
+
+#### BUG FIXES
+* Require necessary version of `glue`.
+* Require debugged `filesstrings` 3.1.1.
+
+
 ## `autothresholdr` 1.3.0
 
 #### NEW FEATURES
