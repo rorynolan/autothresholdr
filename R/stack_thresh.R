@@ -74,15 +74,15 @@
 #'   `NA`).
 #'
 #' @examples
-#' img <- ijtiff::read_tif(system.file('extdata', '50.tif',
-#'                                     package = 'autothresholdr'))
+#' img <- ijtiff::read_tif(system.file("extdata", "50.tif",
+#'   package = "autothresholdr"
+#' ))
 #' ijtiff::display(img[, , 1, 1])
-#' img_thresh_mask <- mean_stack_thresh(img, 'Otsu')
+#' img_thresh_mask <- mean_stack_thresh(img, "Otsu")
 #' ijtiff::display(img_thresh_mask[, , 1, 1])
 #' ijtiff::display(img[, , 1, 1])
-#' img_thresh_mask <- mean_stack_thresh(img, 'Huang')
+#' img_thresh_mask <- mean_stack_thresh(img, "Huang")
 #' ijtiff::display(img_thresh_mask[, , 1, 1])
-#'
 #' @export
 mean_stack_thresh <- function(img, method, fail = NA,
                               ignore_black = FALSE, ignore_white = FALSE,
@@ -111,8 +111,9 @@ mean_stack_thresh <- function(img, method, fail = NA,
     bad_index <- match(
       FALSE,
       as.vector(img) %>% {
-      . != floor(.)
-    })
+        . != floor(.)
+      }
+    )
     custom_stop(
       "`img` must be an array of integers.",
       "
@@ -161,8 +162,8 @@ mean_stack_thresh <- function(img, method, fail = NA,
         attributes(.) <- thresh_atts
       }
     }
-    if ((inherits(thresh[[i]], "integer")) &&
-      (!isTRUE(checkmate::check_integerish(as.vector(thresh[[i]]))))) {
+    if (inherits(thresh[[i]], "integer") &&
+      !isTRUE(checkmate::check_integerish(as.vector(thresh[[i]])))) {
       class(thresh[[i]]) %<>% setdiff("integer")
     }
     mean_stack <- mean_pillars(img[, , i, ])
@@ -244,15 +245,15 @@ mean_stack_thresh <- function(img, method, fail = NA,
 #'   `NA`).
 #'
 #' @examples
-#' img <- ijtiff::read_tif(system.file('extdata', '50.tif',
-#'                                     package = 'autothresholdr'))
+#' img <- ijtiff::read_tif(system.file("extdata", "50.tif",
+#'   package = "autothresholdr"
+#' ))
 #' ijtiff::display(img[, , 1, 1])
-#' img_thresh_mask <- med_stack_thresh(img, 'Otsu')
+#' img_thresh_mask <- med_stack_thresh(img, "Otsu")
 #' ijtiff::display(img_thresh_mask[, , 1, 1])
 #' ijtiff::display(img[, , 1, 1])
-#' img_thresh_mask <- med_stack_thresh(img, 'Triangle')
+#' img_thresh_mask <- med_stack_thresh(img, "Triangle")
 #' ijtiff::display(img_thresh_mask[, , 1, 1])
-#'
 #' @export
 med_stack_thresh <- function(img, method, fail = NA,
                              ignore_black = FALSE, ignore_white = FALSE,
@@ -282,7 +283,8 @@ med_stack_thresh <- function(img, method, fail = NA,
       FALSE,
       as.vector(img) %>% {
         . != floor(.)
-      })
+      }
+    )
     custom_stop(
       "`img` must be an array of integers.",
       "

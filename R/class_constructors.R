@@ -51,10 +51,10 @@ threshed_arr <- function(arr, thresh) {
   attr(arr, "thresh") <- thresh
   class(arr) %<>% c("threshed_arr", .)
   if (is.matrix(arr)) {
-    if (! "matrix" %in% class(arr)) class(arr) %<>% c("matrix")
+    if (!"matrix" %in% class(arr)) class(arr) %<>% c("matrix")
   }
   if (is.array(arr)) {
-    if (! "array" %in% class(arr)) class(arr) %<>% c("array")
+    if (!"array" %in% class(arr)) class(arr) %<>% c("array")
   }
   arr
 }
@@ -92,7 +92,7 @@ stack_threshed_img <- function(img, thresh, fail_value, stack_thresh_method) {
   for (att in to_add) attr(img, att) <- get(att)
   class(img) %<>% c("stack_threshed_img", .)
   if (is.array(img)) {
-    if (! "array" %in% class(img)) class(img) %<>% c("array")
+    if (!"array" %in% class(img)) class(img) %<>% c("array")
   }
   img
 }
@@ -116,10 +116,10 @@ arr_mask <- function(arr, thresh) {
   attr(arr, "thresh") <- thresh
   class(arr) %<>% c("arr_mask", .)
   if (is.matrix(arr)) {
-    if (! "matrix" %in% class(arr)) class(arr) %<>% c("matrix")
+    if (!"matrix" %in% class(arr)) class(arr) %<>% c("matrix")
   }
   if (is.array(arr)) {
-    if (! "array" %in% class(arr)) class(arr) %<>% c("array")
+    if (!"array" %in% class(arr)) class(arr) %<>% c("array")
   }
   arr
 }

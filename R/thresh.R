@@ -130,16 +130,22 @@ auto_thresh <- function(int_arr, method,
                         ignore_black = FALSE, ignore_white = FALSE,
                         ignore_na = FALSE) {
   checkmate::assert_scalar(method)
-  checkmate::assert(checkmate::check_number(method),
-                    checkmate::check_string(method))
+  checkmate::assert(
+    checkmate::check_number(method),
+    checkmate::check_string(method)
+  )
   checkmate::assert_integerish(int_arr, min.len = 1)
   checkmate::assert_flag(ignore_black)
-  checkmate::assert(checkmate::check_flag(ignore_white),
-                    checkmate::check_number(ignore_white, lower = 0))
+  checkmate::assert(
+    checkmate::check_flag(ignore_white),
+    checkmate::check_number(ignore_white, lower = 0)
+  )
   checkmate::assert_flag(ignore_na)
   if (all(is.na(int_arr))) {
-    custom_stop("`int_arr` must not be all `NA`s.",
-                "Every element of your `int_arr` is `NA`.")
+    custom_stop(
+      "`int_arr` must not be all `NA`s.",
+      "Every element of your `int_arr` is `NA`."
+    )
   }
   if (anyNA(int_arr)) {
     if (!ignore_na) {
@@ -151,15 +157,20 @@ auto_thresh <- function(int_arr, method,
         "
         To tell `auto_thresh()` to ignore `NA` values, set the argument
         `ignore_na = TRUE`.
-        ")
+        "
+      )
     } else {
       int_arr <- int_arr[!is.na(int_arr)]
     }
   }
-  checkmate::assert(checkmate::check_vector(int_arr, any.missing = FALSE),
-                    checkmate::check_array(int_arr, any.missing = FALSE))
-  checkmate::assert_numeric(int_arr, any.missing = FALSE,
-                            lower = 0, upper = .Machine$integer.max)
+  checkmate::assert(
+    checkmate::check_vector(int_arr, any.missing = FALSE),
+    checkmate::check_array(int_arr, any.missing = FALSE)
+  )
+  checkmate::assert_numeric(int_arr,
+    any.missing = FALSE,
+    lower = 0, upper = .Machine$integer.max
+  )
   checkmate::assert_integerish(int_arr, any.missing = FALSE)
   if (is.numeric(method)) {
     thresh <- method
@@ -168,17 +179,20 @@ auto_thresh <- function(int_arr, method,
   method <- tolower(method)
   if (startsWith("default", method)) method <- "IJDefault"
   if (startsWith("huang", method)) method <- "Huang"
-  available_methods <- c("IJDefault", "Huang", "Huang2", "Intermodes",
-                         "IsoData", "Li", "MaxEntropy", "Mean", "MinErrorI",
-                         "Minimum", "Moments", "Otsu", "Percentile",
-                         "RenyiEntropy", "Shanbhag", "Triangle", "Yen")
+  available_methods <- c(
+    "IJDefault", "Huang", "Huang2", "Intermodes",
+    "IsoData", "Li", "MaxEntropy", "Mean", "MinErrorI",
+    "Minimum", "Moments", "Otsu", "Percentile",
+    "RenyiEntropy", "Shanbhag", "Triangle", "Yen"
+  )
   method <- filesstrings::match_arg(method, available_methods,
-                                    ignore_case = TRUE)
+    ignore_case = TRUE
+  )
   if (ignore_black) int_arr[int_arr == 0] <- NA
   if (ignore_white) {
     if (isTRUE(ignore_white)) {
       mx <- max(int_arr)
-      if (mx %in% (2 ^ c(8, 12, 16, 32) - 1)) int_arr[int_arr == mx] <- NA
+      if (mx %in% (2^c(8, 12, 16, 32) - 1)) int_arr[int_arr == mx] <- NA
     } else {
       int_arr[int_arr >= ignore_white] <- NA
     }
@@ -189,18 +203,22 @@ auto_thresh <- function(int_arr, method,
     as.vector()
   if (length(im_hist) < 2) {
     unq_val <- stats::na.omit(int_arr)[1]
-    custom_stop("Cannot threshold an array with only one unique value. ",
-                "
+    custom_stop(
+      "Cannot threshold an array with only one unique value. ",
+      "
                 Your `int_arr` has only one unique value which is
                 {format(unq_val, scientific = FALSE)}.
-                ")
+                "
+    )
   }
   thresh <- eval_text(method)(im_hist)
   if (thresh < 0) {
     custom_stop("'{method}' method failed to find threshold.")
   }
-  th(thresh = thresh, ignore_black = ignore_black, ignore_white = ignore_white,
-     ignore_na = ignore_na, autothresh_method = method)
+  th(
+    thresh = thresh, ignore_black = ignore_black, ignore_white = ignore_white,
+    ignore_na = ignore_na, autothresh_method = method
+  )
 }
 
 #' @rdname auto_thresh
@@ -209,9 +227,10 @@ auto_thresh_mask <- function(int_arr, method,
                              ignore_black = FALSE, ignore_white = FALSE,
                              ignore_na = FALSE) {
   thresh <- auto_thresh(int_arr, method,
-                        ignore_black = ignore_black,
-                        ignore_white = ignore_white,
-                        ignore_na = ignore_na)
+    ignore_black = ignore_black,
+    ignore_white = ignore_white,
+    ignore_na = ignore_na
+  )
   mask <- int_arr >= thresh
   arr_mask(arr = mask, thresh = thresh)
 }
@@ -222,9 +241,10 @@ auto_thresh_apply_mask <- function(int_arr, method, fail = NA,
                                    ignore_black = FALSE, ignore_white = FALSE,
                                    ignore_na = FALSE) {
   mask <- auto_thresh_mask(int_arr, method,
-                           ignore_black = ignore_black,
-                           ignore_white = ignore_white,
-                           ignore_na = ignore_na)
+    ignore_black = ignore_black,
+    ignore_white = ignore_white,
+    ignore_na = ignore_na
+  )
   fail <- translate_fail(int_arr, fail)
   int_arr[!mask] <- fail
   threshed_arr(arr = int_arr, thresh = attr(mask, "thresh"))

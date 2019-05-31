@@ -2,7 +2,9 @@
 ## should be set to.
 translate_fail <- function(arr, fail) {
   checkmate::assert_scalar(fail, na.ok = TRUE)
-  if (is.na(fail)) return(NA)
+  if (is.na(fail)) {
+    return(NA)
+  }
   if (is.numeric(fail)) {
     if (fail < 0) {
       custom_stop(
@@ -10,23 +12,25 @@ translate_fail <- function(arr, fail) {
         If `fail` is specified as a number, then that number must be greater
         than zero.
         ",
-        "You have specified `fail = {format(fail, scientific = FALSE)}`.")
+        "You have specified `fail = {format(fail, scientific = FALSE)}`."
+      )
     }
   } else if (is.character(fail)) {
     fail <- filesstrings::match_arg(fail, c("saturate", "zero"),
-                                   ignore_case = TRUE)
+      ignore_case = TRUE
+    )
   }
   if (fail == "zero") {
     fail <- 0
   } else if (fail == "saturate") {
     mx <- max(arr, na.rm = TRUE)
     bits_per_sample <- 8
-    if (mx > 2 ^ 16 - 1) {
+    if (mx > 2^16 - 1) {
       bits_per_sample <- 32
-    } else if (mx > 2 ^ 8 - 1) {
+    } else if (mx > 2^8 - 1) {
       bits_per_sample <- 16
     }
-    fail <- 2 ^ bits_per_sample - 1
+    fail <- 2^bits_per_sample - 1
   }
   fail
 }
