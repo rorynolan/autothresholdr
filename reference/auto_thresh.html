@@ -304,7 +304,7 @@ Journal of Electronic Imaging 13(1): 146-165</p></li>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>img_location</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"eg.tif"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"autothresholdr"</span>)
 <span class='no'>img</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>ijtiff</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/ijtiff/topics/read_tif'>read_tif</a></span>(<span class='no'>img_location</span>)</div><div class='output co'>#&gt; <span class='message'>Reading eg.tif: an 8-bit, 100x100 pixel image of unsigned</span>
-#&gt; <span class='message'>integer type with 1 channel and 1 frame . . .</span></div><div class='output co'>#&gt; <span class='message'> Done.</span></div><div class='input'><span class='fu'>auto_thresh</span>(<span class='no'>img</span>, <span class='st'>"huang"</span>)</div><div class='output co'>#&gt; [1] 5
+#&gt; <span class='message'>integer type. Reading 1 channel and 1 frame . . .</span></div><div class='output co'>#&gt; <span class='message'> Done.</span></div><div class='input'><span class='fu'>auto_thresh</span>(<span class='no'>img</span>, <span class='st'>"huang"</span>)</div><div class='output co'>#&gt; [1] 5
 #&gt; attr(,"ignore_black")
 #&gt; [1] FALSE
 #&gt; attr(,"ignore_white")
