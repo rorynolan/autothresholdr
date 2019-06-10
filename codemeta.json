@@ -242,7 +242,7 @@
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://github.com/ropensci/ijtiff"
+      "sameAs": "https://CRAN.R-project.org/package=ijtiff"
     },
     {
       "@type": "SoftwareApplication",
@@ -255,7 +255,7 @@
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://github.com/rorynolan/filesstrings"
+      "sameAs": "https://CRAN.R-project.org/package=filesstrings"
     },
     {
       "@type": "SoftwareApplication",
@@ -301,7 +301,6 @@
     }
   ],
   "releaseNotes": "https://github.com/rorynolan/autothresholdr/blob/master/NEWS.md",
-  "readme": "https://github.com/rorynolan/autothresholdr/blob/master/README.md",
   "contIntegration": [
     "https://travis-ci.org/rorynolan/autothresholdr",
     "https://ci.appveyor.com/project/rorynolan/autothresholdr",
@@ -355,5 +354,5 @@
     "https://CRAN.R-project.org/package=autothresholdr",
     "https://rorynolan.github.io/autothresholdr/"
   ],
-  "fileSize": "382.836KB"
+  "fileSize": "382.816KB"
 }
