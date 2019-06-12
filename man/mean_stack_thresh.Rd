@@ -89,13 +89,13 @@ different method.}
 is \code{2^8 - 1}, otherwise, saturated value is \code{2^16 - 1}. }
 }
 \examples{
-img <- ijtiff::read_tif(system.file('extdata', '50.tif',
-                                    package = 'autothresholdr'))
+img <- ijtiff::read_tif(system.file("extdata", "50.tif",
+  package = "autothresholdr"
+))
 ijtiff::display(img[, , 1, 1])
-img_thresh_mask <- mean_stack_thresh(img, 'Otsu')
+img_thresh_mask <- mean_stack_thresh(img, "Otsu")
 ijtiff::display(img_thresh_mask[, , 1, 1])
 ijtiff::display(img[, , 1, 1])
-img_thresh_mask <- mean_stack_thresh(img, 'Huang')
+img_thresh_mask <- mean_stack_thresh(img, "Huang")
 ijtiff::display(img_thresh_mask[, , 1, 1])
-
 }
