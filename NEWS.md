@@ -1,3 +1,9 @@
+# `autothresholdr` 1.3.4
+
+## BUG FIXES
+* Insist on bug-fixed `filesstrings` v3.1.5.
+
+
 # `autothresholdr` 1.3.3
 
 ## BUG FIXES
