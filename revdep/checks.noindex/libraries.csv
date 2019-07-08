@@ -1,2 +1,3 @@
 package,old,new,delta
-autothresholdr,1.3.1,1.3.2,*
+autothresholdr,1.3.4,1.3.5,*
+ijtiff,NA,2.0.2,*

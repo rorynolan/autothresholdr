@@ -19,9 +19,9 @@ Type 'q()' to quit R.
 > library(nandb)
 > 
 > test_check("nandb")
-══ testthat results  ═══════════════════════════════════════════════════════════════════════
-OK: 155 SKIPPED: 1 WARNINGS: 1 FAILED: 0
+══ testthat results  ═════════════════════════════════════════════════════════════════════════════
+OK: 155 SKIPPED: 0 WARNINGS: 0 FAILED: 0
 > 
 > proc.time()
    user  system elapsed 
- 55.826  21.978  79.870 
+ 60.226  21.097  85.425 
