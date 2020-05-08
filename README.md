@@ -1,5 +1,5 @@
 
-# autothresholdr <img src="man/figures/logo.png" align="right" height=140/>
+# autothresholdr <img src="man/figures/logo.png" align="right" height=140/> 
 
 Algorithms for automatically finding appropriate thresholds for
 numerical data, with special functions for thresholding images.

@@ -13,19 +13,10 @@ repos:
     -   id: readme-rmd-rendered
     -   id: parsable-R
     -   id: no-browser-statement
-    -   id: deps-in-desc
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v2.5.0
     hooks:
     -   id: check-added-large-files
-        args: ['--maxkb=200']
+        args: ['--maxkb=999']
     -   id: end-of-file-fixer
         exclude: '\.Rd'
--   repo: local
-    hooks:
-    -   id: forbid-to-commit
-        name: Don't commit common R artifacts
-        entry: Cannot commit .Rhistory, .RData, .Rds or .rds.
-        language: fail
-        files: '\.Rhistory|\.RData|\.Rds|\.rds$'
-        # `exclude: <regex>` to allow committing specific files.

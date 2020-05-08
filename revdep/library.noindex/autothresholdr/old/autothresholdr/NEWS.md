@@ -1,3 +1,9 @@
+# `autothresholdr` 1.3.5
+
+## BUG FIXES
+* Insist on bug-fixed `ijtiff` v2.0.2.
+
+
 # `autothresholdr` 1.3.4
 
 ## BUG FIXES

@@ -116,13 +116,14 @@ test_that("rboxes derivatives error correctly", {
 
 test_that("`myarray2vec()` works", {
   skip_if_not_installed("arrayhelpers")
-  mat <- matrix(c(
-    9, 13, 2, 6,
-    7, 5, 15, 12,
-    1, 10, 3, 8,
-    4, 11, 16, 14
-  ),
-  nrow = 4, byrow = TRUE
+  mat <- matrix(
+    c(
+      9, 13, 2, 6,
+      7, 5, 15, 12,
+      1, 10, 3, 8,
+      4, 11, 16, 14
+    ),
+    nrow = 4, byrow = TRUE
   )
   d <- rep(99, 4)
   expect_equal(myarray2vec(mat, d), arrayhelpers::array2vec(mat, d))
@@ -156,4 +157,20 @@ test_that("`myarray2vec()` works", {
   )
   vec <- sample.int(max(d), length(d))
   expect_equal(myarray2vec(vec, d), myarray2vec(matrix(vec, nrow = 1), d))
+  for (i in seq_len(999)) {
+    array_dims <- sample.int(99,
+      size = sample(2:99, size = 1),
+      replace = TRUE
+    )
+    n_elements <- sample.int(99, size = 1)
+    index_mat <- purrr::map(
+      array_dims,
+      ~ sample.int(.x, size = n_elements, replace = TRUE)
+    ) %>%
+      do.call(cbind, .)
+    expect_equal(
+      myarray2vec(index_mat, array_dims),
+      arrayhelpers::array2vec(index_mat, array_dims)
+    )
+  }
 })

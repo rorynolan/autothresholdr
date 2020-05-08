@@ -1,7 +1,7 @@
 
-R version 3.6.0 (2019-04-26) -- "Planting of a Tree"
-Copyright (C) 2019 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
+R version 4.0.0 (2020-04-24) -- "Arbor Day"
+Copyright (C) 2020 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin17.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -41,6 +41,11 @@ Reading 50.tif: an 8-bit, 50x50 pixel image of unsigned
 integer type. Reading 1 channel and 50 frames . . .
  Done.
 > ijtiff::display(img[, , 1, 1])
+Using basic display functionality.
+  * For better display functionality, install the EBImage package.
+  * To install `EBImage`:
+    - Install `BiocManager` with `install.packages("BiocManager")`.
+    - Then run `BiocManager::install("EBImage")`.
 > b <- brightness(img, "e", thresh = "Huang")
 > b <- brightness(img, "B", thresh = "tri")
 > 
@@ -129,12 +134,37 @@ Reading two_ch.tif: an 8-bit, 30x28 pixel image of unsigned
 integer type. Reading 2 channels and 100 frames . . .
  Done.
 > ijtiff::display(detrendr::mean_pillars(img[, , 1, ]))
+Using basic display functionality.
+  * For better display functionality, install the EBImage package.
+  * To install `EBImage`:
+    - Install `BiocManager` with `install.packages("BiocManager")`.
+    - Then run `BiocManager::install("EBImage")`.
 > ijtiff::display(detrendr::mean_pillars(img[, , 2, ]))
+Using basic display functionality.
+  * For better display functionality, install the EBImage package.
+  * To install `EBImage`:
+    - Install `BiocManager` with `install.packages("BiocManager")`.
+    - Then run `BiocManager::install("EBImage")`.
 > b <- brightness(img, def = "e", thresh = "Huang", filt = "median")
 > ijtiff::display(b[, , 1, 1])
+Using basic display functionality.
+  * For better display functionality, install the EBImage package.
+  * To install `EBImage`:
+    - Install `BiocManager` with `install.packages("BiocManager")`.
+    - Then run `BiocManager::install("EBImage")`.
 > ijtiff::display(b[, , 2, 1])
+Using basic display functionality.
+  * For better display functionality, install the EBImage package.
+  * To install `EBImage`:
+    - Install `BiocManager` with `install.packages("BiocManager")`.
+    - Then run `BiocManager::install("EBImage")`.
 > cc_b <- cc_brightness(img, thresh = "Huang")
 > ijtiff::display(cc_b[, , 1, 1])
+Using basic display functionality.
+  * For better display functionality, install the EBImage package.
+  * To install `EBImage`:
+    - Install `BiocManager` with `install.packages("BiocManager")`.
+    - Then run `BiocManager::install("EBImage")`.
 > 
 > 
 > 
@@ -184,6 +214,11 @@ integer type. Reading 2 channels and 100 frames . . .
 +   filt = "median", parallel = 2
 + )
 > ijtiff::display(cc_bts[, , 1, 1])
+Using basic display functionality.
+  * For better display functionality, install the EBImage package.
+  * To install `EBImage`:
+    - Install `BiocManager` with `install.packages("BiocManager")`.
+    - Then run `BiocManager::install("EBImage")`.
 > 
 > 
 > 
@@ -230,12 +265,37 @@ Reading two_ch.tif: an 8-bit, 30x28 pixel image of unsigned
 integer type. Reading 2 channels and 100 frames . . .
  Done.
 > ijtiff::display(detrendr::mean_pillars(img[, , 1, ]))
+Using basic display functionality.
+  * For better display functionality, install the EBImage package.
+  * To install `EBImage`:
+    - Install `BiocManager` with `install.packages("BiocManager")`.
+    - Then run `BiocManager::install("EBImage")`.
 > ijtiff::display(detrendr::mean_pillars(img[, , 2, ]))
+Using basic display functionality.
+  * For better display functionality, install the EBImage package.
+  * To install `EBImage`:
+    - Install `BiocManager` with `install.packages("BiocManager")`.
+    - Then run `BiocManager::install("EBImage")`.
 > n <- number(img, def = "n", thresh = "Huang", filt = "median")
 > ijtiff::display(n[, , 1, 1])
+Using basic display functionality.
+  * For better display functionality, install the EBImage package.
+  * To install `EBImage`:
+    - Install `BiocManager` with `install.packages("BiocManager")`.
+    - Then run `BiocManager::install("EBImage")`.
 > ijtiff::display(n[, , 2, 1])
+Using basic display functionality.
+  * For better display functionality, install the EBImage package.
+  * To install `EBImage`:
+    - Install `BiocManager` with `install.packages("BiocManager")`.
+    - Then run `BiocManager::install("EBImage")`.
 > cc_n <- cc_number(img, thresh = "Huang")
 > ijtiff::display(cc_n[, , 1, 1])
+Using basic display functionality.
+  * For better display functionality, install the EBImage package.
+  * To install `EBImage`:
+    - Install `BiocManager` with `install.packages("BiocManager")`.
+    - Then run `BiocManager::install("EBImage")`.
 > 
 > 
 > 
@@ -285,6 +345,11 @@ integer type. Reading 2 channels and 100 frames . . .
 +   filt = "median", parallel = 2
 + )
 > ijtiff::display(cc_nts[, , 1, 1])
+Using basic display functionality.
+  * For better display functionality, install the EBImage package.
+  * To install `EBImage`:
+    - Install `BiocManager` with `install.packages("BiocManager")`.
+    - Then run `BiocManager::install("EBImage")`.
 > 
 > 
 > 
@@ -369,6 +434,11 @@ Reading 50.tif: an 8-bit, 50x50 pixel image of unsigned
 integer type. Reading 1 channel and 50 frames . . .
  Done.
 > ijtiff::display(img[, , 1, 1])
+Using basic display functionality.
+  * For better display functionality, install the EBImage package.
+  * To install `EBImage`:
+    - Install `BiocManager` with `install.packages("BiocManager")`.
+    - Then run `BiocManager::install("EBImage")`.
 > matrix_raster_plot(img[, , 1, 1])
 > b <- brightness(img, def = "B", detrend = FALSE, thresh = "Huang")
 > matrix_raster_plot(b, scale_name = "brightness")
@@ -482,6 +552,11 @@ Reading 50.tif: an 8-bit, 50x50 pixel image of unsigned
 integer type. Reading 1 channel and 50 frames . . .
  Done.
 > ijtiff::display(img[, , 1, 1])
+Using basic display functionality.
+  * For better display functionality, install the EBImage package.
+  * To install `EBImage`:
+    - Install `BiocManager` with `install.packages("BiocManager")`.
+    - Then run `BiocManager::install("EBImage")`.
 > num <- number(img, "N", thresh = "Huang")
 > num <- number(img, "n", thresh = "tri")
 > 
@@ -555,7 +630,7 @@ integer type. Reading 1 channel and 50 frames . . .
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.796 0.565 10.974 0.114 0.108 
+Time elapsed:  9.032 0.51 10.283 0.206 0.251 
 > grDevices::dev.off()
 null device 
           1 
