@@ -15,21 +15,29 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,10 +45,10 @@
 
 
 
-<meta property="og:title" content="Changelog" />
 
+<meta property="og:title" content="Changelog" />
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -54,9 +62,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -70,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autothresholdr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.6</span>
       </span>
     </div>
 
@@ -78,7 +87,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -107,7 +116,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -117,65 +125,75 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       
     </div>
 
-    <div id="autothresholdr-1-3-5" class="section level1">
-<h1 class="page-header">
-<a href="#autothresholdr-1-3-5" class="anchor"></a><small> Unreleased </small><code>autothresholdr</code> 1.3.5</h1>
+    <div id="autothresholdr-1-3-6" class="section level1">
+<h1 class="page-header" data-toc-text="1.3.6">
+<a href="#autothresholdr-1-3-6" class="anchor"></a><small> Unreleased </small><code>autothresholdr</code> 1.3.6</h1>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>BUG FIXES</h2>
+<p>Cope with <code>ijtiff</code> not working on 32-bit windows.</p>
+</div>
+</div>
+    <div id="autothresholdr-1-3-5" class="section level1">
+<h1 class="page-header" data-toc-text="1.3.5">
+<a href="#autothresholdr-1-3-5" class="anchor"></a><small> 2019-07-08 </small><code>autothresholdr</code> 1.3.5</h1>
+<div id="bug-fixes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>Insist on bug-fixed <code>ijtiff</code> v2.0.2.</li>
 </ul>
 </div>
 </div>
     <div id="autothresholdr-1-3-4" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.3.4">
 <a href="#autothresholdr-1-3-4" class="anchor"></a><small> 2019-06-28 </small><code>autothresholdr</code> 1.3.4</h1>
-<div id="bug-fixes-1" class="section level2">
+<div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>Insist on bug-fixed <code>filesstrings</code> v3.1.5.</li>
 </ul>
 </div>
 </div>
     <div id="autothresholdr-1-3-3" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.3.3">
 <a href="#autothresholdr-1-3-3" class="anchor"></a><small> 2019-06-12 </small><code>autothresholdr</code> 1.3.3</h1>
-<div id="bug-fixes-2" class="section level2">
+<div id="bug-fixes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-3" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>Insist on updated, less buggy <code>filesstrings</code> and <code>ijtiff</code>.</li>
 </ul>
 </div>
 </div>
     <div id="autothresholdr-1-3-2" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.3.2">
 <a href="#autothresholdr-1-3-2" class="anchor"></a><small> 2019-05-30 </small><code>autothresholdr</code> 1.3.2</h1>
-<div id="bug-fixes-3" class="section level2">
+<div id="bug-fixes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-3" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-4" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>Remove superfluous <code>stringr</code> from <code>Imports</code>.</li>
 </ul>
 </div>
 </div>
     <div id="autothresholdr-1-3-1" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.3.1">
 <a href="#autothresholdr-1-3-1" class="anchor"></a><small> 2019-05-21 </small><code>autothresholdr</code> 1.3.1</h1>
-<div id="bug-fixes-4" class="section level2">
+<div id="bug-fixes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-4" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-5" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>Require necessary version of <code>glue</code>.</li>
 <li>Require debugged <code>filesstrings</code> 3.1.1.</li>
@@ -183,7 +201,7 @@
 </div>
 </div>
     <div id="autothresholdr-1-3-0" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.3.0">
 <a href="#autothresholdr-1-3-0" class="anchor"></a><small> 2018-11-05 </small><code>autothresholdr</code> 1.3.0</h1>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
@@ -200,20 +218,20 @@
 <li>Better error messages.</li>
 </ul>
 </div>
-<div id="bug-fixes-5" class="section level2">
+<div id="bug-fixes-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-5" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-6" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>Insist on latest versions of <code>ijtiff</code> and <code>filesstrings</code> (which have important bug fixes).</li>
 </ul>
 </div>
 </div>
     <div id="autothresholdr-1-2-1" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.2.1">
 <a href="#autothresholdr-1-2-1" class="anchor"></a><small> 2018-07-09 </small><code>autothresholdr</code> 1.2.1</h1>
-<div id="bug-fixes-6" class="section level2">
+<div id="bug-fixes-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-6" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-7" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>For new versions of <code>filesstrings</code> and <code>ijtiff</code>.</li>
 <li>Update to <code>checkmate</code> broke the package so this is the fix.</li>
@@ -221,7 +239,7 @@
 </div>
 </div>
     <div id="autothresholdr-1-2-0" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.2.0">
 <a href="#autothresholdr-1-2-0" class="anchor"></a><small> 2018-03-25 </small><code>autothresholdr</code> 1.2.0</h1>
 <div id="minor-improvements-1" class="section level2">
 <h2 class="hasAnchor">
@@ -232,29 +250,29 @@
 </div>
 </div>
     <div id="autothresholdr-1-1-2" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.1.2">
 <a href="#autothresholdr-1-1-2" class="anchor"></a><small> 2018-02-13 </small><code>autothresholdr</code> 1.1.2</h1>
-<div id="bug-fixes-7" class="section level2">
+<div id="bug-fixes-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-7" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-8" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>Ensure using latest version of <code>ijtiff</code>. Old version is buggy.</li>
 </ul>
 </div>
 </div>
     <div id="autothresholdr-1-1-1" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.1.1">
 <a href="#autothresholdr-1-1-1" class="anchor"></a><small> 2018-01-28 </small><code>autothresholdr</code> 1.1.1</h1>
-<div id="bug-fixes-8" class="section level2">
+<div id="bug-fixes-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-8" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-9" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>Fix some poor C++ typing.</li>
 </ul>
 </div>
 </div>
     <div id="autothresholdr-1-1-0" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.1.0">
 <a href="#autothresholdr-1-1-0" class="anchor"></a><small> 2018-01-23 </small><code>autothresholdr</code> 1.1.0</h1>
 <div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
@@ -282,13 +300,13 @@
 <a href="#deprecated" class="anchor"></a>DEPRECATED</h2>
 <ul>
 <li>
-<code>can_be_integer()</code> is gone. Use <code><a href="https://www.rdocumentation.org/packages/checkmate/topics/checkIntegerish">checkmate::check_integerish()</a></code> instead.</li>
+<code>can_be_integer()</code> is gone. Use <code><a href="https://rdrr.io/pkg/checkmate/man/checkIntegerish.html">checkmate::check_integerish()</a></code> instead.</li>
 <li>Pillar statistics are no longer exported. Should you be looking for them, they are exported in the <code>detrendr</code> package.</li>
 </ul>
 </div>
 </div>
     <div id="autothresholdr-1-0-0" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.0.0">
 <a href="#autothresholdr-1-0-0" class="anchor"></a><small> Unreleased </small><code>autothresholdr</code> 1.0.0</h1>
 <div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
@@ -307,16 +325,16 @@
 <li>The functions now have an <code>ignore_na</code> argument for <code>NA</code> handling.</li>
 </ul>
 </div>
-<div id="bug-fixes-9" class="section level2">
+<div id="bug-fixes-10" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-9" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-10" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>It is now the case that for a threshold <em>x</em>, values greater than or equal to <em>x</em> are deemed to “pass” the thresholding and values less than <em>x</em> are deemed to “fail” the thresholding. Before what was happening was that values greater than <em>x</em> were deemed to have passed and values less than or equal to <em>x</em> were deemed to have failed.</li>
 </ul>
 </div>
 </div>
     <div id="autothresholdr-0-6-0" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.0">
 <a href="#autothresholdr-0-6-0" class="anchor"></a><small> 2017-07-05 </small><code>autothresholdr</code> 0.6.0</h1>
 <div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
@@ -335,16 +353,16 @@
 <li>Add <code>ignore_black</code> and <code>ignore_white</code> options to <code><a href="../reference/mean_stack_thresh.html">mean_stack_thresh()</a></code> and <code><a href="../reference/med_stack_thresh.html">med_stack_thresh()</a></code>.</li>
 </ul>
 </div>
-<div id="bug-fixes-10" class="section level2">
+<div id="bug-fixes-11" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-10" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-11" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>Fix issues for Mean and Otsu methods concerning 16-bit images.</li>
 </ul>
 </div>
 </div>
     <div id="autothresholdr-0-5-0" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5.0">
 <a href="#autothresholdr-0-5-0" class="anchor"></a><small> 2017-05-17 </small><code>autothresholdr</code> 0.5.0</h1>
 <div id="minor-improvements-5" class="section level2">
 <h2 class="hasAnchor">
@@ -356,7 +374,7 @@
 </div>
 </div>
     <div id="autothresholdr-0-4-0" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.0">
 <a href="#autothresholdr-0-4-0" class="anchor"></a><small> 2017-04-23 </small><code>autothresholdr</code> 0.4.0</h1>
 <div id="minor-improvements-6" class="section level2">
 <h2 class="hasAnchor">
@@ -367,7 +385,7 @@
 </div>
 </div>
     <div id="autothresholdr-0-3-0" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.0">
 <a href="#autothresholdr-0-3-0" class="anchor"></a><small> Unreleased </small><code>autothresholdr</code> 0.3.0</h1>
 <div id="minor-improvements-7" class="section level2">
 <h2 class="hasAnchor">
@@ -379,7 +397,7 @@
 </div>
 </div>
     <div id="autothresholdr-0-2-0" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.0">
 <a href="#autothresholdr-0-2-0" class="anchor"></a><small> 2017-02-24 </small><code>autothresholdr</code> 0.2.0</h1>
 <ul>
 <li>The first CRAN-worthy version.</li>
@@ -387,32 +405,14 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#autothresholdr-1-3-5">1.3.5</a></li>
-        <li><a href="#autothresholdr-1-3-4">1.3.4</a></li>
-        <li><a href="#autothresholdr-1-3-3">1.3.3</a></li>
-        <li><a href="#autothresholdr-1-3-2">1.3.2</a></li>
-        <li><a href="#autothresholdr-1-3-1">1.3.1</a></li>
-        <li><a href="#autothresholdr-1-3-0">1.3.0</a></li>
-        <li><a href="#autothresholdr-1-2-1">1.2.1</a></li>
-        <li><a href="#autothresholdr-1-2-0">1.2.0</a></li>
-        <li><a href="#autothresholdr-1-1-2">1.1.2</a></li>
-        <li><a href="#autothresholdr-1-1-1">1.1.1</a></li>
-        <li><a href="#autothresholdr-1-1-0">1.1.0</a></li>
-        <li><a href="#autothresholdr-1-0-0">1.0.0</a></li>
-        <li><a href="#autothresholdr-0-6-0">0.6.0</a></li>
-        <li><a href="#autothresholdr-0-5-0">0.5.0</a></li>
-        <li><a href="#autothresholdr-0-4-0">0.4.0</a></li>
-        <li><a href="#autothresholdr-0-3-0">0.3.0</a></li>
-        <li><a href="#autothresholdr-0-2-0">0.2.0</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -420,13 +420,16 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

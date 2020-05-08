@@ -15,21 +15,29 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,8 +45,8 @@
 
 
 
-<meta property="og:title" content="Threshold every image frame in an image stack based on their mean. — mean_stack_thresh" />
 
+<meta property="og:title" content="Threshold every image frame in an image stack based on their mean. — mean_stack_thresh" />
 <meta property="og:description" content="An ijtiff_img is a 4-dimensional array indexed by
 img[y, x, channel, frame]. For each channel (which consists of a stack of
 frames), this function finds a threshold based on the sum all of the frames,
@@ -46,9 +54,8 @@ uses this to create a mask and then applies this mask to every frame in the
 stack (so for a given pillar in the image stack, either all the pixels
 therein are thresholded away or all are untouched, where pillar x,y of
 channel ch is img[y, x, ch, ])." />
-
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -62,9 +69,10 @@ channel ch is img[y, x, ch, ])." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -78,7 +86,7 @@ channel ch is img[y, x, ch, ])." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autothresholdr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.6</span>
       </span>
     </div>
 
@@ -86,7 +94,7 @@ channel ch is img[y, x, ch, ])." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -115,7 +123,6 @@ channel ch is img[y, x, ch, ])." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -125,6 +132,7 @@ channel ch is img[y, x, ch, ])." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -136,29 +144,33 @@ channel ch is img[y, x, ch, ])." />
     </div>
 
     <div class="ref-description">
-    
-    <p>An <a href='https://www.rdocumentation.org/packages/ijtiff/topics/ijtiff_img'>ijtiff_img</a> is a 4-dimensional array indexed by
+    <p>An <a href='https://docs.ropensci.org/ijtiff/reference/ijtiff_img.html'>ijtiff_img</a> is a 4-dimensional array indexed by
 <code>img[y, x, channel, frame]</code>. For each channel (which consists of a stack of
 frames), this function finds a threshold based on the sum all of the frames,
 uses this to create a mask and then applies this mask to every frame in the
 stack (so for a given pillar in the image stack, either all the pixels
 therein are thresholded away or all are untouched, where pillar <code>x,y</code> of
 channel <code>ch</code> is <code>img[y, x, ch, ]</code>).</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>mean_stack_thresh</span>(<span class='no'>img</span>, <span class='no'>method</span>, <span class='kw'>fail</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>ignore_black</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>ignore_white</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ignore_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>mean_stack_thresh</span>(
+  <span class='no'>img</span>,
+  <span class='no'>method</span>,
+  <span class='kw'>fail</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>ignore_black</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ignore_white</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ignore_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>img</th>
       <td><p>A 4-dimensional array in the style of an
-<a href='https://www.rdocumentation.org/packages/ijtiff/topics/ijtiff_img'>ijtiff_img</a> (indexed by <code>img[y, x, channel, frame]</code>)
+<a href='https://docs.ropensci.org/ijtiff/reference/ijtiff_img.html'>ijtiff_img</a> (indexed by <code>img[y, x, channel, frame]</code>)
 or a 3-dimensional array which is a single channel of an
-<a href='https://www.rdocumentation.org/packages/ijtiff/topics/ijtiff_img'>ijtiff_img</a> (indexed by <code>img[y, x, frame]</code>).</p></td>
+<a href='https://docs.ropensci.org/ijtiff/reference/ijtiff_img.html'>ijtiff_img</a> (indexed by <code>img[y, x, frame]</code>).</p></td>
     </tr>
     <tr>
       <th>method</th>
@@ -203,14 +215,13 @@ ignored or <code>FALSE</code> if you want the presence of <code>NA</code>s in <c
 an error.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An object of class <a href='stack_threshed_img.html'>stack_threshed_img</a> which is the thresholded
-image (an array in the style of an <a href='https://www.rdocumentation.org/packages/ijtiff/topics/ijtiff_img'>ijtiff_img</a>).
+image (an array in the style of an <a href='https://docs.ropensci.org/ijtiff/reference/ijtiff_img.html'>ijtiff_img</a>).
 Pillars not exceeding the threshold are set to the <code>fail</code> value (default
 <code>NA</code>).</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>It's called <code>mean_stack_thresh()</code> and not <code>sum_stack_thresh()</code> because its
@@ -234,46 +245,41 @@ different method.</p></li>
 <li><p>For a given array, if all values are less than <code>2^8</code>, saturated value
 is <code>2^8 - 1</code>, otherwise, saturated value is <code>2^16 - 1</code>.</p></li>
 </ul>
-    
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>img</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>ijtiff</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/ijtiff/topics/read_tif'>read_tif</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"50.tif"</span>,
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='no'>img</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>ijtiff</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/ijtiff/reference/read_tif.html'>read_tif</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"50.tif"</span>,
   <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"autothresholdr"</span>
 ))</div><div class='output co'>#&gt; <span class='message'>Reading 50.tif: an 8-bit, 100x100 pixel image of unsigned</span>
-#&gt; <span class='message'>integer type. Reading 1 channel and 50 frames . . .</span></div><div class='output co'>#&gt; <span class='message'> Done.</span></div><div class='input'><span class='kw pkg'>ijtiff</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/ijtiff/topics/display'>display</a></span>(<span class='no'>img</span>[, , <span class='fl'>1</span>, <span class='fl'>1</span>])</div><div class='output co'>#&gt; <span class='message'>Using basic display functionality.</span>
+#&gt; <span class='message'>integer type. Reading 1 channel and 50 frames . . .</span></div><div class='output co'>#&gt; <span class='message'> Done.</span></div><div class='input'><span class='kw pkg'>ijtiff</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/ijtiff/reference/display.html'>display</a></span>(<span class='no'>img</span>[, , <span class='fl'>1</span>, <span class='fl'>1</span>])</div><div class='output co'>#&gt; <span class='message'>Using basic display functionality.</span>
 #&gt; <span class='message'>  * For better display functionality, install the EBImage package.</span>
 #&gt; <span class='message'>  * To install `EBImage`:</span>
 #&gt; <span class='message'>    - Install `BiocManager` with `install.packages("BiocManager")`.</span>
 #&gt; <span class='message'>    - Then run `BiocManager::install("EBImage")`.</span></div><div class='img'><img src='mean_stack_thresh-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>img_thresh_mask</span> <span class='kw'>&lt;-</span> <span class='fu'>mean_stack_thresh</span>(<span class='no'>img</span>, <span class='st'>"Otsu"</span>)
-<span class='kw pkg'>ijtiff</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/ijtiff/topics/display'>display</a></span>(<span class='no'>img_thresh_mask</span>[, , <span class='fl'>1</span>, <span class='fl'>1</span>])</div><div class='output co'>#&gt; <span class='message'>Using basic display functionality.</span>
+<span class='kw pkg'>ijtiff</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/ijtiff/reference/display.html'>display</a></span>(<span class='no'>img_thresh_mask</span>[, , <span class='fl'>1</span>, <span class='fl'>1</span>])</div><div class='output co'>#&gt; <span class='message'>Using basic display functionality.</span>
 #&gt; <span class='message'>  * For better display functionality, install the EBImage package.</span>
 #&gt; <span class='message'>  * To install `EBImage`:</span>
 #&gt; <span class='message'>    - Install `BiocManager` with `install.packages("BiocManager")`.</span>
-#&gt; <span class='message'>    - Then run `BiocManager::install("EBImage")`.</span></div><div class='img'><img src='mean_stack_thresh-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw pkg'>ijtiff</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/ijtiff/topics/display'>display</a></span>(<span class='no'>img</span>[, , <span class='fl'>1</span>, <span class='fl'>1</span>])</div><div class='output co'>#&gt; <span class='message'>Using basic display functionality.</span>
+#&gt; <span class='message'>    - Then run `BiocManager::install("EBImage")`.</span></div><div class='img'><img src='mean_stack_thresh-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw pkg'>ijtiff</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/ijtiff/reference/display.html'>display</a></span>(<span class='no'>img</span>[, , <span class='fl'>1</span>, <span class='fl'>1</span>])</div><div class='output co'>#&gt; <span class='message'>Using basic display functionality.</span>
 #&gt; <span class='message'>  * For better display functionality, install the EBImage package.</span>
 #&gt; <span class='message'>  * To install `EBImage`:</span>
 #&gt; <span class='message'>    - Install `BiocManager` with `install.packages("BiocManager")`.</span>
 #&gt; <span class='message'>    - Then run `BiocManager::install("EBImage")`.</span></div><div class='img'><img src='mean_stack_thresh-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>img_thresh_mask</span> <span class='kw'>&lt;-</span> <span class='fu'>mean_stack_thresh</span>(<span class='no'>img</span>, <span class='st'>"Huang"</span>)
-<span class='kw pkg'>ijtiff</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/ijtiff/topics/display'>display</a></span>(<span class='no'>img_thresh_mask</span>[, , <span class='fl'>1</span>, <span class='fl'>1</span>])</div><div class='output co'>#&gt; <span class='message'>Using basic display functionality.</span>
+<span class='kw pkg'>ijtiff</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/ijtiff/reference/display.html'>display</a></span>(<span class='no'>img_thresh_mask</span>[, , <span class='fl'>1</span>, <span class='fl'>1</span>])</div><div class='output co'>#&gt; <span class='message'>Using basic display functionality.</span>
 #&gt; <span class='message'>  * For better display functionality, install the EBImage package.</span>
 #&gt; <span class='message'>  * To install `EBImage`:</span>
 #&gt; <span class='message'>    - Install `BiocManager` with `install.packages("BiocManager")`.</span>
-#&gt; <span class='message'>    - Then run `BiocManager::install("EBImage")`.</span></div><div class='img'><img src='mean_stack_thresh-4.png' alt='' width='700' height='433' /></div></pre>
+#&gt; <span class='message'>    - Then run `BiocManager::install("EBImage")`.</span></div><div class='img'><img src='mean_stack_thresh-4.png' alt='' width='700' height='433' /></div><div class='input'># }
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -281,13 +287,16 @@ is <code>2^8 - 1</code>, otherwise, saturated value is <code>2^16 - 1</code>.</p
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

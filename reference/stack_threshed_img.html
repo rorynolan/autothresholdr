@@ -15,21 +15,29 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,8 +45,8 @@
 
 
 
-<meta property="og:title" content="Stack-thresholded image class. — stack_threshed_img" />
 
+<meta property="og:title" content="Stack-thresholded image class. — stack_threshed_img" />
 <meta property="og:description" content="A stack-thresholded array is an array which has had stack-thresholding
 applied to it. See mean_stack_thresh(). It has 3 necessary attributes:
 thresh is the threshold that was applied. This is either a
@@ -48,10 +56,10 @@ fail_value is the value to which elements of the array which failed the
 thresholding were set. This could be something like 0 or NA.
 stack_thresh_method details which stacked-thresholding method was employed;
 this is either &quot;mean&quot; or &quot;median&quot;.
-" />
 
+" />
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -65,9 +73,10 @@ this is either &quot;mean&quot; or &quot;median&quot;.
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -81,7 +90,7 @@ this is either &quot;mean&quot; or &quot;median&quot;.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autothresholdr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.6</span>
       </span>
     </div>
 
@@ -89,7 +98,7 @@ this is either &quot;mean&quot; or &quot;median&quot;.
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -118,7 +127,6 @@ this is either &quot;mean&quot; or &quot;median&quot;.
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -128,6 +136,7 @@ this is either &quot;mean&quot; or &quot;median&quot;.
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -139,7 +148,6 @@ this is either &quot;mean&quot; or &quot;median&quot;.
     </div>
 
     <div class="ref-description">
-    
     <p>A stack-thresholded array is an array which has had stack-thresholding
 applied to it. See <code><a href='mean_stack_thresh.html'>mean_stack_thresh()</a></code>. It has 3 necessary attributes:</p><ul>
 <li><p><code>thresh</code> is the threshold that was applied. This is either a
@@ -150,20 +158,20 @@ thresholding were set. This could be something like <code>0</code> or <code>NA</
 <li><p><code>stack_thresh_method</code> details which stacked-thresholding method was employed;
 this is either <code>"mean"</code> or <code>"median"</code>.</p></li>
 </ul>
-    
+
     </div>
 
     <pre class="usage"><span class='fu'>stack_threshed_img</span>(<span class='no'>img</span>, <span class='no'>thresh</span>, <span class='no'>fail_value</span>, <span class='no'>stack_thresh_method</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>img</th>
       <td><p>A 4-dimensional array in the style of an
-<a href='https://www.rdocumentation.org/packages/ijtiff/topics/ijtiff_img'>ijtiff_img</a> (indexed by <code>img[y, x, channel, frame]</code>)
+<a href='https://docs.ropensci.org/ijtiff/reference/ijtiff_img.html'>ijtiff_img</a> (indexed by <code>img[y, x, channel, frame]</code>)
 or a 3-dimensional array which is a single channel of an
-<a href='https://www.rdocumentation.org/packages/ijtiff/topics/ijtiff_img'>ijtiff_img</a> (indexed by <code>img[y, x, frame]</code>).</p></td>
+<a href='https://docs.ropensci.org/ijtiff/reference/ijtiff_img.html'>ijtiff_img</a> (indexed by <code>img[y, x, frame]</code>).</p></td>
     </tr>
     <tr>
       <th>thresh</th>
@@ -181,29 +189,22 @@ thresholding were set.</p></td>
 to tell which stacked-thresholding method was employed.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An object of class <code>stack_threshed_img</code>.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='threshed_arr.html'>threshed_arr</a>, <code><a href='mean_stack_thresh.html'>mean_stack_thresh()</a></code>, <code><a href='med_stack_thresh.html'>med_stack_thresh()</a></code>.</p></div>
-    
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-          </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -211,13 +212,16 @@ to tell which stacked-thresholding method was employed.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
