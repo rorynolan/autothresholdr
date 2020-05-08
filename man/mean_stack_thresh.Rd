@@ -4,8 +4,14 @@
 \alias{mean_stack_thresh}
 \title{Threshold every image frame in an image stack based on their mean.}
 \usage{
-mean_stack_thresh(img, method, fail = NA, ignore_black = FALSE,
-  ignore_white = FALSE, ignore_na = FALSE)
+mean_stack_thresh(
+  img,
+  method,
+  fail = NA,
+  ignore_black = FALSE,
+  ignore_white = FALSE,
+  ignore_na = FALSE
+)
 }
 \arguments{
 \item{img}{A 4-dimensional array in the style of an
@@ -57,7 +63,7 @@ An \link[ijtiff:ijtiff_img]{ijtiff_img} is a 4-dimensional array indexed by
 frames), this function finds a threshold based on the sum all of the frames,
 uses this to create a mask and then applies this mask to every frame in the
 stack (so for a given pillar in the image stack, either all the pixels
-therein are thresholded away or all are untouched, where pillar \code{x,y} of
+therein are thresholded away or all are untouched, where pillar \verb{x,y} of
 channel \code{ch} is \code{img[y, x, ch, ]}).
 }
 \details{
@@ -89,6 +95,7 @@ different method.}
 is \code{2^8 - 1}, otherwise, saturated value is \code{2^16 - 1}. }
 }
 \examples{
+\donttest{
 img <- ijtiff::read_tif(system.file("extdata", "50.tif",
   package = "autothresholdr"
 ))
@@ -98,4 +105,5 @@ ijtiff::display(img_thresh_mask[, , 1, 1])
 ijtiff::display(img[, , 1, 1])
 img_thresh_mask <- mean_stack_thresh(img, "Huang")
 ijtiff::display(img_thresh_mask[, , 1, 1])
+}
 }

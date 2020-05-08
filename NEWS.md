@@ -1,3 +1,9 @@
+# `autothresholdr` 1.3.6
+
+## BUG FIXES
+Cope with `ijtiff` not working on 32-bit windows.
+
+
 # `autothresholdr` 1.3.5
 
 ## BUG FIXES

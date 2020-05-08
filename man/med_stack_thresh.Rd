@@ -4,8 +4,14 @@
 \alias{med_stack_thresh}
 \title{Threshold every image frame in a stack based on their median.}
 \usage{
-med_stack_thresh(img, method, fail = NA, ignore_black = FALSE,
-  ignore_white = FALSE, ignore_na = FALSE)
+med_stack_thresh(
+  img,
+  method,
+  fail = NA,
+  ignore_black = FALSE,
+  ignore_white = FALSE,
+  ignore_na = FALSE
+)
 }
 \arguments{
 \item{img}{A 3-dimensional array (the image stack, possibly a time-series of
@@ -54,7 +60,7 @@ frames), this function finds a threshold based on all of the frames, then
 takes the median of all the frames in the stack image, uses this to create a
 mask with the found threshold and then applies this mask to every frame in
 the stack (so for a given pillar in the image stack, either all the pixels
-therein are thresholded away or all are untouched, where pillar \code{x,y} of
+therein are thresholded away or all are untouched, where pillar \verb{x,y} of
 channel \code{ch} is \code{img[y, x, ch, ]}).
 }
 \details{
@@ -80,6 +86,7 @@ different method.}
 is \code{2^8 - 1}, otherwise, saturated value is \code{2^16 - 1}. }
 }
 \examples{
+\donttest{
 img <- ijtiff::read_tif(system.file("extdata", "50.tif",
   package = "autothresholdr"
 ))
@@ -89,4 +96,5 @@ ijtiff::display(img_thresh_mask[, , 1, 1])
 ijtiff::display(img[, , 1, 1])
 img_thresh_mask <- med_stack_thresh(img, "Triangle")
 ijtiff::display(img_thresh_mask[, , 1, 1])
+}
 }

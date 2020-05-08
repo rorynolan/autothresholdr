@@ -74,6 +74,7 @@
 #'   `NA`).
 #'
 #' @examples
+#' \donttest{
 #' img <- ijtiff::read_tif(system.file("extdata", "50.tif",
 #'   package = "autothresholdr"
 #' ))
@@ -83,6 +84,7 @@
 #' ijtiff::display(img[, , 1, 1])
 #' img_thresh_mask <- mean_stack_thresh(img, "Huang")
 #' ijtiff::display(img_thresh_mask[, , 1, 1])
+#' }
 #' @export
 mean_stack_thresh <- function(img, method, fail = NA,
                               ignore_black = FALSE, ignore_white = FALSE,
@@ -245,6 +247,7 @@ mean_stack_thresh <- function(img, method, fail = NA,
 #'   `NA`).
 #'
 #' @examples
+#' \donttest{
 #' img <- ijtiff::read_tif(system.file("extdata", "50.tif",
 #'   package = "autothresholdr"
 #' ))
@@ -254,6 +257,7 @@ mean_stack_thresh <- function(img, method, fail = NA,
 #' ijtiff::display(img[, , 1, 1])
 #' img_thresh_mask <- med_stack_thresh(img, "Triangle")
 #' ijtiff::display(img_thresh_mask[, , 1, 1])
+#' }
 #' @export
 med_stack_thresh <- function(img, method, fail = NA,
                              ignore_black = FALSE, ignore_white = FALSE,

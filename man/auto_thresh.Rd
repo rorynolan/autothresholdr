@@ -8,20 +8,47 @@
 \alias{apply_mask}
 \title{Automatically threshold an array of non-negative integers.}
 \usage{
-auto_thresh(int_arr, method, ignore_black = FALSE,
-  ignore_white = FALSE, ignore_na = FALSE)
+auto_thresh(
+  int_arr,
+  method,
+  ignore_black = FALSE,
+  ignore_white = FALSE,
+  ignore_na = FALSE
+)
 
-auto_thresh_mask(int_arr, method, ignore_black = FALSE,
-  ignore_white = FALSE, ignore_na = FALSE)
+auto_thresh_mask(
+  int_arr,
+  method,
+  ignore_black = FALSE,
+  ignore_white = FALSE,
+  ignore_na = FALSE
+)
 
-auto_thresh_apply_mask(int_arr, method, fail = NA,
-  ignore_black = FALSE, ignore_white = FALSE, ignore_na = FALSE)
+auto_thresh_apply_mask(
+  int_arr,
+  method,
+  fail = NA,
+  ignore_black = FALSE,
+  ignore_white = FALSE,
+  ignore_na = FALSE
+)
 
-mask(int_arr, method, ignore_black = FALSE, ignore_white = FALSE,
-  ignore_na = FALSE)
+mask(
+  int_arr,
+  method,
+  ignore_black = FALSE,
+  ignore_white = FALSE,
+  ignore_na = FALSE
+)
 
-apply_mask(int_arr, method, fail = NA, ignore_black = FALSE,
-  ignore_white = FALSE, ignore_na = FALSE)
+apply_mask(
+  int_arr,
+  method,
+  fail = NA,
+  ignore_black = FALSE,
+  ignore_white = FALSE,
+  ignore_na = FALSE
+)
 }
 \arguments{
 \item{int_arr}{An array (or vector) of non-negative \emph{integers}.}
@@ -105,6 +132,7 @@ in Java. These java functions were then translated to C++.
 }
 
 \examples{
+\donttest{
 img_location <- system.file("extdata", "eg.tif", package = "autothresholdr")
 img <- ijtiff::read_tif(img_location)
 auto_thresh(img, "huang")
@@ -117,6 +145,7 @@ masked <- auto_thresh_apply_mask(img, "huang")
 ijtiff::display(masked[, , 1, 1])
 masked <- auto_thresh_apply_mask(img, 25)
 ijtiff::display(masked[, , 1, 1])
+}
 }
 \references{
 \itemize{ \item{Huang, L-K & Wang, M-J J (1995), "Image

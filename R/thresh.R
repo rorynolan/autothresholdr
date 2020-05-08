@@ -113,6 +113,7 @@
 #'   in Java. These java functions were then translated to C++.
 #'
 #' @examples
+#' \donttest{
 #' img_location <- system.file("extdata", "eg.tif", package = "autothresholdr")
 #' img <- ijtiff::read_tif(img_location)
 #' auto_thresh(img, "huang")
@@ -125,6 +126,7 @@
 #' ijtiff::display(masked[, , 1, 1])
 #' masked <- auto_thresh_apply_mask(img, 25)
 #' ijtiff::display(masked[, , 1, 1])
+#' }
 #' @export
 auto_thresh <- function(int_arr, method,
                         ignore_black = FALSE, ignore_white = FALSE,

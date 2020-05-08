@@ -51,16 +51,11 @@ eval_text <- function(string) {
 #' @noRd
 custom_stop_bullet <- function(string) {
   checkmate::assert_string(string)
-  string %<>% strwrap(width = 57)
-  string[1] %<>% {
-    glue::glue("    * {.}")
-  }
-  if (length(string) > 1) {
-    string[-1] %<>% {
-      glue::glue("      {.}")
+  string %>%
+    stringr::str_replace_all("\\s+", " ") %>%
+    {
+      stringr::str_glue("    * {.}")
     }
-  }
-  glue::glue_collapse(string, sep = "\n")
 }
 
 #' Nicely formatted error message.
@@ -76,18 +71,31 @@ custom_stop_bullet <- function(string) {
 #' @noRd
 custom_stop <- function(main_message, ..., .envir = parent.frame()) {
   checkmate::assert_string(main_message)
-  main_message %<>% glue::glue(.envir = .envir)
-  out <- strwrap(main_message, width = 63)
+  main_message %<>%
+    stringr::str_replace_all("\\s+", " ") %>%
+    stringr::str_glue(.envir = .envir)
+  out <- main_message
   dots <- unlist(list(...))
   if (length(dots)) {
     if (!is.character(dots)) {
       stop("\nThe arguments in ... must all be of character type.")
     }
-    dots %<>% purrr::map_chr(glue::glue, .envir = .envir) %>%
+    dots %<>%
+      purrr::map_chr(stringr::str_glue, .envir = .envir) %>%
       purrr::map_chr(custom_stop_bullet)
     out %<>% {
-      glue::glue_collapse(c(., dots), sep = "\n")
+      stringr::str_c(c(., dots), collapse = "\n")
     }
   }
-  rlang::abort(glue::glue("{out}"))
+  rlang::abort(stringr::str_c(out, collapse = "\n"))
+}
+
+win32bit <- function() {
+  sys_info <- tolower(Sys.info())
+  windows <- stringr::str_detect(
+    sys_info[["sysname"]],
+    stringr::coll("windows")
+  )
+  bit64 <- stringr::str_detect(sys_info[["machine"]], stringr::coll("64"))
+  windows && (!bit64)
 }

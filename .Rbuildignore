@@ -17,3 +17,5 @@
 ^CONDUCT\.md$
 ^codemeta\.json$
 ^pkgdown$
+^\.pre-commit-config\.yaml$
+^\.DS_Store$
