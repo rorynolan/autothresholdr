@@ -4,18 +4,23 @@ language: R
 sudo: true
 cache: packages
 
-dist: xenial
-
-apt_packages:
-  - libtiff5-dev
-  - xclip
-  - libgit2-dev
-
-after_success:
-  - Rscript -e 'covr::codecov()'
-
-before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
-deploy:
-  provider: script
-  script: Rscript -e 'pkgdown::deploy_site_github()'
-  skip_cleanup: true
+matrix:
+  include:
+    - os: linux
+      dist: xenial
+      addons:
+        apt:
+          update: true
+          packages:
+            - libtiff5-dev
+            - libfftw3-dev
+            - libmagick++-dev
+            - libgit2-dev
+            - xclip
+      after_success: travis_wait 30 Rscript -e 'covr::codecov()'
+      before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
+      deploy:
+        provider: script
+        script: Rscript -e 'pkgdown::deploy_site_github()'
+        skip_cleanup: true
+    - os: osx
