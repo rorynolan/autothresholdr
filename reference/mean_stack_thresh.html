@@ -86,7 +86,7 @@ channel ch is img[y, x, ch, ])." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autothresholdr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.8</span>
       </span>
     </div>
 
@@ -124,7 +124,12 @@ channel ch is img[y, x, ch, ])." />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/rorynolan/autothresholdr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -139,7 +144,7 @@ channel ch is img[y, x, ch, ])." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Threshold every image frame in an image stack based on their mean.</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/rorynolan/autothresholdr/blob/master/R/stack_thresh.R'><code>R/stack_thresh.R</code></a></small>
     <div class="hidden name"><code>mean_stack_thresh.Rd</code></div>
     </div>
 
@@ -153,14 +158,14 @@ therein are thresholded away or all are untouched, where pillar <code>x,y</code>
 channel <code>ch</code> is <code>img[y, x, ch, ]</code>).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mean_stack_thresh</span>(
-  <span class='no'>img</span>,
-  <span class='no'>method</span>,
-  <span class='kw'>fail</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>ignore_black</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>ignore_white</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>ignore_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>mean_stack_thresh</span><span class='op'>(</span>
+  <span class='va'>img</span>,
+  <span class='va'>method</span>,
+  fail <span class='op'>=</span> <span class='cn'>NA</span>,
+  ignore_black <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  ignore_white <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  ignore_na <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -249,28 +254,33 @@ is <code>2^8 - 1</code>, otherwise, saturated value is <code>2^16 - 1</code>.</p
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='no'>img</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>ijtiff</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/ijtiff/reference/read_tif.html'>read_tif</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"50.tif"</span>,
-  <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"autothresholdr"</span>
-))</div><div class='output co'>#&gt; <span class='message'>Reading 50.tif: an 8-bit, 100x100 pixel image of unsigned</span>
-#&gt; <span class='message'>integer type. Reading 1 channel and 50 frames . . .</span></div><div class='output co'>#&gt; <span class='message'> Done.</span></div><div class='input'><span class='kw pkg'>ijtiff</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/ijtiff/reference/display.html'>display</a></span>(<span class='no'>img</span>[, , <span class='fl'>1</span>, <span class='fl'>1</span>])</div><div class='output co'>#&gt; <span class='message'>Using basic display functionality.</span>
+<span class='va'>img</span> <span class='op'>&lt;-</span> <span class='fu'>ijtiff</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/ijtiff/reference/read_tif.html'>read_tif</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"50.tif"</span>,
+  package <span class='op'>=</span> <span class='st'>"autothresholdr"</span>
+<span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Reading 50.tif: an 8-bit, 100x100 pixel image of unsigned</span>
+#&gt; <span class='message'>integer type. Reading 1 channel and 50 frames . . .</span></div><div class='output co'>#&gt; <span class='message'> Done.</span></div><div class='input'><span class='fu'>ijtiff</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/ijtiff/reference/display.html'>display</a></span><span class='op'>(</span><span class='va'>img</span><span class='op'>[</span>, , <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Using basic display functionality.</span>
 #&gt; <span class='message'>  * For better display functionality, install the EBImage package.</span>
 #&gt; <span class='message'>  * To install `EBImage`:</span>
 #&gt; <span class='message'>    - Install `BiocManager` with `install.packages("BiocManager")`.</span>
-#&gt; <span class='message'>    - Then run `BiocManager::install("EBImage")`.</span></div><div class='img'><img src='mean_stack_thresh-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>img_thresh_mask</span> <span class='kw'>&lt;-</span> <span class='fu'>mean_stack_thresh</span>(<span class='no'>img</span>, <span class='st'>"Otsu"</span>)
-<span class='kw pkg'>ijtiff</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/ijtiff/reference/display.html'>display</a></span>(<span class='no'>img_thresh_mask</span>[, , <span class='fl'>1</span>, <span class='fl'>1</span>])</div><div class='output co'>#&gt; <span class='message'>Using basic display functionality.</span>
+#&gt; <span class='message'>    - Then run `BiocManager::install("EBImage")`.</span></div><div class='img'><img src='mean_stack_thresh-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>img_thresh_mask</span> <span class='op'>&lt;-</span> <span class='fu'>mean_stack_thresh</span><span class='op'>(</span><span class='va'>img</span>, <span class='st'>"Otsu"</span><span class='op'>)</span>
+<span class='fu'>ijtiff</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/ijtiff/reference/display.html'>display</a></span><span class='op'>(</span><span class='va'>img_thresh_mask</span><span class='op'>[</span>, , <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Using basic display functionality.</span>
 #&gt; <span class='message'>  * For better display functionality, install the EBImage package.</span>
 #&gt; <span class='message'>  * To install `EBImage`:</span>
 #&gt; <span class='message'>    - Install `BiocManager` with `install.packages("BiocManager")`.</span>
-#&gt; <span class='message'>    - Then run `BiocManager::install("EBImage")`.</span></div><div class='img'><img src='mean_stack_thresh-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw pkg'>ijtiff</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/ijtiff/reference/display.html'>display</a></span>(<span class='no'>img</span>[, , <span class='fl'>1</span>, <span class='fl'>1</span>])</div><div class='output co'>#&gt; <span class='message'>Using basic display functionality.</span>
+#&gt; <span class='message'>    - Then run `BiocManager::install("EBImage")`.</span></div><div class='img'><img src='mean_stack_thresh-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>ijtiff</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/ijtiff/reference/display.html'>display</a></span><span class='op'>(</span><span class='va'>img</span><span class='op'>[</span>, , <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Using basic display functionality.</span>
 #&gt; <span class='message'>  * For better display functionality, install the EBImage package.</span>
 #&gt; <span class='message'>  * To install `EBImage`:</span>
 #&gt; <span class='message'>    - Install `BiocManager` with `install.packages("BiocManager")`.</span>
-#&gt; <span class='message'>    - Then run `BiocManager::install("EBImage")`.</span></div><div class='img'><img src='mean_stack_thresh-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>img_thresh_mask</span> <span class='kw'>&lt;-</span> <span class='fu'>mean_stack_thresh</span>(<span class='no'>img</span>, <span class='st'>"Huang"</span>)
-<span class='kw pkg'>ijtiff</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/ijtiff/reference/display.html'>display</a></span>(<span class='no'>img_thresh_mask</span>[, , <span class='fl'>1</span>, <span class='fl'>1</span>])</div><div class='output co'>#&gt; <span class='message'>Using basic display functionality.</span>
+#&gt; <span class='message'>    - Then run `BiocManager::install("EBImage")`.</span></div><div class='img'><img src='mean_stack_thresh-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>img_thresh_mask</span> <span class='op'>&lt;-</span> <span class='fu'>mean_stack_thresh</span><span class='op'>(</span><span class='va'>img</span>, <span class='st'>"Huang"</span><span class='op'>)</span>
+<span class='fu'>ijtiff</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/ijtiff/reference/display.html'>display</a></span><span class='op'>(</span><span class='va'>img_thresh_mask</span><span class='op'>[</span>, , <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Using basic display functionality.</span>
 #&gt; <span class='message'>  * For better display functionality, install the EBImage package.</span>
 #&gt; <span class='message'>  * To install `EBImage`:</span>
 #&gt; <span class='message'>    - Install `BiocManager` with `install.packages("BiocManager")`.</span>
-#&gt; <span class='message'>    - Then run `BiocManager::install("EBImage")`.</span></div><div class='img'><img src='mean_stack_thresh-4.png' alt='' width='700' height='433' /></div><div class='input'># }
+#&gt; <span class='message'>    - Then run `BiocManager::install("EBImage")`.</span></div><div class='img'><img src='mean_stack_thresh-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -287,7 +297,7 @@ is <code>2^8 - 1</code>, otherwise, saturated value is <code>2^16 - 1</code>.</p
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
