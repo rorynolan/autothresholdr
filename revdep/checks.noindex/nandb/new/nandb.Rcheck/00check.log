@@ -1,11 +1,11 @@
 * using log directory ‘/Users/rnolan/Dropbox/DPhil/Sergi/RPackages/autothresholdr/revdep/checks.noindex/nandb/new/nandb.Rcheck’
-* using R version 4.0.0 (2020-04-24)
+* using R version 4.0.2 (2020-06-22)
 * using platform: x86_64-apple-darwin17.0 (64-bit)
 * using session charset: UTF-8
 * using options ‘--no-manual --no-build-vignettes’
 * checking for file ‘nandb/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘nandb’ version ‘2.0.6’
+* this is package ‘nandb’ version ‘2.0.7’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... OK
@@ -50,10 +50,27 @@
 * checking files in ‘vignettes’ ... OK
 * checking examples ... OK
 * checking for unstated dependencies in ‘tests’ ... OK
-* checking tests ... OK
+* checking tests ... ERROR
   Running ‘spelling.R’
   Comparing ‘spelling.Rout’ to ‘spelling.Rout.save’ ... OK
   Running ‘testthat.R’
+Running the tests in ‘tests/testthat.R’ failed.
+Last 13 lines of output:
+  ══ testthat results  ═══════════════════════════════════════════════════════════
+  [ OK: 88 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 16 ]
+  1. Error: brightness works (@test-brightness.R#5) 
+  2. Error: brightness_timeseries works (@test-brightness.R#128) 
+  3. Error: cc_brightness() works (@test-cc_brightness.R#7) 
+  4. Error: cc_brightness_timeseries() works (@test-cc_brightness.R#65) 
+  5. Error: cc_brightness_timeseries_folder() works (@test-cc_brightness.R#182) 
+  6. Error: cc_number() works (@test-cc_number.R#7) 
+  7. Error: cc_number_timeseries() works (@test-cc_number.R#65) 
+  8. Error: cc_number_folder() works (@test-cc_number.R#157) 
+  9. Error: cc_number_timeseries_folder() works (@test-cc_number.R#184) 
+  1. ...
+  
+  Error: testthat unit tests failed
+  Execution halted
 * checking for unstated dependencies in vignettes ... OK
 * checking package vignettes in ‘inst/doc’ ... OK
 * checking running R code from vignettes ... NONE
@@ -62,4 +79,4 @@
   ‘single-images.Rmd’ using ‘UTF-8’... OK
 * checking re-building of vignette outputs ... SKIPPED
 * DONE
-Status: OK
+Status: 1 ERROR

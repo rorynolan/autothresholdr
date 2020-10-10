@@ -36,10 +36,11 @@ library(autothresholdr)
 We'll be using the image that comes with the package:
 
 ```{r the image}
-img <- ijtiff::read_tif(system.file("extdata", "fiji_eg.tif", 
-                                    package = "autothresholdr"))
+img <- ijtiff::read_tif(system.file("extdata", "fiji_eg.tif",
+  package = "autothresholdr"
+))
 dim(img)
-ijtiff::display(img)  # displays first channel, first frame
+ijtiff::display(img) # displays first channel, first frame
 ```
 
 It's a picture of cells, the black part is where the cells are not. The threshold is supposed to tell us what is *dark* (not cell) and what is *bright* (cell). By playing around, we may discover that something like 20 might (for some purposes) be a good value.
@@ -48,7 +49,7 @@ It's a picture of cells, the black part is where the cells are not. The threshol
 ijtiff::display(img[, , 1, 1] > 20)
 ```
 
-But what if we have many images and we don't want to *play around*, we want a method of calculating the threshold automatically. http://imagej.net/Auto_Threshold gives many such methods and they are provided to you in R via this package. Go to that webpage for a nice comparison of the methods.
+But what if we have many images and we don't want to *play around*, we want a method of calculating the threshold automatically. https://imagej.net/Auto_Threshold gives many such methods and they are provided to you in R via this package. Go to that webpage for a nice comparison of the methods.
 
 The function `auto_thresh()` finds the threshold, `mask()` gets the mask (an array with a `TRUE` for elements exceeding the threshold and `FALSE` elsewhere) and `apply_mask()` applies the mask to the original image by setting the elements that don't exceed the threshold to `NA`.
 
@@ -61,4 +62,3 @@ ijtiff::display(apply_mask(img, "tri"))
 ```
 
 In this last image, the `NA` pixels are grey.
-

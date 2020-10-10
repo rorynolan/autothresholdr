@@ -90,9 +90,9 @@ pixels at or below this level fail.
 binarized version of the input, with a value of \code{TRUE} at points which
 exceed the threshold and \code{FALSE} at those which do not.
 
-\code{auto_thresh_apply_mask()} returns and object of class \link{threshed_arr} which is the original input masked by the
-threshold, i.e. all points not exceeding the threshold are set to a
-user-defined value (default \code{NA}).
+\code{auto_thresh_apply_mask()} returns and object of class \link{threshed_arr} which
+is the original input masked by the threshold, i.e. all points not
+exceeding the threshold are set to a user-defined value (default \code{NA}).
 
 \code{mask()} is the same as \code{auto_thresh_mask()} and \code{apply_mask()} is the same
 as \code{auto_thresh_apply_mask()}.
@@ -102,7 +102,7 @@ These functions apply the ImageJ "Auto Threshold" plugin's image thresholding
 methods. The available methods are "IJDefault", "Huang", "Huang2",
 "Intermodes", "IsoData", "Li", "MaxEntropy", "Mean", "MinErrorI", "Minimum",
 "Moments", "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle" and
-"Yen". Read about them at \url{http://imagej.net/Auto_Threshold}.
+"Yen". Read about them at \url{https://imagej.net/Auto_Threshold}.
 }
 \details{
 \itemize{\item Values greater than or equal to the found threshold
@@ -127,8 +127,8 @@ different method.}
 is \code{2^8 - 1}, otherwise, saturated value is \code{2^16 - 1}. }
 }
 \section{Acknowledgements}{
- Gabriel Landini coded all of these functions
-in Java. These java functions were then translated to C++.
+ Gabriel Landini coded all of these functions in
+Java. These java functions were then translated to C++.
 }
 
 \examples{

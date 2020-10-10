@@ -4,7 +4,7 @@
 #' methods. The available methods are "IJDefault", "Huang", "Huang2",
 #' "Intermodes", "IsoData", "Li", "MaxEntropy", "Mean", "MinErrorI", "Minimum",
 #' "Moments", "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle" and
-#' "Yen". Read about them at \url{http://imagej.net/Auto_Threshold}.
+#' "Yen". Read about them at \url{https://imagej.net/Auto_Threshold}.
 #'
 #'
 #' \itemize{\item Values greater than or equal to the found threshold
@@ -62,9 +62,9 @@
 #'   binarized version of the input, with a value of `TRUE` at points which
 #'   exceed the threshold and `FALSE` at those which do not.
 #'
-#'   `auto_thresh_apply_mask()` returns and object of class [threshed_arr] which is the original input masked by the
-#'   threshold, i.e. all points not exceeding the threshold are set to a
-#'   user-defined value (default `NA`).
+#'   `auto_thresh_apply_mask()` returns and object of class [threshed_arr] which
+#'   is the original input masked by the threshold, i.e. all points not
+#'   exceeding the threshold are set to a user-defined value (default `NA`).
 #'
 #'   `mask()` is the same as `auto_thresh_mask()` and `apply_mask()` is the same
 #'   as `auto_thresh_apply_mask()`.
@@ -109,8 +109,8 @@
 #'   Image Thresholding Techniques and Quantitative Performance Evaluation",
 #'   Journal of Electronic Imaging 13(1): 146-165} }
 #'
-#' @section Acknowledgements: Gabriel Landini coded all of these functions
-#'   in Java. These java functions were then translated to C++.
+#' @section Acknowledgements: Gabriel Landini coded all of these functions in
+#'   Java. These java functions were then translated to C++.
 #'
 #' @examples
 #' \donttest{
@@ -187,7 +187,7 @@ auto_thresh <- function(int_arr, method,
     "Minimum", "Moments", "Otsu", "Percentile",
     "RenyiEntropy", "Shanbhag", "Triangle", "Yen"
   )
-  method <- filesstrings::match_arg(method, available_methods,
+  method <- strex::match_arg(method, available_methods,
     ignore_case = TRUE
   )
   if (ignore_black) int_arr[int_arr == 0] <- NA
@@ -204,12 +204,11 @@ auto_thresh <- function(int_arr, method,
     table() %>%
     as.vector()
   if (length(im_hist) < 2) {
-    unq_val <- stats::na.omit(int_arr)[1]
     custom_stop(
       "Cannot threshold an array with only one unique value. ",
       "
                 Your `int_arr` has only one unique value which is
-                {format(unq_val, scientific = FALSE)}.
+                {format(stats::na.omit(int_arr)[1], scientific = FALSE)}.
                 "
     )
   }

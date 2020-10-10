@@ -1,22 +1,7 @@
-# All available hooks: https://pre-commit.com/hooks.html
-# R specific hooks: https://github.com/lorenzwalthert/precommit
 repos:
--   repo: https://github.com/lorenzwalthert/precommit
-    rev: v0.0.0.9048
+  - repo: https://github.com/lorenzwalthert/pre-commit-hooks
+    rev: v0.1.2
     hooks:
-    -   id: style-files
-        args: [--style_pkg=styler, --style_fun=tidyverse_style]
-    -   id: roxygenize
-    # codemeta must be above use-tidy-description when both are used
-    # -   id: codemeta-description-updated
-    -   id: use-tidy-description
-    -   id: readme-rmd-rendered
-    -   id: parsable-R
-    -   id: no-browser-statement
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.5.0
-    hooks:
-    -   id: check-added-large-files
-        args: ['--maxkb=999']
-    -   id: end-of-file-fixer
-        exclude: '\.Rd'
+    - id: parsable-R
+    - id: no-browser-statement
+    - id: use-tidy-description

@@ -1,0 +1,282 @@
+
+R version 4.0.2 (2020-06-22) -- "Taking Off Again"
+Copyright (C) 2020 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin17.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(detrendr)
+> 
+> test_check("detrendr")
+[31m──[39m [31m1. Error: best_tau works (@test-best_params.R#15) [39m [31m──────────────────────────[39m
+argument "arg_sym" is missing, with no default
+[1mBacktrace:[22m
+[90m  1. [39mtestthat::expect_equal(...)
+[90m  4. [39mdetrendr::best_tau(img, purpose = "ffs", parallel = 2)
+[90m  5. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 13. [39mfilesstrings::match_arg(., c("FCS", "FFS"), ignore_case = TRUE)
+[90m 14. [39mstrex:::str_match_arg_basic(...)
+[90m 15. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+[31m──[39m [31m2. Error: best_l works (@test-best_params.R#51) [39m [31m────────────────────────────[39m
+argument "arg_sym" is missing, with no default
+[1mBacktrace:[22m
+[90m  1. [39mtestthat::expect_equal(...)
+[90m  4. [39mdetrendr::best_l(img, parallel = 2, purpose = "ffs")
+[90m  5. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 13. [39mfilesstrings::match_arg(., c("FCS", "FFS"), ignore_case = TRUE)
+[90m 14. [39mstrex:::str_match_arg_basic(...)
+[90m 15. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+[31m──[39m [31m3. Error: best_degree works (@test-best_params.R#91) [39m [31m───────────────────────[39m
+argument "arg_sym" is missing, with no default
+[1mBacktrace:[22m
+[90m  1. [39mbase::suppressWarnings(round(best_degree(img, purpose = "ffs")))
+[90m  3. [39mdetrendr::best_degree(img, purpose = "ffs")
+[90m  4. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 12. [39mfilesstrings::match_arg(., c("FCS", "FFS"), ignore_case = TRUE)
+[90m 13. [39mstrex:::str_match_arg_basic(...)
+[90m 14. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+[31m──[39m [31m4. Failure: detrended_img works (@test-class-constructors.R#5) [39m [31m─────────────[39m
+`detrended_img(...)` threw an error with unexpected message.
+Expected match: "Elements of a detrended_img must all be integers."
+Actual message: "argument \"arg_sym\" is missing, with no default"
+[1mBacktrace:[22m
+[90m  1. [39mtestthat::expect_error(...)
+[90m  6. [39mdetrendr::detrended_img(...)
+[90m  7. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 15. [39mfilesstrings::match_arg(...)
+[90m 16. [39mstrex:::str_match_arg_basic(...)
+[90m 17. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+[31m──[39m [31m5. Error: detrended_img works (@test-class-constructors.R#14) [39m [31m──────────────[39m
+argument "arg_sym" is missing, with no default
+[1mBacktrace:[22m
+[90m  1. [39mtestthat::expect_equal(...)
+[90m  4. [39mdetrendr::detrended_img(three_d, "exp", 9, FALSE, purpose = "ff")
+[90m  5. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 13. [39mfilesstrings::match_arg(...)
+[90m 14. [39mstrex:::str_match_arg_basic(...)
+[90m 15. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+[31m──[39m [31m6. Error: detrending works (@test-detrend.R#9) [39m [31m─────────────────────────────[39m
+argument "arg_sym" is missing, with no default
+[1mBacktrace:[22m
+[90m  1. [39mdetrendr::img_detrend_boxcar(...)
+[90m  2. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 10. [39mfilesstrings::match_arg(., c("fcs", "ffs"), ignore_case = TRUE)
+[90m 11. [39mstrex:::str_match_arg_basic(...)
+[90m 12. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+[31m──[39m [31m7. Failure: detrending errors correctly (@test-detrend.R#175) [39m [31m──────────────[39m
+`img_detrend_boxcar(img, "abc", purpose = "ff")` threw an error with unexpected message.
+Expected match: "auto"
+Actual message: "argument \"arg_sym\" is missing, with no default"
+[1mBacktrace:[22m
+[90m  1. [39mtestthat::expect_error(...)
+[90m  6. [39mdetrendr::img_detrend_boxcar(img, "abc", purpose = "ff")
+[90m  7. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 15. [39mfilesstrings::match_arg(., c("fcs", "ffs"), ignore_case = TRUE)
+[90m 16. [39mstrex:::str_match_arg_basic(...)
+[90m 17. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+[31m──[39m [31m8. Failure: detrending errors correctly (@test-detrend.R#176) [39m [31m──────────────[39m
+`img_detrend_exp(img, "abc", purpose = "ff")` threw an error with unexpected message.
+Expected match: "auto"
+Actual message: "argument \"arg_sym\" is missing, with no default"
+[1mBacktrace:[22m
+[90m  1. [39mtestthat::expect_error(...)
+[90m  6. [39mdetrendr::img_detrend_exp(img, "abc", purpose = "ff")
+[90m  7. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 15. [39mfilesstrings::match_arg(., c("fcs", "ffs"), ignore_case = TRUE)
+[90m 16. [39mstrex:::str_match_arg_basic(...)
+[90m 17. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+[31m──[39m [31m9. Failure: detrending errors correctly (@test-detrend.R#177) [39m [31m──────────────[39m
+`img_detrend_polynom(img, "abc", purpose = "ff")` threw an error with unexpected message.
+Expected match: "auto"
+Actual message: "argument \"arg_sym\" is missing, with no default"
+[1mBacktrace:[22m
+[90m  1. [39mtestthat::expect_error(...)
+[90m  6. [39mdetrendr::img_detrend_polynom(img, "abc", purpose = "ff")
+[90m  7. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 15. [39mfilesstrings::match_arg(., c("fcs", "ffs"), ignore_case = TRUE)
+[90m 16. [39mstrex:::str_match_arg_basic(...)
+[90m 17. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+[31m──[39m [31m10. Failure: detrending errors correctly (@test-detrend.R#178) [39m [31m─────────────[39m
+`img_detrend_boxcar(img, FALSE, purpose = "ff")` threw an error with unexpected message.
+Expected match: "positive number or"
+Actual message: "argument \"arg_sym\" is missing, with no default"
+[1mBacktrace:[22m
+[90m  1. [39mtestthat::expect_error(...)
+[90m  6. [39mdetrendr::img_detrend_boxcar(img, FALSE, purpose = "ff")
+[90m  7. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 15. [39mfilesstrings::match_arg(., c("fcs", "ffs"), ignore_case = TRUE)
+[90m 16. [39mstrex:::str_match_arg_basic(...)
+[90m 17. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+[31m──[39m [31m11. Failure: detrending errors correctly (@test-detrend.R#182) [39m [31m─────────────[39m
+`img_detrend_exp(img, FALSE, purpose = "ff")` threw an error with unexpected message.
+Expected match: "positive number or"
+Actual message: "argument \"arg_sym\" is missing, with no default"
+[1mBacktrace:[22m
+[90m  1. [39mtestthat::expect_error(...)
+[90m  6. [39mdetrendr::img_detrend_exp(img, FALSE, purpose = "ff")
+[90m  7. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 15. [39mfilesstrings::match_arg(., c("fcs", "ffs"), ignore_case = TRUE)
+[90m 16. [39mstrex:::str_match_arg_basic(...)
+[90m 17. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+[31m──[39m [31m12. Failure: detrending errors correctly (@test-detrend.R#186) [39m [31m─────────────[39m
+`img_detrend_polynom(img, FALSE, purpose = "ff")` threw an error with unexpected message.
+Expected match: "positive number or"
+Actual message: "argument \"arg_sym\" is missing, with no default"
+[1mBacktrace:[22m
+[90m  1. [39mtestthat::expect_error(...)
+[90m  6. [39mdetrendr::img_detrend_polynom(img, FALSE, purpose = "ff")
+[90m  7. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 15. [39mfilesstrings::match_arg(., c("fcs", "ffs"), ignore_case = TRUE)
+[90m 16. [39mstrex:::str_match_arg_basic(...)
+[90m 17. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+[31m──[39m [31m13. Failure: detrending errors correctly (@test-detrend.R#191) [39m [31m─────────────[39m
+`img_detrend_polynom(img, degree = 1:7, purpose = "ff")` threw an error with unexpected message.
+Expected match: "length 1 or length equal to the.+number of channels.+7.+1"
+Actual message: "argument \"arg_sym\" is missing, with no default"
+[1mBacktrace:[22m
+[90m  1. [39mtestthat::expect_error(...)
+[90m  6. [39mdetrendr::img_detrend_polynom(img, degree = 1:7, purpose = "ff")
+[90m  7. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 15. [39mfilesstrings::match_arg(., c("fcs", "ffs"), ignore_case = TRUE)
+[90m 16. [39mstrex:::str_match_arg_basic(...)
+[90m 17. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+[31m──[39m [31m14. Failure: detrending errors correctly (@test-detrend.R#195) [39m [31m─────────────[39m
+`img_detrend_boxcar(img, l = 1:7, purpose = "ff")` threw an error with unexpected message.
+Expected match: "length 1 or length equal to the number.+of channels.+7.+1"
+Actual message: "argument \"arg_sym\" is missing, with no default"
+[1mBacktrace:[22m
+[90m  1. [39mtestthat::expect_error(...)
+[90m  6. [39mdetrendr::img_detrend_boxcar(img, l = 1:7, purpose = "ff")
+[90m  7. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 15. [39mfilesstrings::match_arg(., c("fcs", "ffs"), ignore_case = TRUE)
+[90m 16. [39mstrex:::str_match_arg_basic(...)
+[90m 17. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+[31m──[39m [31m15. Failure: detrending errors correctly (@test-detrend.R#199) [39m [31m─────────────[39m
+`img_detrend_exp(img, tau = 1:7, purpose = "ff")` threw an error with unexpected message.
+Expected match: "length 1 or length equal to the.+number.+of channels.+7.+1"
+Actual message: "argument \"arg_sym\" is missing, with no default"
+[1mBacktrace:[22m
+[90m  1. [39mtestthat::expect_error(...)
+[90m  6. [39mdetrendr::img_detrend_exp(img, tau = 1:7, purpose = "ff")
+[90m  7. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 15. [39mfilesstrings::match_arg(., c("fcs", "ffs"), ignore_case = TRUE)
+[90m 16. [39mstrex:::str_match_arg_basic(...)
+[90m 17. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+[31m──[39m [31m16. Failure: detrending errors correctly (@test-detrend.R#203) [39m [31m─────────────[39m
+`img_detrend_polynom(img, degree = -1, purpose = "ff")` threw an error with unexpected message.
+Expected match: "must be greater than zero"
+Actual message: "argument \"arg_sym\" is missing, with no default"
+[1mBacktrace:[22m
+[90m  1. [39mtestthat::expect_error(...)
+[90m  6. [39mdetrendr::img_detrend_polynom(img, degree = -1, purpose = "ff")
+[90m  7. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 15. [39mfilesstrings::match_arg(., c("fcs", "ffs"), ignore_case = TRUE)
+[90m 16. [39mstrex:::str_match_arg_basic(...)
+[90m 17. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+[31m──[39m [31m17. Failure: detrending errors correctly (@test-detrend.R#207) [39m [31m─────────────[39m
+`img_detrend_polynom(img, degree = 1.5, purpose = "ff")` threw an error with unexpected message.
+Expected match: "must be an integer"
+Actual message: "argument \"arg_sym\" is missing, with no default"
+[1mBacktrace:[22m
+[90m  1. [39mtestthat::expect_error(...)
+[90m  6. [39mdetrendr::img_detrend_polynom(img, degree = 1.5, purpose = "ff")
+[90m  7. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 15. [39mfilesstrings::match_arg(., c("fcs", "ffs"), ignore_case = TRUE)
+[90m 16. [39mstrex:::str_match_arg_basic(...)
+[90m 17. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+[31m──[39m [31m18. Failure: detrending errors correctly (@test-detrend.R#211) [39m [31m─────────────[39m
+`img_detrend_boxcar(img, l = -1, purpose = "ff")` threw an error with unexpected message.
+Expected match: "must be greater than zero"
+Actual message: "argument \"arg_sym\" is missing, with no default"
+[1mBacktrace:[22m
+[90m  1. [39mtestthat::expect_error(...)
+[90m  6. [39mdetrendr::img_detrend_boxcar(img, l = -1, purpose = "ff")
+[90m  7. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 15. [39mfilesstrings::match_arg(., c("fcs", "ffs"), ignore_case = TRUE)
+[90m 16. [39mstrex:::str_match_arg_basic(...)
+[90m 17. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+[31m──[39m [31m19. Failure: detrending errors correctly (@test-detrend.R#215) [39m [31m─────────────[39m
+`img_detrend_boxcar(img, l = 1.5, purpose = "ff")` threw an error with unexpected message.
+Expected match: "must be an integer"
+Actual message: "argument \"arg_sym\" is missing, with no default"
+[1mBacktrace:[22m
+[90m  1. [39mtestthat::expect_error(...)
+[90m  6. [39mdetrendr::img_detrend_boxcar(img, l = 1.5, purpose = "ff")
+[90m  7. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 15. [39mfilesstrings::match_arg(., c("fcs", "ffs"), ignore_case = TRUE)
+[90m 16. [39mstrex:::str_match_arg_basic(...)
+[90m 17. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+[31m──[39m [31m20. Failure: detrending errors correctly (@test-detrend.R#219) [39m [31m─────────────[39m
+`img_detrend_exp(img, tau = -1, purpose = "ff")` threw an error with unexpected message.
+Expected match: "must be greater than zero"
+Actual message: "argument \"arg_sym\" is missing, with no default"
+[1mBacktrace:[22m
+[90m  1. [39mtestthat::expect_error(...)
+[90m  6. [39mdetrendr::img_detrend_exp(img, tau = -1, purpose = "ff")
+[90m  7. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 15. [39mfilesstrings::match_arg(., c("fcs", "ffs"), ignore_case = TRUE)
+[90m 16. [39mstrex:::str_match_arg_basic(...)
+[90m 17. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+[31m──[39m [31m21. Error: detrending entire derectories works (@test-dir-detrend.R#17) [39m [31m────[39m
+argument "arg_sym" is missing, with no default
+[1mBacktrace:[22m
+[90m 1. [39mbase::tryCatch(...)
+[90m 2. [39mbase:::tryCatchList(expr, classes, parentenv, handlers)
+[90m 3. [39mbase:::tryCatchOne(expr, names, parentenv, handlers[[1L]])
+[90m 4. [39mvalue[[3L]](cond)
+
+[31m──[39m [31m22. Error: file_detrend() deals with other directories correctly (@test-dir-d[39m
+argument "arg_sym" is missing, with no default
+[1mBacktrace:[22m
+[90m  1. [39mdetrendr:::file_detrend(...)
+[90m  2. [39m[ `%<>%`(...) ][90m with 7 more calls[39m
+[90m 10. [39mfilesstrings::match_arg(...)
+[90m 11. [39mstrex:::str_match_arg_basic(...)
+[90m 12. [39mcheckmate::assert_string(arg_sym, na.ok = TRUE)
+
+══ testthat results  ═══════════════════════════════════════════════════════════
+[ OK: 137 | SKIPPED: 8 | WARNINGS: 0 | FAILED: 22 ]
+1. Error: best_tau works (@test-best_params.R#15) 
+2. Error: best_l works (@test-best_params.R#51) 
+3. Error: best_degree works (@test-best_params.R#91) 
+4. Failure: detrended_img works (@test-class-constructors.R#5) 
+5. Error: detrended_img works (@test-class-constructors.R#14) 
+6. Error: detrending works (@test-detrend.R#9) 
+7. Failure: detrending errors correctly (@test-detrend.R#175) 
+8. Failure: detrending errors correctly (@test-detrend.R#176) 
+9. Failure: detrending errors correctly (@test-detrend.R#177) 
+1. ...
+
+Error: testthat unit tests failed
+Execution halted

@@ -1,4 +1,4 @@
-## ----setup, include=FALSE------------------------------------------------
+## ----setup, include=FALSE-----------------------------------------------------
 if (utils::packageVersion("knitr") >= "1.20.15") {
   knitr::opts_chunk$set(
     collapse = TRUE,
@@ -14,20 +14,20 @@ if (utils::packageVersion("knitr") >= "1.20.15") {
   )
 }
 
-## ----load libraries, results='hide'--------------------------------------
+## ----load libraries, results='hide'-------------------------------------------
 library(autothresholdr)
 
-## ----the image-----------------------------------------------------------
-img <- ijtiff::read_tif(system.file("extdata", "fiji_eg.tif", 
-                                    package = "autothresholdr"))
+## ----the image----------------------------------------------------------------
+img <- ijtiff::read_tif(system.file("extdata", "fiji_eg.tif",
+  package = "autothresholdr"
+))
 dim(img)
-ijtiff::display(img)  # displays first channel, first frame
+ijtiff::display(img) # displays first channel, first frame
 
-## ----guess twenty--------------------------------------------------------
+## ----guess twenty-------------------------------------------------------------
 ijtiff::display(img[, , 1, 1] > 20)
 
-## ----thresh mask apply---------------------------------------------------
+## ----thresh mask apply--------------------------------------------------------
 auto_thresh(img, "tri")
 ijtiff::display(mask(img, "tri"))
 ijtiff::display(apply_mask(img, "tri"))
-

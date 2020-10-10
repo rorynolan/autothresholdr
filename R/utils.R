@@ -16,7 +16,7 @@ translate_fail <- function(arr, fail) {
       )
     }
   } else if (is.character(fail)) {
-    fail <- filesstrings::match_arg(fail, c("saturate", "zero"),
+    fail <- strex::match_arg(fail, c("saturate", "zero"),
       ignore_case = TRUE
     )
   }

@@ -42,11 +42,13 @@ Now let's take a look at the distribution of `x`:
 ```{r plot-high-low, message=FALSE}
 library(ggplot2)
 library(dplyr)
-tibble(x = x) %>% 
-  ggplot() + aes(x) + stat_density(bw = 3)
+tibble(x = x) %>%
+  ggplot() +
+  aes(x) +
+  stat_density(bw = 3)
 ```
 
-If you're trying to threshold this sort of data, you're probably looking for a method which will find a threshold that separates the larger values from the smaller ones. The available automatic thresholding methods are "IJDefault", "Huang", "Huang2", "Intermodes", "IsoData", "Li", "MaxEntropy", "Mean", "MinErrorI", "Minimum", "Moments", "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle" and "Yen". These are well demonstrated at http://imagej.net/Auto_Threshold. 
+If you're trying to threshold this sort of data, you're probably looking for a method which will find a threshold that separates the larger values from the smaller ones. The available automatic thresholding methods are "IJDefault", "Huang", "Huang2", "Intermodes", "IsoData", "Li", "MaxEntropy", "Mean", "MinErrorI", "Minimum", "Moments", "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle" and "Yen". These are well demonstrated at https://imagej.net/Auto_Threshold. 
 
 
 ## Trying all methods
@@ -55,10 +57,12 @@ If you're trying to threshold this sort of data, you're probably looking for a m
 
 ```{r try-all}
 library(autothresholdr)
-thresh_methods <- c("IJDefault", "Huang", "Huang2", "Intermodes", "IsoData", 
-                    "Li", "Mean", "MinErrorI", "Minimum", "Moments", "Otsu",
-                    "Percentile", "RenyiEntropy", "Shanbhag", "Triangle")
-thresholds <- purrr::map_chr(thresh_methods, ~auto_thresh(x, .)) %>% 
+thresh_methods <- c(
+  "IJDefault", "Huang", "Huang2", "Intermodes", "IsoData",
+  "Li", "Mean", "MinErrorI", "Minimum", "Moments", "Otsu",
+  "Percentile", "RenyiEntropy", "Shanbhag", "Triangle"
+)
+thresholds <- purrr::map_chr(thresh_methods, ~ auto_thresh(x, .)) %>%
   tibble(method = thresh_methods, threshold = .)
 print(thresholds)
 ```
@@ -77,5 +81,5 @@ The other methods aren't necessarily _wrong_, they're just more strict or more l
 ```{r tri}
 auto_thresh(x, "huang")
 auto_thresh(x, "tri")
-auto_thresh(x,  "otsu")
+auto_thresh(x, "otsu")
 ```

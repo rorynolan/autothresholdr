@@ -1,5 +1,5 @@
 
-R version 4.0.0 (2020-04-24) -- "Arbor Day"
+R version 4.0.2 (2020-06-22) -- "Taking Off Again"
 Copyright (C) 2020 The R Foundation for Statistical Computing
 Platform: x86_64-apple-darwin17.0 (64-bit)
 
@@ -21,8 +21,11 @@ Type 'q()' to quit R.
 +     skip_on_cran = TRUE
 +   )
 + }
+Potential spelling errors:
+  WORD       FOUND IN
+magrittr   NEWS.md:4
 All Done!
 > 
 > proc.time()
    user  system elapsed 
-  1.218   0.281   1.614 
+  1.126   0.268   1.386 

@@ -1,2 +1,5 @@
 package,old,new,delta
-autothresholdr,1.3.5,1.3.6,*
+autothresholdr,1.3.6,1.3.7,*
+crayon,NA,1.3.4.9000,*
+ijtiff,NA,2.2.1,*
+rlang,NA,0.4.8,*

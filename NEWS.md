@@ -1,3 +1,9 @@
+# `autothresholdr` 1.3.7
+
+## MINOR IMPROVEMENTS
+* Lighten by importing `strex` rather than `filesstrings`.
+
+
 # `autothresholdr` 1.3.6
 
 ## BUG FIXES
