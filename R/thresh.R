@@ -207,9 +207,9 @@ auto_thresh <- function(int_arr, method,
     custom_stop(
       "Cannot threshold an array with only one unique value. ",
       "
-                Your `int_arr` has only one unique value which is
-                {format(stats::na.omit(int_arr)[1], scientific = FALSE)}.
-                "
+      Your `int_arr` has only one unique value which is
+      {format(na.omit(int_arr)[1], scientific = FALSE)}.
+      "
     )
   }
   thresh <- eval_text(method)(im_hist)

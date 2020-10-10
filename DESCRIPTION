@@ -1,7 +1,7 @@
 Type: Package
 Package: autothresholdr
 Title: An R Port of the 'ImageJ' Plugin 'Auto Threshold'
-Version: 1.3.7
+Version: 1.3.8
 Authors@R: 
     c(person(given = "Rory",
              family = "Nolan",

@@ -1,3 +1,9 @@
+# `autothresholdr` 1.3.8
+
+## BUG FIXES
+* Fix a minor `NAMESPACE` issue.
+
+
 # `autothresholdr` 1.3.7
 
 ## MINOR IMPROVEMENTS
