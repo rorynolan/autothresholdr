@@ -19,3 +19,4 @@
 ^pkgdown$
 ^\.pre-commit-config\.yaml$
 ^\.DS_Store$
+^\.github$
