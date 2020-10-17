@@ -1,3 +1,9 @@
+# `autothresholdr` 1.3.9
+
+## BUG FIXES
+* Should insist on R >= 3.5 due to import of `strex` >= 1.4.
+
+
 # `autothresholdr` 1.3.8
 
 ## BUG FIXES

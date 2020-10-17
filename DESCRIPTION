@@ -1,7 +1,7 @@
 Type: Package
 Package: autothresholdr
 Title: An R Port of the 'ImageJ' Plugin 'Auto Threshold'
-Version: 1.3.8
+Version: 1.3.9
 Authors@R: 
     c(person(given = "Rory",
              family = "Nolan",
@@ -34,7 +34,7 @@ URL: https://rorynolan.github.io/autothresholdr/,
     https://github.com/rorynolan/autothresholdr#readme
 BugReports: https://github.com/rorynolan/autothresholdr/issues
 Depends: 
-    R (>= 3.1)
+    R (>= 3.5)
 Imports:
     checkmate (>= 1.9.3),
     ijtiff (>= 2.2),
