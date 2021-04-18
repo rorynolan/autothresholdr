@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autothresholdr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.10</span>
       </span>
     </div>
 
@@ -46,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -78,7 +78,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/rorynolan/autothresholdr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -97,7 +97,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Thresholding Image Stacks</h1>
             
-            <h4 class="date">2020-10-17</h4>
+            <h4 class="date">2021-04-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rorynolan/autothresholdr/blob/master/vignettes/thresholding-image-stacks.Rmd"><code>vignettes/thresholding-image-stacks.Rmd</code></a></small>
       <div class="hidden name"><code>thresholding-image-stacks.Rmd</code></div>
@@ -110,15 +110,15 @@
 <h2 class="hasAnchor">
 <a href="#stacks-of-images" class="anchor"></a>Stacks of Images</h2>
 <p><code>50.tif</code> is a TIFF file which is a stack of 50 images of a bit of a cell taken over a short space of time (i.e. it’s a video).</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="va">img</span> <span class="op">&lt;-</span> <span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/read_tif.html">read_tif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"50.tif"</span>,
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">img</span> <span class="op">&lt;-</span> <span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/read_tif.html">read_tif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"50.tif"</span>,
   package <span class="op">=</span> <span class="st">"autothresholdr"</span>
 <span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Reading 50.tif: an 8-bit, 100x100 pixel image of unsigned</span>
 <span class="co">#&gt; integer type. Reading 1 channel and 50 frames . . .</span>
 <span class="co">#&gt;  Done.</span>
 <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">img</span><span class="op">)</span>
-<span class="co">#&gt; [1] 100 100   1  50</span></pre></div>
+<span class="co">#&gt; [1] 100 100   1  50</span></code></pre></div>
 <p>Let’s display the first 3 frames:</p>
 <pre><code>#&gt; Using basic display functionality.
 #&gt;   * For better display functionality, install the EBImage package.
@@ -134,8 +134,8 @@
 #&gt;     - Then run `BiocManager::install("EBImage")`.</code></pre>
 <p><img src="thresholding-image-stacks_files/figure-html/last-3-frames-1.png" width="672"></p>
 <p>You’ll notice that these images are almost identical. That’s because they’re images of the same area taken very quickly one after another. There are two ways to threshold an image stack like this. One is the naiive way: find a threshold based on every pixel in the stack, then pixels below the threshold are excluded (set to <code>NA</code>). Let’s try that:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rorynolan.github.io/autothresholdr/">autothresholdr</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rorynolan.github.io/autothresholdr/">autothresholdr</a></span><span class="op">)</span>
 <span class="va">naiively_threshed_img</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/auto_thresh.html">apply_mask</a></span><span class="op">(</span><span class="va">img</span>, <span class="st">"tri"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">naiively_threshed_img</span>, <span class="st">"thresh"</span><span class="op">)</span> <span class="co"># The threshold chosen by "Triangle" is 4</span>
 <span class="co">#&gt; [1] 4</span>
@@ -148,7 +148,7 @@
 <span class="co">#&gt; attr(,"autothresh_method")</span>
 <span class="co">#&gt; [1] "Triangle"</span>
 <span class="co">#&gt; attr(,"class")</span>
-<span class="co">#&gt; [1] "th"      "integer"</span></pre></div>
+<span class="co">#&gt; [1] "th"      "integer"</span></code></pre></div>
 <p>Now let’s display the first 3 frames and the last 3 frames:</p>
 <pre><code>#&gt; Using basic display functionality.
 #&gt;   * For better display functionality, install the EBImage package.
@@ -172,21 +172,21 @@
 <p>So (unsurprisingly), it seems that around the edges of the cell (where the signal from the cell is more feint), the pixels are sometimes thresholded away, sometimes not. There are also some seemingly random pixels within the cell which are sometimes thresholded away, sometimes not.</p>
 <p>Now, given that you know that the cell is more or less stationary and you want the threshold to get rid of the <em>non-cell</em> bits and keep the <em>cell</em> bits, its reasonable to assert that the mask should be the same for every frame. It’s possible to apply the same mask to every frame, and to compute this mask, it makes sense to incorporate information from all of the frames. This is what <code><a href="../reference/mean_stack_thresh.html">mean_stack_thresh()</a></code> and <code><a href="../reference/med_stack_thresh.html">med_stack_thresh()</a></code> do. <code><a href="../reference/mean_stack_thresh.html">mean_stack_thresh()</a></code> computes the mask based on the mean of all of the frames (gotten by calculating the mean intensity of the stack at each pixel position). <code><a href="../reference/med_stack_thresh.html">med_stack_thresh()</a></code> uses the median instead of the mean. They’re both very similar. If you don’t know which one to use, just use <code><a href="../reference/mean_stack_thresh.html">mean_stack_thresh()</a></code>.</p>
 <p>Let’s visualize them both:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/display.html">display</a></span><span class="op">(</span><span class="fu"><a href="../reference/mean_stack_thresh.html">mean_stack_thresh</a></span><span class="op">(</span><span class="va">img</span>, <span class="st">"tri"</span><span class="op">)</span><span class="op">)</span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/display.html">display</a></span><span class="op">(</span><span class="fu"><a href="../reference/mean_stack_thresh.html">mean_stack_thresh</a></span><span class="op">(</span><span class="va">img</span>, <span class="st">"tri"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Using basic display functionality.</span>
 <span class="co">#&gt;   * For better display functionality, install the EBImage package.</span>
 <span class="co">#&gt;   * To install `EBImage`:</span>
 <span class="co">#&gt;     - Install `BiocManager` with `install.packages("BiocManager")`.</span>
-<span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></pre></div>
+<span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></code></pre></div>
 <p><img src="thresholding-image-stacks_files/figure-html/stack-threshs-1.png" width="672"></p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/display.html">display</a></span><span class="op">(</span><span class="fu"><a href="../reference/med_stack_thresh.html">med_stack_thresh</a></span><span class="op">(</span><span class="va">img</span>, <span class="st">"tri"</span><span class="op">)</span><span class="op">)</span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/display.html">display</a></span><span class="op">(</span><span class="fu"><a href="../reference/med_stack_thresh.html">med_stack_thresh</a></span><span class="op">(</span><span class="va">img</span>, <span class="st">"tri"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Using basic display functionality.</span>
 <span class="co">#&gt;   * For better display functionality, install the EBImage package.</span>
 <span class="co">#&gt;   * To install `EBImage`:</span>
 <span class="co">#&gt;     - Install `BiocManager` with `install.packages("BiocManager")`.</span>
-<span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></pre></div>
+<span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></code></pre></div>
 <p><img src="thresholding-image-stacks_files/figure-html/stack-threshs-2.png" width="672"></p>
 <p>You can see that the results of <code><a href="../reference/mean_stack_thresh.html">mean_stack_thresh()</a></code> and <code><a href="../reference/med_stack_thresh.html">med_stack_thresh()</a></code> are similar but not identical. Both do a fine job.</p>
 <p>Note that if the cell (or whatever is recorded over the course of several frames) is not stationary (or almost stationary), then <code><a href="../reference/mean_stack_thresh.html">mean_stack_thresh()</a></code> and <code><a href="../reference/med_stack_thresh.html">med_stack_thresh()</a></code> are not appropriate.</p>
