@@ -1,3 +1,9 @@
+# `autothresholdr` 1.3.10
+
+## BUG FIXES
+* Remove `LazyData` from `DESCRIPTION` (was causing CRAN note).
+
+
 # `autothresholdr` 1.3.9
 
 ## BUG FIXES

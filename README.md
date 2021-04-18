@@ -1,5 +1,5 @@
 
-# autothresholdr <img src="man/figures/logo.png" align="right" height=140/> 
+# autothresholdr <img src="man/figures/logo.png" align="right" height=140/>
 
 Algorithms for automatically finding appropriate thresholds for
 numerical data, with special functions for thresholding images.
@@ -14,14 +14,13 @@ Status](https://ci.appveyor.com/api/projects/status/github/rorynolan/autothresho
 ![RStudio CRAN total
 downloads](http://cranlogs.r-pkg.org/badges/grand-total/autothresholdr)
 [![RStudio CRAN monthly
-downloads](http://cranlogs.r-pkg.org/badges/autothresholdr)](http://cran.rstudio.com/web/packages/autothresholdr/index.html)
-[![Rdocumentation](http://www.rdocumentation.org/badges/version/autothresholdr)](http://www.rdocumentation.org/packages/autothresholdr)
+downloads](http://cranlogs.r-pkg.org/badges/autothresholdr)](https://cran.r-project.org/package=autothresholdr)
 [![DOI](https://zenodo.org/badge/72632397.svg)](https://zenodo.org/badge/latestdoi/72632397)
 
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
-developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
+developed.](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
 ## Installation
 
