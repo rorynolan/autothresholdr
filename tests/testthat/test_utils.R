@@ -15,3 +15,10 @@ test_that("translate_fail works", {
     )
   )
 })
+
+test_that("custom_stop() errors correctly", {
+  expect_error(custom_stop("abc", 123),
+               "The arguments in ... must all be of character type.",
+               fixed = TRUE)
+})
+

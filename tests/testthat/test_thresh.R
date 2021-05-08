@@ -19,7 +19,7 @@ test_that("auto_thresh works", {
     }
   )
   expect_equal(auto_thresh(img, "otsu")[[1]], 13)
-  expect_equal(auto_thresh(img, "otsu", ignore_black = TRUE)[[1]], 21)
+  expect_equal(auto_thresh(img, "otsu", ignore_black = TRUE)[[1]], 22)
   x <- th(3L, FALSE, FALSE, FALSE, "Triangle")
   expect_equal(auto_thresh(img, "tri"), x)
   x <- th(13L, FALSE, FALSE, FALSE, "Otsu")
@@ -27,7 +27,7 @@ test_that("auto_thresh works", {
   x <- th(99, NA, NA, NA, NA)
   expect_equal(auto_thresh(img, 99), x)
   mask <- auto_thresh_mask(img, "huang")
-  expect_equal(mask, arr_mask(img >= 5, auto_thresh(img, "h")))
+  expect_equal(mask, masked_arr(img >= 5, auto_thresh(img, "h")))
   masked <- auto_thresh_apply_mask(img, "huang")
   thresh <- auto_thresh(img, "huang")
   expect_equal(masked, threshed_arr(img %T>% {
@@ -59,7 +59,7 @@ test_that("auto_thresh works", {
     .[1] <- NA
   }, "Otsu", ignore_na = TRUE), x)
   expect_error(
-    auto_thresh(NA, "tri"),
+    auto_thresh(rep(NA_integer_, 3), "tri"),
     paste0(
       "`int_arr` must not be all `NA`s.+Every element of your\\s?",
       "`int_arr` is `NA`."
@@ -97,7 +97,7 @@ test_that("auto_thresh works with matrices", {
   x <- th(99, NA, NA, NA, NA)
   expect_equal(auto_thresh(img, 99), x)
   mask <- auto_thresh_mask(img, "huang")
-  expect_equal(mask, arr_mask(img >= 5, auto_thresh(img, "h")))
+  expect_equal(mask, masked_arr(img >= 5, auto_thresh(img, "h")))
   masked <- auto_thresh_apply_mask(img, "huang")
   thresh <- auto_thresh(img, "huang")
   expect_equal(masked, threshed_arr(img %T>% {

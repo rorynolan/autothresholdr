@@ -58,7 +58,7 @@
 #'   threshold value. Pixels exceeding this threshold pass the thresholding,
 #'   pixels at or below this level fail.
 #'
-#'   `auto_thresh_mask()` returns an object of class [arr_mask] which is a
+#'   `auto_thresh_mask()` returns an object of class [masked_arr] which is a
 #'   binarized version of the input, with a value of `TRUE` at points which
 #'   exceed the threshold and `FALSE` at those which do not.
 #'
@@ -136,7 +136,11 @@ auto_thresh <- function(int_arr, method,
     checkmate::check_number(method),
     checkmate::check_string(method)
   )
-  checkmate::assert_integerish(int_arr, min.len = 1)
+  int_arr <- checkmate::assert_integerish(
+    int_arr,
+    min.len = 2, lower = 0, upper = .Machine$integer.max,
+    coerce = TRUE
+  )
   checkmate::assert_flag(ignore_black)
   checkmate::assert(
     checkmate::check_flag(ignore_white),
@@ -169,11 +173,6 @@ auto_thresh <- function(int_arr, method,
     checkmate::check_vector(int_arr, any.missing = FALSE),
     checkmate::check_array(int_arr, any.missing = FALSE)
   )
-  checkmate::assert_numeric(int_arr,
-    any.missing = FALSE,
-    lower = 0, upper = .Machine$integer.max
-  )
-  checkmate::assert_integerish(int_arr, any.missing = FALSE)
   if (is.numeric(method)) {
     thresh <- method
     return(th(thresh, NA, NA, NA, NA))
@@ -199,8 +198,8 @@ auto_thresh <- function(int_arr, method,
       int_arr[int_arr >= ignore_white] <- NA
     }
   }
-  rim <- range(int_arr, na.rm = TRUE)
-  im_hist <- factor(int_arr, levels = rim[1]:rim[2]) %>%
+  ria <- range(int_arr, na.rm = TRUE)
+  im_hist <- factor(int_arr, levels = seq(ria[1], ria[2])) %>%
     table() %>%
     as.vector()
   if (length(im_hist) < 2) {
@@ -212,7 +211,7 @@ auto_thresh <- function(int_arr, method,
       "
     )
   }
-  thresh <- eval_text(method)(im_hist)
+  thresh <- eval_text(method)(im_hist) + ria[1]
   if (thresh < 0) {
     custom_stop("'{method}' method failed to find threshold.")
   }
@@ -233,7 +232,7 @@ auto_thresh_mask <- function(int_arr, method,
     ignore_na = ignore_na
   )
   mask <- int_arr >= thresh
-  arr_mask(arr = mask, thresh = thresh)
+  masked_arr(arr = mask, thresh = thresh)
 }
 
 #' @rdname auto_thresh

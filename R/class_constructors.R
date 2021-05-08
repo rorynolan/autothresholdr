@@ -56,6 +56,14 @@ threshed_arr <- function(arr, thresh) {
   if (is.array(arr)) {
     if (!"array" %in% class(arr)) class(arr) %<>% c("array")
   }
+  if (all(c("matrix", "array") %in% class(arr))) {
+    matrix_pos <- match("matrix", class(arr))
+    array_pos <- match("array", class(arr))
+    if (matrix_pos > array_pos) {
+      class(arr)[matrix_pos] <- "array"
+      class(arr)[array_pos] <- "matrix"
+    }
+  }
   arr
 }
 
@@ -97,11 +105,11 @@ stack_threshed_img <- function(img, thresh, fail_value, stack_thresh_method) {
   img
 }
 
-#' Array mask class.
+#' Masked array class.
 #'
 #' A *mask* of an array with respect to a given threshold is found by taking the
 #' original array and setting all elements falling below the threshold to
-#' `FALSE` and the others to `TRUE`. An object of class [arr_mask] has the
+#' `FALSE` and the others to `TRUE`. An object of class [masked_arr] has the
 #' attribute `thresh` detailing the threshold value that was applied.
 #'
 #' @param arr An array of logicals (the mask).
@@ -110,16 +118,24 @@ stack_threshed_img <- function(img, thresh, fail_value, stack_thresh_method) {
 #' @return An object of class `masked_arr`.
 #'
 #' @export
-arr_mask <- function(arr, thresh) {
+masked_arr <- function(arr, thresh) {
   checkmate::assert_numeric(unlist(thresh))
   checkmate::check_logical(arr)
   attr(arr, "thresh") <- thresh
-  class(arr) %<>% c("arr_mask", .)
+  class(arr) %<>% c("masked_arr", .)
   if (is.matrix(arr)) {
     if (!"matrix" %in% class(arr)) class(arr) %<>% c("matrix")
   }
   if (is.array(arr)) {
     if (!"array" %in% class(arr)) class(arr) %<>% c("array")
+  }
+  if (all(c("matrix", "array") %in% class(arr))) {
+    matrix_pos <- match("matrix", class(arr))
+    array_pos <- match("array", class(arr))
+    if (matrix_pos > array_pos) {
+      class(arr)[matrix_pos] <- "array"
+      class(arr)[array_pos] <- "matrix"
+    }
   }
   arr
 }

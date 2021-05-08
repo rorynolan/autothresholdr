@@ -89,13 +89,3 @@ custom_stop <- function(main_message, ..., .envir = parent.frame()) {
   }
   rlang::abort(stringr::str_c(out, collapse = "\n"))
 }
-
-win32bit <- function() {
-  sys_info <- tolower(Sys.info())
-  windows <- stringr::str_detect(
-    sys_info[["sysname"]],
-    stringr::coll("windows")
-  )
-  bit64 <- stringr::str_detect(sys_info[["machine"]], stringr::coll("64"))
-  windows && (!bit64)
-}

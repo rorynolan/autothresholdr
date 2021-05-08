@@ -86,7 +86,7 @@ zero. You can also specify directly here a natural number (must be between
 threshold value. Pixels exceeding this threshold pass the thresholding,
 pixels at or below this level fail.
 
-\code{auto_thresh_mask()} returns an object of class \link{arr_mask} which is a
+\code{auto_thresh_mask()} returns an object of class \link{masked_arr} which is a
 binarized version of the input, with a value of \code{TRUE} at points which
 exceed the threshold and \code{FALSE} at those which do not.
 

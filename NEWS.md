@@ -1,3 +1,9 @@
+# `autothresholdr` 1.3.11
+
+## BUG FIXES
+* Calculated threshold was not correct for input arrays that did not contain zeros.
+
+
 # `autothresholdr` 1.3.10
 
 ## BUG FIXES
