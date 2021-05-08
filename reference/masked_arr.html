@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • autothresholdr</title>
+<title>Masked array class. — masked_arr • autothresholdr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,11 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Masked array class. — masked_arr" />
+<meta property="og:description" content="A mask of an array with respect to a given threshold is found by taking the
+original array and setting all elements falling below the threshold to
+FALSE and the others to TRUE. An object of class masked_arr has the
+attribute thresh detailing the threshold value that was applied." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -66,7 +70,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -134,78 +138,40 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Masked array class.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rorynolan/autothresholdr/blob/master/R/class_constructors.R'><code>R/class_constructors.R</code></a></small>
+    <div class="hidden name"><code>masked_arr.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>A <em>mask</em> of an array with respect to a given threshold is found by taking the
+original array and setting all elements falling below the threshold to
+<code>FALSE</code> and the others to <code>TRUE</code>. An object of class masked_arr has the
+attribute <code>thresh</code> detailing the threshold value that was applied.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>masked_arr</span><span class='op'>(</span><span class='va'>arr</span>, <span class='va'>thresh</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="auto_thresh.html">auto_thresh()</a></code> <code><a href="auto_thresh.html">auto_thresh_mask()</a></code> <code><a href="auto_thresh.html">auto_thresh_apply_mask()</a></code> <code><a href="auto_thresh.html">mask()</a></code> <code><a href="auto_thresh.html">apply_mask()</a></code> </p>
-        </td>
-        <td><p>Automatically threshold an array of non-negative integers.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="masked_arr.html">masked_arr()</a></code> </p>
-        </td>
-        <td><p>Masked array class.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="mean_stack_thresh.html">mean_stack_thresh()</a></code> </p>
-        </td>
-        <td><p>Threshold every image frame in an image stack based on their mean.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="med_stack_thresh.html">med_stack_thresh()</a></code> </p>
-        </td>
-        <td><p>Threshold every image frame in a stack based on their median.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="stack_threshed_img.html">stack_threshed_img()</a></code> </p>
-        </td>
-        <td><p>Stack-thresholded image class.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="th.html">th()</a></code> </p>
-        </td>
-        <td><p>Automatically found threshold class.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="threshed_arr.html">threshed_arr()</a></code> </p>
-        </td>
-        <td><p>Thresholded array class.</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>arr</th>
+      <td><p>An array of logicals (the mask).</p></td>
+    </tr>
+    <tr>
+      <th>thresh</th>
+      <td><p>The threshold. Either a scalar or an object of class <a href='th.html'>th</a>.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An object of class <code>masked_arr</code>.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
