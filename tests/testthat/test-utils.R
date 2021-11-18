@@ -1,5 +1,3 @@
-context("Utils")
-
 test_that("translate_fail works", {
   expect_equal(translate_fail(3, "s"), 2^8 - 1)
   expect_equal(translate_fail(2^8 + 3, "s"), 2^16 - 1)

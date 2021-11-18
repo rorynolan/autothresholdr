@@ -146,7 +146,7 @@ mean_stack_thresh <- function(img, method, fail = NA,
     if (is.numeric(method[[i]])) {
       thresh[[i]] <- method[[i]]
     } else {
-      sum_stack <- sum_pillars(img[, , i, ])
+      sum_stack <- sum_pillars(structure(img[, , i, ], dim = dim(img)[-3]))
       scaling_factor <- 1 # we do this in case the sum stack has big elements
       max32int <- 2^31 - 1
       mx <- max(sum_stack)
@@ -168,7 +168,7 @@ mean_stack_thresh <- function(img, method, fail = NA,
       !isTRUE(checkmate::check_integerish(as.vector(thresh[[i]])))) {
       class(thresh[[i]]) %<>% setdiff("integer")
     }
-    mean_stack <- mean_pillars(img[, , i, ])
+    mean_stack <- mean_pillars(structure(img[, , i, ], dim = dim(img)[-3]))
     mean_stack_mask <- mean_stack >= thresh[[i]]
     set_indices <- rep(!as.vector(mean_stack_mask), d[4])
     out[, , i, ][set_indices] <- fail
@@ -321,7 +321,7 @@ med_stack_thresh <- function(img, method, fail = NA,
       ignore_white = ignore_white,
       ignore_na = ignore_na
     )
-    med_stack <- median_pillars(img[, , i, ])
+    med_stack <- median_pillars(structure(img[, , i, ], dim = dim(img)[-3]))
     med_stack_mask <- med_stack >= thresh[[i]]
     set_indices <- rep(!as.vector(med_stack_mask), d[4])
     out[, , i, ][set_indices] <- fail

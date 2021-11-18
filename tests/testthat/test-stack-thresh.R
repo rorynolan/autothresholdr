@@ -1,8 +1,18 @@
 test_that("mean_stack_thresh works", {
-  context("mean_stack_thresh()")
   img <- ijtiff::read_tif(system.file("extdata", "50.tif",
     package = "autothresholdr"
-  ))
+  ), msg = FALSE)
+  expect_equal(
+    mean_stack_thresh(
+      img[, , 1, , drop = FALSE],
+      "Tri"
+    ),
+    mean_stack_thresh(
+      img[, , rep(1, 3), , drop = FALSE],
+      "t"
+    )[, , 1, , drop = FALSE],
+    ignore_attr = TRUE
+  )
   img_thresh_mask <- mean_stack_thresh(img, "Otsu")
   expect_equal(round(mean(img_thresh_mask, na.rm = TRUE), 2), 24.09)
   img_thresh_mask <- mean_stack_thresh(img, 13.2)
@@ -14,7 +24,6 @@ test_that("mean_stack_thresh works", {
   real_arr <- array(seq(2, 3, length.out = 8), dim = rep(2, 3))
   expect_error(mean_stack_thresh(real_arr, "tri"), "integer")
   expect_equal(sum(var_pillars(const_arr)), 0)
-  context("med_stack_thresh()")
   img_thresh_mask <- med_stack_thresh(img, "Triangle")
   expect_equal(round(mean(img_thresh_mask, na.rm = TRUE), 3), 23.583)
   expect_error(

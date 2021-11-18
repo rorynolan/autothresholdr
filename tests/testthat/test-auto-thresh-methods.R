@@ -1,19 +1,19 @@
-context("Auto thresh methods")
-
-img <- system.file("extdata", "eg.tif", package = "autothresholdr") %>%
-  ijtiff::read_tif()
+img <- ijtiff::read_tif(
+  system.file("extdata", "eg.tif", package = "autothresholdr"),
+  msg = FALSE
+)
 
 test_that("IJDefault works", {
   expect_equal(autothresholdr:::IJDefault(c(0, 2, 0)), 1,
-    check.attributes = FALSE
+    ignore_attr = TRUE
   )
 })
 
 test_that("Huang2 works", {
   expect_equal(auto_thresh(img, "Huang"), auto_thresh(img, "Huang2"),
-    check.attributes = FALSE
+    ignore_attr = TRUE
   )
-  expect_equal(Huang2(3), 0, check.attributes = FALSE)
+  expect_equal(Huang2(3), 0, ignore_attr = TRUE)
 })
 
 test_that("Intermodes works", {

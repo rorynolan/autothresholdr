@@ -1,3 +1,9 @@
+# `autothresholdr` 1.3.12
+
+## BUG FIXES
+* Bug fix for stack thresholding stacks with a single frame.
+
+
 # `autothresholdr` 1.3.11
 
 ## BUG FIXES

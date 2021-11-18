@@ -1,8 +1,8 @@
-context("Thresholding")
-
 test_that("auto_thresh works", {
-  img <- system.file("extdata", "eg.tif", package = "autothresholdr") %>%
-    ijtiff::read_tif()
+  img <- ijtiff::read_tif(
+    system.file("extdata", "eg.tif", package = "autothresholdr"),
+    msg = FALSE
+  )
   expect_equal(auto_thresh(img, "IJD"), auto_thresh(img, "default"))
   x <- th(5L, FALSE, FALSE, FALSE, "Huang")
   expect_equal(auto_thresh(img, "H"), x)
@@ -70,11 +70,10 @@ test_that("auto_thresh works", {
 })
 
 test_that("auto_thresh works with matrices", {
-  img <- system.file("extdata", "eg.tif", package = "autothresholdr") %>%
-    ijtiff::read_tif() %>%
-    {
-      .[, , 1, 1]
-    }
+  img <- ijtiff::read_tif(
+      system.file("extdata", "eg.tif", package = "autothresholdr"),
+      msg = FALSE
+  )[, , 1, 1]
   expect_equal(auto_thresh(img, "IJD"), auto_thresh(img, "default"))
   x <- th(5L, FALSE, FALSE, FALSE, "Huang")
   expect_equal(auto_thresh(img, "H"), x)
