@@ -4,13 +4,14 @@
 Algorithms for automatically finding appropriate thresholds for
 numerical data, with special functions for thresholding images.
 
-[![Travis-CI Build
-Status](https://travis-ci.org/rorynolan/autothresholdr.svg?branch=master)](https://travis-ci.org/rorynolan/autothresholdr)
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/rorynolan/autothresholdr/workflows/R-CMD-check/badge.svg)](https://github.com/rorynolan/autothresholdr/actions)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/rorynolan/autothresholdr?branch=master&svg=true)](https://ci.appveyor.com/project/rorynolan/autothresholdr)
 [![codecov](https://codecov.io/gh/rorynolan/autothresholdr/branch/master/graph/badge.svg)](https://codecov.io/gh/rorynolan/autothresholdr)
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/autothresholdr)](https://cran.r-project.org/package=autothresholdr)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/autothresholdr)](https://cran.r-project.org/package=autothresholdr)
 ![RStudio CRAN total
 downloads](http://cranlogs.r-pkg.org/badges/grand-total/autothresholdr)
 [![RStudio CRAN monthly
@@ -21,6 +22,7 @@ downloads](http://cranlogs.r-pkg.org/badges/autothresholdr)](https://cran.r-proj
 state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+<!-- badges: end -->
 
 ## Installation
 
