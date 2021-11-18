@@ -48,7 +48,7 @@ tibble(x = x) %>%
   stat_density(bw = 3)
 ```
 
-If you're trying to threshold this sort of data, you're probably looking for a method which will find a threshold that separates the larger values from the smaller ones. The available automatic thresholding methods are "IJDefault", "Huang", "Huang2", "Intermodes", "IsoData", "Li", "MaxEntropy", "Mean", "MinErrorI", "Minimum", "Moments", "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle" and "Yen". These are well demonstrated at https://imagej.net/Auto_Threshold. 
+If you're trying to threshold this sort of data, you're probably looking for a method which will find a threshold that separates the larger values from the smaller ones. The available automatic thresholding methods are "IJDefault", "Huang", "Huang2", "Intermodes", "IsoData", "Li", "MaxEntropy", "Mean", "MinErrorI", "Minimum", "Moments", "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle" and "Yen". These are well demonstrated at https://imagej.net/plugins/auto-threshold. 
 
 
 ## Trying all methods

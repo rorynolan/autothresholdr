@@ -4,7 +4,7 @@
 #' methods. The available methods are "IJDefault", "Huang", "Huang2",
 #' "Intermodes", "IsoData", "Li", "MaxEntropy", "Mean", "MinErrorI", "Minimum",
 #' "Moments", "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle" and
-#' "Yen". Read about them at \url{https://imagej.net/Auto_Threshold}.
+#' "Yen". Read about them at \url{https://imagej.net/plugins/auto-threshold}.
 #'
 #'
 #' \itemize{\item Values greater than or equal to the found threshold

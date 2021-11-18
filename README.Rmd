@@ -13,7 +13,7 @@ Algorithms for automatically finding appropriate thresholds for numerical data, 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/rorynolan/autothresholdr/workflows/R-CMD-check/badge.svg)](https://github.com/rorynolan/autothresholdr/actions)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rorynolan/autothresholdr?branch=master&svg=true)](https://ci.appveyor.com/project/rorynolan/autothresholdr)
-[![codecov](https://codecov.io/gh/rorynolan/autothresholdr/branch/master/graph/badge.svg)](https://codecov.io/gh/rorynolan/autothresholdr)
+[![codecov](https://app.codecov.io/gh/rorynolan/autothresholdr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/rorynolan/autothresholdr)
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/autothresholdr)](https://cran.r-project.org/package=autothresholdr)
 ![RStudio CRAN total downloads](http://cranlogs.r-pkg.org/badges/grand-total/autothresholdr)
