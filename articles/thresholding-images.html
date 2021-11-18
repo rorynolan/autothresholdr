@@ -138,7 +138,7 @@
 <span class="co">#&gt;     - Install `BiocManager` with `install.packages("BiocManager")`.</span>
 <span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></code></pre></div>
 <p><img src="thresholding-images_files/figure-html/guess%20twenty-1.png" width="672"></p>
-<p>But what if we have many images and we don’t want to <em>play around</em>, we want a method of calculating the threshold automatically. <a href="https://imagej.net/Auto_Threshold" class="uri">https://imagej.net/Auto_Threshold</a> gives many such methods and they are provided to you in R via this package. Go to that webpage for a nice comparison of the methods.</p>
+<p>But what if we have many images and we don’t want to <em>play around</em>, we want a method of calculating the threshold automatically. <a href="https://imagej.net/plugins/auto-threshold" class="uri">https://imagej.net/plugins/auto-threshold</a> gives many such methods and they are provided to you in R via this package. Go to that webpage for a nice comparison of the methods.</p>
 <p>The function <code><a href="../reference/auto_thresh.html">auto_thresh()</a></code> finds the threshold, <code><a href="../reference/auto_thresh.html">mask()</a></code> gets the mask (an array with a <code>TRUE</code> for elements exceeding the threshold and <code>FALSE</code> elsewhere) and <code><a href="../reference/auto_thresh.html">apply_mask()</a></code> applies the mask to the original image by setting the elements that don’t exceed the threshold to <code>NA</code>.</p>
 <p>Let’s see each with “Triangle” thresholding.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
