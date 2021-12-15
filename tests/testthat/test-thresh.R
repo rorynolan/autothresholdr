@@ -6,6 +6,17 @@ test_that("auto_thresh works", {
   expect_equal(auto_thresh(img, "IJD"), auto_thresh(img, "default"))
   x <- th(5L, FALSE, FALSE, FALSE, "Huang")
   expect_equal(auto_thresh(img, "H"), x)
+  img_value_count <- magrittr::set_names(as.data.frame(table(img)),
+                                         c("value", "n"))
+  expect_equal(
+    auto_thresh(img_value_count, "tri"),
+    auto_thresh(rbind(img_value_count, data.frame(value = "999", n = 0)), "tri")
+  )
+  expect_equal(
+    auto_thresh(img, "tri", ignore_white = TRUE),
+    auto_thresh(c(as.vector(img), 2^16 - 1), "tri", ignore_white = TRUE)
+  )
+  expect_equal(auto_thresh(img_value_count, "H"), auto_thresh(img, "H"))
   expect_equal(
     auto_thresh(img, "huang", ignore_white = TRUE),
     x %T>% {

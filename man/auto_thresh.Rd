@@ -105,9 +105,10 @@ methods. The available methods are "IJDefault", "Huang", "Huang2",
 "Yen". Read about them at \url{https://imagej.net/plugins/auto-threshold}.
 }
 \details{
-\itemize{\item Values greater than or equal to the found threshold
+\itemize{
+\item{Values greater than or equal to the found threshold
 \emph{pass} the thresholding and values less than the threshold \emph{fail}
-the thresholding.
+the thresholding.}
 
 \item{For \code{ignore_white = TRUE}, if the maximum value in the array is one of
 \code{2^8-1}, \code{2^12-1}, \code{2^16-1} or \code{2^32-1}, then those max values are ignored.
@@ -123,8 +124,15 @@ you are still getting error/warning messages telling you to try them, then
 your chosen method is not working for the given array, so you should try a
 different method.}
 
-\item For a given array, if all values are less than \code{2^8}, saturated value
-is \code{2^8 - 1}, otherwise, saturated value is \code{2^16 - 1}. }
+\item{For a given array, if all values are less than \code{2^8}, saturated value
+is \code{2^8 - 1}, otherwise, if all values are less than \code{2^16}, the saturated
+value is \code{2^16 - 1}, otherwise the saturated value is \code{2^32-1}.}
+
+\item{For the \code{\link[=auto_thresh]{auto_thresh()}} function, if you pass \code{int_arr} as a data frame
+with column names \code{value} and \code{n}, that's the same as passing an integer
+array having \code{n} entries of each \code{value}. For this form of \code{int_arr},
+\code{ignore_white} and \code{ignore_black} are irrelevant.}
+}
 }
 \section{Acknowledgements}{
  Gabriel Landini coded all of these functions in
@@ -136,6 +144,10 @@ Java. These java functions were then translated to C++.
 img_location <- system.file("extdata", "eg.tif", package = "autothresholdr")
 img <- ijtiff::read_tif(img_location)
 auto_thresh(img, "huang")
+img_value_count <- magrittr::set_names(as.data.frame(table(img)),
+                                      c("value", "n"))
+print(head(img_value_count))
+auto_thresh(img_value_count, "Huang")
 auto_thresh(img, "tri")
 auto_thresh(img, "Otsu")
 auto_thresh(img, 9)

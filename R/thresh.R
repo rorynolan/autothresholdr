@@ -7,9 +7,10 @@
 #' "Yen". Read about them at \url{https://imagej.net/plugins/auto-threshold}.
 #'
 #'
-#' \itemize{\item Values greater than or equal to the found threshold
+#' \itemize{
+#' \item{Values greater than or equal to the found threshold
 #' \emph{pass} the thresholding and values less than the threshold \emph{fail}
-#' the thresholding.
+#' the thresholding.}
 #'
 #' \item{For `ignore_white = TRUE`, if the maximum value in the array is one of
 #' `2^8-1`, `2^12-1`, `2^16-1` or `2^32-1`, then those max values are ignored.
@@ -25,8 +26,15 @@
 #' your chosen method is not working for the given array, so you should try a
 #' different method.}
 #'
-#' \item For a given array, if all values are less than `2^8`, saturated value
-#' is `2^8 - 1`, otherwise, saturated value is `2^16 - 1`. }
+#' \item{For a given array, if all values are less than `2^8`, saturated value
+#' is `2^8 - 1`, otherwise, if all values are less than `2^16`, the saturated
+#' value is `2^16 - 1`, otherwise the saturated value is `2^32-1`.}
+#'
+#' \item{For the [auto_thresh()] function, if you pass `int_arr` as a data frame
+#' with column names `value` and `n`, that's the same as passing an integer
+#' array having `n` entries of each `value`. For this form of `int_arr`,
+#' `ignore_white` and `ignore_black` are irrelevant.}
+#' }
 #'
 #' @param int_arr An array (or vector) of non-negative \emph{integers}.
 #' @param method The name of the thresholding method you wish to use. The
@@ -117,6 +125,10 @@
 #' img_location <- system.file("extdata", "eg.tif", package = "autothresholdr")
 #' img <- ijtiff::read_tif(img_location)
 #' auto_thresh(img, "huang")
+#' img_value_count <- magrittr::set_names(as.data.frame(table(img)),
+#'                                       c("value", "n"))
+#' print(head(img_value_count))
+#' auto_thresh(img_value_count, "Huang")
 #' auto_thresh(img, "tri")
 #' auto_thresh(img, "Otsu")
 #' auto_thresh(img, 9)
@@ -131,77 +143,42 @@
 auto_thresh <- function(int_arr, method,
                         ignore_black = FALSE, ignore_white = FALSE,
                         ignore_na = FALSE) {
-  checkmate::assert_scalar(method)
-  checkmate::assert(
-    checkmate::check_number(method),
-    checkmate::check_string(method)
-  )
-  int_arr <- checkmate::assert_integerish(
-    int_arr,
-    min.len = 2, lower = 0, upper = .Machine$integer.max,
-    coerce = TRUE
-  )
-  checkmate::assert_flag(ignore_black)
-  checkmate::assert(
-    checkmate::check_flag(ignore_white),
-    checkmate::check_number(ignore_white, lower = 0)
-  )
-  checkmate::assert_flag(ignore_na)
-  if (all(is.na(int_arr))) {
-    custom_stop(
-      "`int_arr` must not be all `NA`s.",
-      "Every element of your `int_arr` is `NA`."
-    )
-  }
-  if (anyNA(int_arr)) {
-    if (!ignore_na) {
-      custom_stop(
-        "
-        The input `int_arr` has NA values, but you have `ignore_na = FALSE`, so
-        the function `auto_thresh()` has errored.
-        ",
-        "
-        To tell `auto_thresh()` to ignore `NA` values, set the argument
-        `ignore_na = TRUE`.
-        "
-      )
-    } else {
-      int_arr <- int_arr[!is.na(int_arr)]
-    }
-  }
-  checkmate::assert(
-    checkmate::check_vector(int_arr, any.missing = FALSE),
-    checkmate::check_array(int_arr, any.missing = FALSE)
-  )
+  checked_args <- argchk_auto_thresh(int_arr = int_arr, method = method,
+                                     ignore_black = ignore_black,
+                                     ignore_white = ignore_white,
+                                     ignore_na = ignore_na)
+  int_arr <- checked_args$int_arr
+  method <- checked_args$method
   if (is.numeric(method)) {
     thresh <- method
     return(th(thresh, NA, NA, NA, NA))
   }
-  method <- tolower(method)
-  if (startsWith("default", method)) method <- "IJDefault"
-  if (startsWith("huang", method)) method <- "Huang"
-  available_methods <- c(
-    "IJDefault", "Huang", "Huang2", "Intermodes",
-    "IsoData", "Li", "MaxEntropy", "Mean", "MinErrorI",
-    "Minimum", "Moments", "Otsu", "Percentile",
-    "RenyiEntropy", "Shanbhag", "Triangle", "Yen"
-  )
-  method <- strex::match_arg(method, available_methods,
-    ignore_case = TRUE
-  )
-  if (ignore_black) int_arr[int_arr == 0] <- NA
-  if (ignore_white) {
-    if (isTRUE(ignore_white)) {
-      mx <- max(int_arr)
-      if (mx %in% (2^c(8, 12, 16, 32) - 1)) int_arr[int_arr == mx] <- NA
-    } else {
-      int_arr[int_arr >= ignore_white] <- NA
+  if (is.data.frame(int_arr)) {
+    ria <- range(int_arr$value, na.rm = TRUE)
+    unmentioned_values <- setdiff(seq(ria[1], ria[2]), int_arr$value)
+    if (length(unmentioned_values)) {
+      complement <- data.frame(
+        value = setdiff(seq(ria[1], ria[2]), int_arr$value),
+        n = 0
+      )
+      int_arr <- rbind(int_arr, complement)
     }
+    im_hist <- int_arr[order(int_arr$value), ]$n
+  } else {
+    if (ignore_black) int_arr[int_arr == 0] <- NA
+    if (ignore_white) {
+      if (isTRUE(ignore_white)) {
+        mx <- max(int_arr)
+        if (mx %in% (2^c(8, 12, 16, 32) - 1)) int_arr[int_arr == mx] <- NA
+      } else {
+        int_arr[int_arr >= ignore_white] <- NA
+      }
+    }
+    ria <- range(int_arr, na.rm = TRUE)
+    im_hist <- factor(int_arr, levels = seq(ria[1], ria[2])) %>%
+      table() %>%
+      as.vector()
   }
-  ria <- range(int_arr, na.rm = TRUE)
-  im_hist <- factor(int_arr, levels = seq(ria[1], ria[2])) %>%
-    table() %>%
-    as.vector()
   if (length(im_hist) < 2) {
     custom_stop(
       "Cannot threshold an array with only one unique value. ",

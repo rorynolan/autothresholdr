@@ -83,3 +83,22 @@ auto_thresh(x, "huang")
 auto_thresh(x, "tri")
 auto_thresh(x, "otsu")
 ```
+
+
+## Using a frequency table
+
+Rather than an array of values, you may have a frequency table. I'll create one here from `x`. 
+
+```{r freq1}
+x_freqtab <- x %>% 
+  table() %>% 
+  as.data.frame() %>% 
+  magrittr::set_names(c("value", "n"))
+head(x_freqtab)
+```
+
+If you have the data in this format (a data frame with column names `value` and `n`) you can use the same function `auto_thresh()`.
+
+```{r freq2}
+auto_thresh(x_freqtab, "huang")
+```

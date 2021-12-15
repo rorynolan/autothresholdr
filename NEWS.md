@@ -1,3 +1,10 @@
+# `autothresholdr` 1.4.0
+
+## NEW FEATURES
+
+* Calculation of thresholds from frequency tables.
+
+
 # `autothresholdr` 1.3.12
 
 ## BUG FIXES
