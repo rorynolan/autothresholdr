@@ -54,13 +54,7 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
       - name: Install system dependencies
-        if: runner.os == 'Linux'
-        run: |
-          while read -r cmd
-          do
-            eval sudo $cmd
-          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
-          sudo apt-get install -y libwebp-dev libzstd-dev
+        run: 'sudo apt-get install -y libwebp-dev libzstd-dev'
 
       - name: Install dependencies
         run: |
