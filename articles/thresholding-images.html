@@ -88,7 +88,7 @@
 
       
 
-      </header><script src="thresholding-images_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Thresholding Images</h1>
@@ -105,7 +105,10 @@
 <div class="section level2">
 <h2 id="thresholding-images">Thresholding Images<a class="anchor" aria-label="anchor" href="#thresholding-images"></a>
 </h2>
-<p>Although this package is for thresholding anything at all, it has added functionality for thresholding images. This vignette is all about thresholding single-frame, grayscale images. There’s <a href="https://rorynolan.github.io/autothresholdr/articles/thresholding-image-stacks.html" class="external-link">another vignette</a> about thresholding stacks of grayscale images.</p>
+<p>Although this package is for thresholding anything at all, it has
+added functionality for thresholding images. This vignette is all about
+thresholding single-frame, grayscale images. There’s <a href="https://rorynolan.github.io/autothresholdr/articles/thresholding-image-stacks.html" class="external-link">another
+vignette</a> about thresholding stacks of grayscale images.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rorynolan.github.io/autothresholdr/" class="external-link">autothresholdr</a></span><span class="op">)</span></span></code></pre></div>
 <p>We’ll be using the image that comes with the package:</p>
@@ -125,7 +128,10 @@
 <span><span class="co">#&gt;     - Install `BiocManager` with `install.packages("BiocManager")`.</span></span>
 <span><span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></span></code></pre></div>
 <p><img src="thresholding-images_files/figure-html/the%20image-1.png" width="672"></p>
-<p>It’s a picture of cells, the black part is where the cells are not. The threshold is supposed to tell us what is <em>dark</em> (not cell) and what is <em>bright</em> (cell). By playing around, we may discover that something like 20 might (for some purposes) be a good value.</p>
+<p>It’s a picture of cells, the black part is where the cells are not.
+The threshold is supposed to tell us what is <em>dark</em> (not cell)
+and what is <em>bright</em> (cell). By playing around, we may discover
+that something like 20 might (for some purposes) be a good value.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/display.html" class="external-link">display</a></span><span class="op">(</span><span class="va">img</span><span class="op">[</span>, , <span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&gt;</span> <span class="fl">20</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Using basic display functionality.</span></span>
@@ -134,8 +140,17 @@
 <span><span class="co">#&gt;     - Install `BiocManager` with `install.packages("BiocManager")`.</span></span>
 <span><span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></span></code></pre></div>
 <p><img src="thresholding-images_files/figure-html/guess%20twenty-1.png" width="672"></p>
-<p>But what if we have many images and we don’t want to <em>play around</em>, we want a method of calculating the threshold automatically. <a href="https://imagej.net/plugins/auto-threshold" class="external-link uri">https://imagej.net/plugins/auto-threshold</a> gives many such methods and they are provided to you in R via this package. Go to that webpage for a nice comparison of the methods.</p>
-<p>The function <code><a href="../reference/auto_thresh.html">auto_thresh()</a></code> finds the threshold, <code><a href="../reference/auto_thresh.html">mask()</a></code> gets the mask (an array with a <code>TRUE</code> for elements exceeding the threshold and <code>FALSE</code> elsewhere) and <code><a href="../reference/auto_thresh.html">apply_mask()</a></code> applies the mask to the original image by setting the elements that don’t exceed the threshold to <code>NA</code>.</p>
+<p>But what if we have many images and we don’t want to <em>play
+around</em>, we want a method of calculating the threshold
+automatically. <a href="https://imagej.net/plugins/auto-threshold" class="external-link uri">https://imagej.net/plugins/auto-threshold</a> gives many
+such methods and they are provided to you in R via this package. Go to
+that webpage for a nice comparison of the methods.</p>
+<p>The function <code><a href="../reference/auto_thresh.html">auto_thresh()</a></code> finds the threshold,
+<code><a href="../reference/auto_thresh.html">mask()</a></code> gets the mask (an array with a <code>TRUE</code> for
+elements exceeding the threshold and <code>FALSE</code> elsewhere) and
+<code><a href="../reference/auto_thresh.html">apply_mask()</a></code> applies the mask to the original image by
+setting the elements that don’t exceed the threshold to
+<code>NA</code>.</p>
 <p>Let’s see each with “Triangle” thresholding.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/auto_thresh.html">auto_thresh</a></span><span class="op">(</span><span class="va">img</span>, <span class="st">"tri"</span><span class="op">)</span></span>
