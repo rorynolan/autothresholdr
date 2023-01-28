@@ -20,7 +20,7 @@ attribute thresh detailing the threshold value that was applied."><meta property
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autothresholdr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.1</span>
       </span>
     </div>
 
@@ -29,7 +29,7 @@ attribute thresh detailing the threshold value that was applied."><meta property
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -75,19 +75,24 @@ attribute <code>thresh</code> detailing the threshold value that was applied.</p
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">masked_arr</span><span class="op">(</span><span class="va">arr</span>, <span class="va">thresh</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">masked_arr</span><span class="op">(</span><span class="va">arr</span>, <span class="va">thresh</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>arr</dt>
 <dd><p>An array of logicals (the mask).</p></dd>
+
+
 <dt>thresh</dt>
 <dd><p>The threshold. Either a scalar or an object of class <a href="th.html">th</a>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object of class <code>masked_arr</code>.</p>
+    
+
+<p>An object of class <code>masked_arr</code>.</p>
     </div>
 
   </div>
@@ -102,7 +107,7 @@ attribute <code>thresh</code> detailing the threshold value that was applied.</p
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

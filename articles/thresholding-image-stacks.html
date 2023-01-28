@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autothresholdr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.1</span>
       </span>
     </div>
 
@@ -50,7 +50,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -93,7 +93,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Thresholding Image Stacks</h1>
             
-            <h4 data-toc-skip class="date">2022-01-02</h4>
+            <h4 data-toc-skip class="date">2023-01-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rorynolan/autothresholdr/blob/HEAD/vignettes/thresholding-image-stacks.Rmd" class="external-link"><code>vignettes/thresholding-image-stacks.Rmd</code></a></small>
       <div class="hidden name"><code>thresholding-image-stacks.Rmd</code></div>
@@ -107,82 +107,82 @@
 </h2>
 <p><code>50.tif</code> is a TIFF file which is a stack of 50 images of a bit of a cell taken over a short space of time (i.e. it’s a video).</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">img</span> <span class="op">&lt;-</span> <span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/read_tif.html" class="external-link">read_tif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"50.tif"</span>,
-  package <span class="op">=</span> <span class="st">"autothresholdr"</span>
-<span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Reading 50.tif: an 8-bit, 100x100 pixel image of unsigned</span>
-<span class="co">#&gt; integer type. Reading 1 channel and 50 frames . . .</span>
-<span class="co">#&gt;  Done.</span>
-<span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">img</span><span class="op">)</span>
-<span class="co">#&gt; [1] 100 100   1  50</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">img</span> <span class="op">&lt;-</span> <span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/read_tif.html" class="external-link">read_tif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"50.tif"</span>,</span>
+<span>  package <span class="op">=</span> <span class="st">"autothresholdr"</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Reading 50.tif: an 8-bit, 100x100 pixel image of unsigned</span></span>
+<span><span class="co">#&gt; integer type. Reading 1 channel and 50 frames . . .</span></span>
+<span><span class="co">#&gt; Done.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">img</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 100 100   1  50</span></span></code></pre></div>
 <p>Let’s display the first 3 frames:</p>
-<pre><code><span class="co">#&gt; Using basic display functionality.</span>
-<span class="co">#&gt;   * For better display functionality, install the EBImage package.</span>
-<span class="co">#&gt;   * To install `EBImage`:</span>
-<span class="co">#&gt;     - Install `BiocManager` with `install.packages("BiocManager")`.</span>
-<span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></code></pre>
+<pre><code><span><span class="co">#&gt; Using basic display functionality.</span></span>
+<span><span class="co">#&gt;   * For better display functionality, install the EBImage package.</span></span>
+<span><span class="co">#&gt;   * To install `EBImage`:</span></span>
+<span><span class="co">#&gt;     - Install `BiocManager` with `install.packages("BiocManager")`.</span></span>
+<span><span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></span></code></pre>
 <p><img src="thresholding-image-stacks_files/figure-html/first-3-frames-1.png" width="672"></p>
 <p>and the last 3 frames:</p>
-<pre><code><span class="co">#&gt; Using basic display functionality.</span>
-<span class="co">#&gt;   * For better display functionality, install the EBImage package.</span>
-<span class="co">#&gt;   * To install `EBImage`:</span>
-<span class="co">#&gt;     - Install `BiocManager` with `install.packages("BiocManager")`.</span>
-<span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></code></pre>
+<pre><code><span><span class="co">#&gt; Using basic display functionality.</span></span>
+<span><span class="co">#&gt;   * For better display functionality, install the EBImage package.</span></span>
+<span><span class="co">#&gt;   * To install `EBImage`:</span></span>
+<span><span class="co">#&gt;     - Install `BiocManager` with `install.packages("BiocManager")`.</span></span>
+<span><span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></span></code></pre>
 <p><img src="thresholding-image-stacks_files/figure-html/last-3-frames-1.png" width="672"></p>
 <p>You’ll notice that these images are almost identical. That’s because they’re images of the same area taken very quickly one after another. There are two ways to threshold an image stack like this. One is the naiive way: find a threshold based on every pixel in the stack, then pixels below the threshold are excluded (set to <code>NA</code>). Let’s try that:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rorynolan.github.io/autothresholdr/" class="external-link">autothresholdr</a></span><span class="op">)</span>
-<span class="va">naiively_threshed_img</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/auto_thresh.html">apply_mask</a></span><span class="op">(</span><span class="va">img</span>, <span class="st">"tri"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">naiively_threshed_img</span>, <span class="st">"thresh"</span><span class="op">)</span> <span class="co"># The threshold chosen by "Triangle" is 4</span>
-<span class="co">#&gt; [1] 4</span>
-<span class="co">#&gt; attr(,"ignore_black")</span>
-<span class="co">#&gt; [1] FALSE</span>
-<span class="co">#&gt; attr(,"ignore_white")</span>
-<span class="co">#&gt; [1] FALSE</span>
-<span class="co">#&gt; attr(,"ignore_na")</span>
-<span class="co">#&gt; [1] FALSE</span>
-<span class="co">#&gt; attr(,"autothresh_method")</span>
-<span class="co">#&gt; [1] "Triangle"</span>
-<span class="co">#&gt; attr(,"class")</span>
-<span class="co">#&gt; [1] "th"      "integer"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rorynolan.github.io/autothresholdr/" class="external-link">autothresholdr</a></span><span class="op">)</span></span>
+<span><span class="va">naiively_threshed_img</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/auto_thresh.html">apply_mask</a></span><span class="op">(</span><span class="va">img</span>, <span class="st">"tri"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">naiively_threshed_img</span>, <span class="st">"thresh"</span><span class="op">)</span> <span class="co"># The threshold chosen by "Triangle" is 4</span></span>
+<span><span class="co">#&gt; [1] 4</span></span>
+<span><span class="co">#&gt; attr(,"ignore_black")</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span>
+<span><span class="co">#&gt; attr(,"ignore_white")</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span>
+<span><span class="co">#&gt; attr(,"ignore_na")</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span>
+<span><span class="co">#&gt; attr(,"autothresh_method")</span></span>
+<span><span class="co">#&gt; [1] "Triangle"</span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "th"      "integer"</span></span></code></pre></div>
 <p>Now let’s display the first 3 frames and the last 3 frames:</p>
-<pre><code><span class="co">#&gt; Using basic display functionality.</span>
-<span class="co">#&gt;   * For better display functionality, install the EBImage package.</span>
-<span class="co">#&gt;   * To install `EBImage`:</span>
-<span class="co">#&gt;     - Install `BiocManager` with `install.packages("BiocManager")`.</span>
-<span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></code></pre>
+<pre><code><span><span class="co">#&gt; Using basic display functionality.</span></span>
+<span><span class="co">#&gt;   * For better display functionality, install the EBImage package.</span></span>
+<span><span class="co">#&gt;   * To install `EBImage`:</span></span>
+<span><span class="co">#&gt;     - Install `BiocManager` with `install.packages("BiocManager")`.</span></span>
+<span><span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></span></code></pre>
 <p><img src="thresholding-image-stacks_files/figure-html/naiive-first-3-frames-1.png" width="672"></p>
-<pre><code><span class="co">#&gt; Using basic display functionality.</span>
-<span class="co">#&gt;   * For better display functionality, install the EBImage package.</span>
-<span class="co">#&gt;   * To install `EBImage`:</span>
-<span class="co">#&gt;     - Install `BiocManager` with `install.packages("BiocManager")`.</span>
-<span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></code></pre>
+<pre><code><span><span class="co">#&gt; Using basic display functionality.</span></span>
+<span><span class="co">#&gt;   * For better display functionality, install the EBImage package.</span></span>
+<span><span class="co">#&gt;   * To install `EBImage`:</span></span>
+<span><span class="co">#&gt;     - Install `BiocManager` with `install.packages("BiocManager")`.</span></span>
+<span><span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></span></code></pre>
 <p><img src="thresholding-image-stacks_files/figure-html/naiive-last-3-frames-1.png" width="672"></p>
 <p>If you look closely, you can see that the threshold mask is (slightly) different for different frames. Let’s highlight the pixels which are sometimes thresholded away, sometimes not:</p>
-<pre><code><span class="co">#&gt; Using basic display functionality.</span>
-<span class="co">#&gt;   * For better display functionality, install the EBImage package.</span>
-<span class="co">#&gt;   * To install `EBImage`:</span>
-<span class="co">#&gt;     - Install `BiocManager` with `install.packages("BiocManager")`.</span>
-<span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></code></pre>
+<pre><code><span><span class="co">#&gt; Using basic display functionality.</span></span>
+<span><span class="co">#&gt;   * For better display functionality, install the EBImage package.</span></span>
+<span><span class="co">#&gt;   * To install `EBImage`:</span></span>
+<span><span class="co">#&gt;     - Install `BiocManager` with `install.packages("BiocManager")`.</span></span>
+<span><span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></span></code></pre>
 <p><img src="thresholding-image-stacks_files/figure-html/sometimes-sometimes-not-1.png" width="672"></p>
 <p>So (unsurprisingly), it seems that around the edges of the cell (where the signal from the cell is more feint), the pixels are sometimes thresholded away, sometimes not. There are also some seemingly random pixels within the cell which are sometimes thresholded away, sometimes not.</p>
 <p>Now, given that you know that the cell is more or less stationary and you want the threshold to get rid of the <em>non-cell</em> bits and keep the <em>cell</em> bits, its reasonable to assert that the mask should be the same for every frame. It’s possible to apply the same mask to every frame, and to compute this mask, it makes sense to incorporate information from all of the frames. This is what <code><a href="../reference/mean_stack_thresh.html">mean_stack_thresh()</a></code> and <code><a href="../reference/med_stack_thresh.html">med_stack_thresh()</a></code> do. <code><a href="../reference/mean_stack_thresh.html">mean_stack_thresh()</a></code> computes the mask based on the mean of all of the frames (gotten by calculating the mean intensity of the stack at each pixel position). <code><a href="../reference/med_stack_thresh.html">med_stack_thresh()</a></code> uses the median instead of the mean. They’re both very similar. If you don’t know which one to use, just use <code><a href="../reference/mean_stack_thresh.html">mean_stack_thresh()</a></code>.</p>
 <p>Let’s visualize them both:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/display.html" class="external-link">display</a></span><span class="op">(</span><span class="fu"><a href="../reference/mean_stack_thresh.html">mean_stack_thresh</a></span><span class="op">(</span><span class="va">img</span>, <span class="st">"tri"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Using basic display functionality.</span>
-<span class="co">#&gt;   * For better display functionality, install the EBImage package.</span>
-<span class="co">#&gt;   * To install `EBImage`:</span>
-<span class="co">#&gt;     - Install `BiocManager` with `install.packages("BiocManager")`.</span>
-<span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/display.html" class="external-link">display</a></span><span class="op">(</span><span class="fu"><a href="../reference/mean_stack_thresh.html">mean_stack_thresh</a></span><span class="op">(</span><span class="va">img</span>, <span class="st">"tri"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Using basic display functionality.</span></span>
+<span><span class="co">#&gt;   * For better display functionality, install the EBImage package.</span></span>
+<span><span class="co">#&gt;   * To install `EBImage`:</span></span>
+<span><span class="co">#&gt;     - Install `BiocManager` with `install.packages("BiocManager")`.</span></span>
+<span><span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></span></code></pre></div>
 <p><img src="thresholding-image-stacks_files/figure-html/stack-threshs-1.png" width="672"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/display.html" class="external-link">display</a></span><span class="op">(</span><span class="fu"><a href="../reference/med_stack_thresh.html">med_stack_thresh</a></span><span class="op">(</span><span class="va">img</span>, <span class="st">"tri"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Using basic display functionality.</span>
-<span class="co">#&gt;   * For better display functionality, install the EBImage package.</span>
-<span class="co">#&gt;   * To install `EBImage`:</span>
-<span class="co">#&gt;     - Install `BiocManager` with `install.packages("BiocManager")`.</span>
-<span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/display.html" class="external-link">display</a></span><span class="op">(</span><span class="fu"><a href="../reference/med_stack_thresh.html">med_stack_thresh</a></span><span class="op">(</span><span class="va">img</span>, <span class="st">"tri"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Using basic display functionality.</span></span>
+<span><span class="co">#&gt;   * For better display functionality, install the EBImage package.</span></span>
+<span><span class="co">#&gt;   * To install `EBImage`:</span></span>
+<span><span class="co">#&gt;     - Install `BiocManager` with `install.packages("BiocManager")`.</span></span>
+<span><span class="co">#&gt;     - Then run `BiocManager::install("EBImage")`.</span></span></code></pre></div>
 <p><img src="thresholding-image-stacks_files/figure-html/stack-threshs-2.png" width="672"></p>
 <p>You can see that the results of <code><a href="../reference/mean_stack_thresh.html">mean_stack_thresh()</a></code> and <code><a href="../reference/med_stack_thresh.html">med_stack_thresh()</a></code> are similar but not identical. Both do a fine job.</p>
 <p>Note that if the cell (or whatever is recorded over the course of several frames) is not stationary (or almost stationary), then <code><a href="../reference/mean_stack_thresh.html">mean_stack_thresh()</a></code> and <code><a href="../reference/med_stack_thresh.html">med_stack_thresh()</a></code> are not appropriate.</p>
@@ -206,7 +206,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

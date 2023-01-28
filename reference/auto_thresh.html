@@ -21,7 +21,7 @@ methods. The available methods are &quot;IJDefault&quot;, &quot;Huang&quot;, &qu
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autothresholdr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.1</span>
       </span>
     </div>
 
@@ -30,7 +30,7 @@ methods. The available methods are &quot;IJDefault&quot;, &quot;Huang&quot;, &qu
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -77,53 +77,55 @@ methods. The available methods are "IJDefault", "Huang", "Huang2",
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">auto_thresh</span><span class="op">(</span>
-  <span class="va">int_arr</span>,
-  <span class="va">method</span>,
-  ignore_black <span class="op">=</span> <span class="cn">FALSE</span>,
-  ignore_white <span class="op">=</span> <span class="cn">FALSE</span>,
-  ignore_na <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">auto_thresh_mask</span><span class="op">(</span>
-  <span class="va">int_arr</span>,
-  <span class="va">method</span>,
-  ignore_black <span class="op">=</span> <span class="cn">FALSE</span>,
-  ignore_white <span class="op">=</span> <span class="cn">FALSE</span>,
-  ignore_na <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">auto_thresh_apply_mask</span><span class="op">(</span>
-  <span class="va">int_arr</span>,
-  <span class="va">method</span>,
-  fail <span class="op">=</span> <span class="cn">NA</span>,
-  ignore_black <span class="op">=</span> <span class="cn">FALSE</span>,
-  ignore_white <span class="op">=</span> <span class="cn">FALSE</span>,
-  ignore_na <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">mask</span><span class="op">(</span>
-  <span class="va">int_arr</span>,
-  <span class="va">method</span>,
-  ignore_black <span class="op">=</span> <span class="cn">FALSE</span>,
-  ignore_white <span class="op">=</span> <span class="cn">FALSE</span>,
-  ignore_na <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">apply_mask</span><span class="op">(</span>
-  <span class="va">int_arr</span>,
-  <span class="va">method</span>,
-  fail <span class="op">=</span> <span class="cn">NA</span>,
-  ignore_black <span class="op">=</span> <span class="cn">FALSE</span>,
-  ignore_white <span class="op">=</span> <span class="cn">FALSE</span>,
-  ignore_na <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">auto_thresh</span><span class="op">(</span></span>
+<span>  <span class="va">int_arr</span>,</span>
+<span>  <span class="va">method</span>,</span>
+<span>  ignore_black <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ignore_white <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ignore_na <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">auto_thresh_mask</span><span class="op">(</span></span>
+<span>  <span class="va">int_arr</span>,</span>
+<span>  <span class="va">method</span>,</span>
+<span>  ignore_black <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ignore_white <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ignore_na <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">auto_thresh_apply_mask</span><span class="op">(</span></span>
+<span>  <span class="va">int_arr</span>,</span>
+<span>  <span class="va">method</span>,</span>
+<span>  fail <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  ignore_black <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ignore_white <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ignore_na <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mask</span><span class="op">(</span></span>
+<span>  <span class="va">int_arr</span>,</span>
+<span>  <span class="va">method</span>,</span>
+<span>  ignore_black <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ignore_white <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ignore_na <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">apply_mask</span><span class="op">(</span></span>
+<span>  <span class="va">int_arr</span>,</span>
+<span>  <span class="va">method</span>,</span>
+<span>  fail <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  ignore_black <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ignore_white <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ignore_na <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>int_arr</dt>
 <dd><p>An array (or vector) of non-negative <em>integers</em>.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>The name of the thresholding method you wish to use. The
 available methods are <code>"IJDefault"</code>, <code>"Huang"</code>, <code>"Huang2"</code>, <code>"Intermodes"</code>,
@@ -134,37 +136,54 @@ is enough to get you <code>"Huang"</code> and <code>method = "in"</code> is enou
 <code>"Intermodes"</code>. To perform <em>manual</em> thresholding (where you set the
 threshold yourself), supply the threshold here as a number e.g. <code>method = 3</code>; so note that this would <em>not</em> select the third method in the above
 list of methods.</p></dd>
+
+
 <dt>ignore_black</dt>
 <dd><p>Ignore black pixels/elements (zeros) when performing the
 thresholding?</p></dd>
+
+
 <dt>ignore_white</dt>
 <dd><p>Ignore white pixels when performing the thresholding? If
 set to <code>TRUE</code>, the function makes a good guess as to what the white
 (saturated) value would be (see 'Details'). If this is set to a number, all
 pixels with value greater than or equal to that number are ignored.</p></dd>
+
+
 <dt>ignore_na</dt>
 <dd><p>This should be <code>TRUE</code> if <code>NA</code>s in <code>int_arr</code> should be
 ignored or <code>FALSE</code> if you want the presence of <code>NA</code>s in <code>int_arr</code> to throw
 an error.</p></dd>
+
+
 <dt>fail</dt>
 <dd><p>When using <code>auto_thresh_apply_mask()</code>, to what value do you wish
 to set the pixels which fail to exceed the threshold? <code>fail = 'saturate'</code>
 sets them to saturated value (see "Details"). <code>fail = 'zero'</code> sets them to
 zero. You can also specify directly here a natural number (must be between
 <code>0</code> and <code>2^16 - 1</code>) to use.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>auto_thresh()</code> returns an object of class <a href="th.html">th</a> containing the
+    
+
+<p><code>auto_thresh()</code> returns an object of class <a href="th.html">th</a> containing the
 threshold value. Pixels exceeding this threshold pass the thresholding,
-pixels at or below this level fail.
-<code>auto_thresh_mask()</code> returns an object of class <a href="masked_arr.html">masked_arr</a> which is a
+pixels at or below this level fail.</p>
+
+
+<p><code>auto_thresh_mask()</code> returns an object of class <a href="masked_arr.html">masked_arr</a> which is a
 binarized version of the input, with a value of <code>TRUE</code> at points which
-exceed the threshold and <code>FALSE</code> at those which do not.
-<code>auto_thresh_apply_mask()</code> returns and object of class <a href="threshed_arr.html">threshed_arr</a> which
+exceed the threshold and <code>FALSE</code> at those which do not.</p>
+
+
+<p><code>auto_thresh_apply_mask()</code> returns and object of class <a href="threshed_arr.html">threshed_arr</a> which
 is the original input masked by the threshold, i.e. all points not
-exceeding the threshold are set to a user-defined value (default <code>NA</code>).
-<code>mask()</code> is the same as <code>auto_thresh_mask()</code> and <code>apply_mask()</code> is the same
+exceeding the threshold are set to a user-defined value (default <code>NA</code>).</p>
+
+
+<p><code>mask()</code> is the same as <code>auto_thresh_mask()</code> and <code>apply_mask()</code> is the same
 as <code>auto_thresh_apply_mask()</code>.</p>
     </div>
     <div id="details">
@@ -257,13 +276,13 @@ Journal of Electronic Imaging 13(1): 146-165</p></li>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="va">img_location</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"eg.tif"</span>, package <span class="op">=</span> <span class="st">"autothresholdr"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">img</span> <span class="op">&lt;-</span> <span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/read_tif.html" class="external-link">read_tif</a></span><span class="op">(</span><span class="va">img_location</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="va">img_location</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"eg.tif"</span>, package <span class="op">=</span> <span class="st">"autothresholdr"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">img</span> <span class="op">&lt;-</span> <span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/read_tif.html" class="external-link">read_tif</a></span><span class="op">(</span><span class="va">img_location</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading eg.tif: an 8-bit, 100x100 pixel image of unsigned</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> integer type. Reading 1 channel and 1 frame . . .</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  Done.</span>
-<span class="r-in"><span class="fu">auto_thresh</span><span class="op">(</span><span class="va">img</span>, <span class="st">"huang"</span><span class="op">)</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Done.</span>
+<span class="r-in"><span><span class="fu">auto_thresh</span><span class="op">(</span><span class="va">img</span>, <span class="st">"huang"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"ignore_black")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
@@ -275,9 +294,9 @@ Journal of Electronic Imaging 13(1): 146-165</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Huang"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "th"      "integer"</span>
-<span class="r-in"><span class="va">img_value_count</span> <span class="op">&lt;-</span> <span class="fu">magrittr</span><span class="fu">::</span><span class="fu"><a href="https://magrittr.tidyverse.org/reference/aliases.html" class="external-link">set_names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">img</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">                                      <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"value"</span>, <span class="st">"n"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">img_value_count</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">img_value_count</span> <span class="op">&lt;-</span> <span class="fu">magrittr</span><span class="fu">::</span><span class="fu"><a href="https://magrittr.tidyverse.org/reference/aliases.html" class="external-link">set_names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">img</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                      <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"value"</span>, <span class="st">"n"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">img_value_count</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   value   n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     0 875</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     1 106</span>
@@ -285,7 +304,7 @@ Journal of Electronic Imaging 13(1): 146-165</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4     3  39</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5     4  23</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6     5  27</span>
-<span class="r-in"><span class="fu">auto_thresh</span><span class="op">(</span><span class="va">img_value_count</span>, <span class="st">"Huang"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">auto_thresh</span><span class="op">(</span><span class="va">img_value_count</span>, <span class="st">"Huang"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"ignore_black")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
@@ -297,7 +316,7 @@ Journal of Electronic Imaging 13(1): 146-165</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Huang"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "th"      "integer"</span>
-<span class="r-in"><span class="fu">auto_thresh</span><span class="op">(</span><span class="va">img</span>, <span class="st">"tri"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">auto_thresh</span><span class="op">(</span><span class="va">img</span>, <span class="st">"tri"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"ignore_black")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
@@ -309,7 +328,7 @@ Journal of Electronic Imaging 13(1): 146-165</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Triangle"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "th"      "integer"</span>
-<span class="r-in"><span class="fu">auto_thresh</span><span class="op">(</span><span class="va">img</span>, <span class="st">"Otsu"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">auto_thresh</span><span class="op">(</span><span class="va">img</span>, <span class="st">"Otsu"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"ignore_black")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
@@ -321,7 +340,7 @@ Journal of Electronic Imaging 13(1): 146-165</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Otsu"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "th"      "integer"</span>
-<span class="r-in"><span class="fu">auto_thresh</span><span class="op">(</span><span class="va">img</span>, <span class="fl">9</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">auto_thresh</span><span class="op">(</span><span class="va">img</span>, <span class="fl">9</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"ignore_black")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
@@ -333,31 +352,31 @@ Journal of Electronic Imaging 13(1): 146-165</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "th"      "numeric"</span>
-<span class="r-in"><span class="va">mask</span> <span class="op">&lt;-</span> <span class="fu">auto_thresh_mask</span><span class="op">(</span><span class="va">img</span>, <span class="st">"huang"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/display.html" class="external-link">display</a></span><span class="op">(</span><span class="va">mask</span><span class="op">[</span>, , <span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">mask</span> <span class="op">&lt;-</span> <span class="fu">auto_thresh_mask</span><span class="op">(</span><span class="va">img</span>, <span class="st">"huang"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/display.html" class="external-link">display</a></span><span class="op">(</span><span class="va">mask</span><span class="op">[</span>, , <span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Using basic display functionality.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   * For better display functionality, install the EBImage package.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   * To install `EBImage`:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     - Install `BiocManager` with `install.packages("BiocManager")`.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     - Then run `BiocManager::install("EBImage")`.</span>
 <span class="r-plt img"><img src="auto_thresh-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="va">masked</span> <span class="op">&lt;-</span> <span class="fu">auto_thresh_apply_mask</span><span class="op">(</span><span class="va">img</span>, <span class="st">"huang"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/display.html" class="external-link">display</a></span><span class="op">(</span><span class="va">masked</span><span class="op">[</span>, , <span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">masked</span> <span class="op">&lt;-</span> <span class="fu">auto_thresh_apply_mask</span><span class="op">(</span><span class="va">img</span>, <span class="st">"huang"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/display.html" class="external-link">display</a></span><span class="op">(</span><span class="va">masked</span><span class="op">[</span>, , <span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Using basic display functionality.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   * For better display functionality, install the EBImage package.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   * To install `EBImage`:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     - Install `BiocManager` with `install.packages("BiocManager")`.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     - Then run `BiocManager::install("EBImage")`.</span>
 <span class="r-plt img"><img src="auto_thresh-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="va">masked</span> <span class="op">&lt;-</span> <span class="fu">auto_thresh_apply_mask</span><span class="op">(</span><span class="va">img</span>, <span class="fl">25</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/display.html" class="external-link">display</a></span><span class="op">(</span><span class="va">masked</span><span class="op">[</span>, , <span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">masked</span> <span class="op">&lt;-</span> <span class="fu">auto_thresh_apply_mask</span><span class="op">(</span><span class="va">img</span>, <span class="fl">25</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ijtiff</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/ijtiff/reference/display.html" class="external-link">display</a></span><span class="op">(</span><span class="va">masked</span><span class="op">[</span>, , <span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Using basic display functionality.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   * For better display functionality, install the EBImage package.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   * To install `EBImage`:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     - Install `BiocManager` with `install.packages("BiocManager")`.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     - Then run `BiocManager::install("EBImage")`.</span>
 <span class="r-plt img"><img src="auto_thresh-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -372,7 +391,7 @@ Journal of Electronic Imaging 13(1): 146-165</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

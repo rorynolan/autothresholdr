@@ -27,7 +27,7 @@ this is either "mean" or "median".
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autothresholdr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.1</span>
       </span>
     </div>
 
@@ -36,7 +36,7 @@ this is either "mean" or "median".
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -86,7 +86,7 @@ this is either <code>"mean"</code> or <code>"median"</code>.</p></li>
 </ul></div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">stack_threshed_img</span><span class="op">(</span><span class="va">img</span>, <span class="va">thresh</span>, <span class="va">fail_value</span>, <span class="va">stack_thresh_method</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">stack_threshed_img</span><span class="op">(</span><span class="va">img</span>, <span class="va">thresh</span>, <span class="va">fail_value</span>, <span class="va">stack_thresh_method</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,19 +96,28 @@ this is either <code>"mean"</code> or <code>"median"</code>.</p></li>
 <a href="https://docs.ropensci.org/ijtiff/reference/ijtiff_img.html" class="external-link">ijtiff_img</a> (indexed by <code>img[y, x, channel, frame]</code>)
 or a 3-dimensional array which is a single channel of an
 <a href="https://docs.ropensci.org/ijtiff/reference/ijtiff_img.html" class="external-link">ijtiff_img</a> (indexed by <code>img[y, x, frame]</code>).</p></dd>
+
+
 <dt>thresh</dt>
 <dd><p>The threshold that was used. Either a number or an object of
 class <a href="th.html">th</a>.</p></dd>
+
+
 <dt>fail_value</dt>
 <dd><p>The value to which elements of the array which failed the
 thresholding were set.</p></dd>
+
+
 <dt>stack_thresh_method</dt>
 <dd><p>This must be set to either <code>"mean"</code> or <code>"median"</code>
 to tell which stacked-thresholding method was employed.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object of class <code>stack_threshed_img</code>.</p>
+    
+
+<p>An object of class <code>stack_threshed_img</code>.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -127,7 +136,7 @@ to tell which stacked-thresholding method was employed.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

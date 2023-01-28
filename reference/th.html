@@ -25,7 +25,7 @@ autothresh_method details which automatic thresholding method was used.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autothresholdr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.1</span>
       </span>
     </div>
 
@@ -34,7 +34,7 @@ autothresh_method details which automatic thresholding method was used.
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -82,28 +82,39 @@ were ignored during the thresholding and <code>FALSE</code> otherwise.</p></li>
 </ul></div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">th</span><span class="op">(</span><span class="va">thresh</span>, <span class="va">ignore_black</span>, <span class="va">ignore_white</span>, <span class="va">ignore_na</span>, <span class="va">autothresh_method</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">th</span><span class="op">(</span><span class="va">thresh</span>, <span class="va">ignore_black</span>, <span class="va">ignore_white</span>, <span class="va">ignore_na</span>, <span class="va">autothresh_method</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>thresh</dt>
 <dd><p>A scalar. The threshold.</p></dd>
+
+
 <dt>ignore_black</dt>
 <dd><p><code>TRUE</code> if black values were ignored during the
 thresholding and <code>FALSE</code> otherwise.</p></dd>
+
+
 <dt>ignore_white</dt>
 <dd><p><code>TRUE</code> if white values were ignored during the
 thresholding and <code>FALSE</code> otherwise.</p></dd>
+
+
 <dt>ignore_na</dt>
 <dd><p><code>TRUE</code> if <code>NA</code> values were ignored during the thresholding
 and <code>FALSE</code> otherwise.</p></dd>
+
+
 <dt>autothresh_method</dt>
 <dd><p>The name of the automatic thresholding method used.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object of class <code>th</code>.</p>
+    
+
+<p>An object of class <code>th</code>.</p>
     </div>
 
   </div>
@@ -118,7 +129,7 @@ and <code>FALSE</code> otherwise.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
