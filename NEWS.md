@@ -1,7 +1,12 @@
+# `autothresholdr` 1.4.1
+
+## BUG FIXES
+* C++11 specification is now obsolete.
+
+
 # `autothresholdr` 1.4.0
 
 ## NEW FEATURES
-
 * Calculation of thresholds from frequency tables.
 
 

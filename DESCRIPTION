@@ -1,34 +1,23 @@
 Type: Package
 Package: autothresholdr
 Title: An R Port of the 'ImageJ' Plugin 'Auto Threshold'
-Version: 1.4.0
-Authors@R: 
-    c(person(given = "Rory",
-             family = "Nolan",
-             role = c("aut", "cre", "trl"),
-             email = "rorynoolan@gmail.com",
-             comment = c(ORCID = "0000-0002-5239-4043")),
-      person(given = "Luis",
-             family = "Alvarez",
-             role = "ctb",
-             email = "lalvarez@well.ox.ac.uk",
-             comment = c(ORCID = "0000-0003-1316-1906")),
-      person(given = "Sergi",
-             family = "Padilla-Parra",
-             role = c("ctb", "ths"),
-             email = "spadilla@well.ox.ac.uk",
-             comment = c(ORCID = "0000-0002-8010-9481")),
-      person(given = "Gabriel",
-             family = "Landini",
-             role = c("ctb", "cph"),
-             email = "G.Landini@bham.ac.uk",
-             comment = c(ORCID = "0000-0002-9689-0989")))
+Version: 1.4.1
+Authors@R: c(
+    person("Rory", "Nolan", , "rorynoolan@gmail.com", role = c("aut", "cre", "trl"),
+           comment = c(ORCID = "0000-0002-5239-4043")),
+    person("Luis", "Alvarez", , "lalvarez@well.ox.ac.uk", role = "ctb",
+           comment = c(ORCID = "0000-0003-1316-1906")),
+    person("Sergi", "Padilla-Parra", , "spadilla@well.ox.ac.uk", role = c("ctb", "ths"),
+           comment = c(ORCID = "0000-0002-8010-9481")),
+    person("Gabriel", "Landini", , "G.Landini@bham.ac.uk", role = c("ctb", "cph"),
+           comment = c(ORCID = "0000-0002-9689-0989"))
+  )
 Maintainer: Rory Nolan <rorynoolan@gmail.com>
-Description: Algorithms for automatically finding appropriate
-    thresholds for numerical data, with special functions for thresholding
-    images. Provides the 'ImageJ' 'Auto Threshold' plugin functionality to
-    R users. See <https://imagej.net/plugins/auto-threshold> and Landini et al.
-    (2017) <DOI:10.1111/jmi.12474>.
+Description: Algorithms for automatically finding appropriate thresholds
+    for numerical data, with special functions for thresholding images.
+    Provides the 'ImageJ' 'Auto Threshold' plugin functionality to R
+    users. See <https://imagej.net/plugins/auto-threshold> and Landini et
+    al.  (2017) <DOI:10.1111/jmi.12474>.
 License: GPL-3
 URL: https://rorynolan.github.io/autothresholdr/,
     https://github.com/rorynolan/autothresholdr#readme
@@ -63,5 +52,4 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
-SystemRequirements: C++11
+RoxygenNote: 7.2.3
