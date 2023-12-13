@@ -7,12 +7,8 @@ numerical data, with special functions for thresholding images.
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/rorynolan/autothresholdr/workflows/R-CMD-check/badge.svg)](https://github.com/rorynolan/autothresholdr/actions)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/rorynolan/autothresholdr?branch=master&svg=true)](https://ci.appveyor.com/project/rorynolan/autothresholdr)
-[![Codecov test
-coverage](https://codecov.io/gh/rorynolan/autothresholdr/branch/master/graph/badge.svg)](https://codecov.io/gh/rorynolan/autothresholdr?branch=master)
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/autothresholdr)](https://cran.r-project.org/package=autothresholdr)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/autothresholdr)](https://cran.r-project.org/package=autothresholdr)
 ![RStudio CRAN total
 downloads](http://cranlogs.r-pkg.org/badges/grand-total/autothresholdr)
 [![RStudio CRAN monthly
