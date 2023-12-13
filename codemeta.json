@@ -4,17 +4,17 @@
   "identifier": "autothresholdr",
   "description": "Algorithms for automatically finding appropriate thresholds for numerical data, with special functions for thresholding images. Provides the 'ImageJ' 'Auto Threshold' plugin functionality to R users. See <https://imagej.net/plugins/auto-threshold> and Landini et al. (2017) <DOI:10.1111/jmi.12474>.",
   "name": "autothresholdr: An R Port of the 'ImageJ' Plugin 'Auto Threshold'",
-  "relatedLink": ["https://rorynolan.github.io/autothresholdr/", "https://CRAN.R-project.org/package=autothresholdr"],
+  "relatedLink": "https://rorynolan.github.io/autothresholdr/",
   "codeRepository": "https://github.com/rorynolan/autothresholdr",
   "issueTracker": "https://github.com/rorynolan/autothresholdr/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.2.1 (2022-06-23)",
+  "runtimePlatform": "R version 4.2.0 (2022-04-22)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -252,7 +252,7 @@
       "@type": "SoftwareApplication",
       "identifier": "Rcpp",
       "name": "Rcpp",
-      "version": ">= 1.0.1",
+      "version": ">= 1.0.11",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -307,7 +307,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "2820.755KB",
+  "fileSize": "2989.315KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
@@ -347,9 +347,5 @@
         }
       }
     }
-  ],
-  "releaseNotes": "https://github.com/rorynolan/autothresholdr/blob/master/NEWS.md",
-  "readme": "https://github.com/rorynolan/autothresholdr/blob/master/README.md",
-  "contIntegration": ["https://github.com/rorynolan/autothresholdr/actions", "https://ci.appveyor.com/project/rorynolan/autothresholdr", "https://codecov.io/gh/rorynolan/autothresholdr?branch=master"],
-  "developmentStatus": ["https://www.repostatus.org/", "https://lifecycle.r-lib.org/articles/stages.html"]
+  ]
 }

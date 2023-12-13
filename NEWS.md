@@ -1,3 +1,9 @@
+# `autothresholdr` 1.4.2
+
+## BUG FIXES
+* Needed new compile with later version of `Rcpp` to avoid CRAN warning.
+
+
 # `autothresholdr` 1.4.1
 
 ## BUG FIXES

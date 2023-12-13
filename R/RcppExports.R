@@ -87,5 +87,5 @@ median_pillars <- function(arr3d) {
 
 # Register entry points for exported C++ functions
 methods::setLoadAction(function(ns) {
-    .Call('_autothresholdr_RcppExport_registerCCallable', PACKAGE = 'autothresholdr')
+    .Call(`_autothresholdr_RcppExport_registerCCallable`)
 })

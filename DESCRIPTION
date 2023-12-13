@@ -1,7 +1,7 @@
 Type: Package
 Package: autothresholdr
 Title: An R Port of the 'ImageJ' Plugin 'Auto Threshold'
-Version: 1.4.1
+Version: 1.4.2
 Authors@R: c(
     person("Rory", "Nolan", , "rorynoolan@gmail.com", role = c("aut", "cre", "trl"),
            comment = c(ORCID = "0000-0002-5239-4043")),
@@ -29,7 +29,7 @@ Imports:
     ijtiff (>= 2.2),
     magrittr (>= 1.5),
     purrr,
-    Rcpp (>= 1.0.1),
+    Rcpp (>= 1.0.11),
     rlang (>= 0.3.3),
     stats,
     strex (>= 1.4.1),
@@ -45,7 +45,7 @@ Suggests:
     testthat (>= 3.0),
     utils
 LinkingTo: 
-    Rcpp (>= 1.0.1)
+    Rcpp (>= 1.0.11)
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
