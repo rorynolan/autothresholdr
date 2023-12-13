@@ -1,8 +1,6 @@
-citHeader("To cite autothresholdr in publications use:")
-
-citEntry(entry = "Article",
+bibentry(bibtype = "Article",
   title        = "Automatic thresholding from the gradients of region boundaries",
-  author       = personList(as.person("G. Landini"),
+  author       = c(as.person("G. Landini"),
                    as.person("D.A. Randell"),
                    as.person("S. Fouad"),
                    as.person("A. Galton")),
