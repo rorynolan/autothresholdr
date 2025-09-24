@@ -12,14 +12,13 @@ Algorithms for automatically finding appropriate thresholds for numerical data, 
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/rorynolan/autothresholdr/workflows/R-CMD-check/badge.svg)](https://github.com/rorynolan/autothresholdr/actions)
-
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/autothresholdr)](https://cran.r-project.org/package=autothresholdr)
 ![RStudio CRAN total downloads](http://cranlogs.r-pkg.org/badges/grand-total/autothresholdr)
 [![RStudio CRAN monthly downloads](http://cranlogs.r-pkg.org/badges/autothresholdr)](https://cran.r-project.org/package=autothresholdr)
 [![DOI](https://zenodo.org/badge/72632397.svg)](https://zenodo.org/badge/latestdoi/72632397)
-
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![Codecov test coverage](https://codecov.io/gh/rorynolan/autothresholdr/graph/badge.svg)](https://app.codecov.io/gh/rorynolan/autothresholdr)
 <!-- badges: end -->
 
 
