@@ -62,7 +62,7 @@ thresh_methods <- c(
   "Li", "Mean", "MinErrorI", "Minimum", "Moments", "Otsu",
   "Percentile", "RenyiEntropy", "Shanbhag", "Triangle"
 )
-thresholds <- purrr::map_chr(thresh_methods, ~ auto_thresh(x, .)) %>%
+thresholds <- purrr::map_dbl(thresh_methods, ~ auto_thresh(x, .)) %>%
   tibble(method = thresh_methods, threshold = .)
 print(thresholds)
 ```
