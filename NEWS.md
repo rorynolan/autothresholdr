@@ -1,3 +1,9 @@
+# `autothresholdr` 1.4.3
+
+## BUG FIXES
+* `purrr::map_chr()` should have been a `purrr::map_dbl()`.
+
+
 # `autothresholdr` 1.4.2
 
 ## BUG FIXES
